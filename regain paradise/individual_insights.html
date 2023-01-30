@@ -1,0 +1,65 @@
+<!-- Podcast -->
+[pods name="podcast" where="post_title = '{@post_title}'"]
+<p class="project-meta project-meta-bold">
+	<span>{@podcast_category.name}</span>[if podcast_subcategory] •
+	<span>{@podcast_subcategory.name}</span>[/if]
+</p>
+<div class="desc-para">{@description}</div>
+<div class="podcast-outer">
+	<p>Listen on:</p>
+	<div class="podcast-logos">
+		[if anchor_fm_url]<a href="{@anchor_fm_url}"
+			><img src="/wp-content/uploads/2023/01/anchor-fm.png" alt="" /></a
+		>[/if] [if apple_podcasts_url]<a href="{@apple_podcasts_url}"
+			><img
+				src="/wp-content/uploads/2023/01/apple-Podcasts_iOS.png"
+				alt="" /></a
+		>[/if] [if google_podcasts_url]<a href="{@google_podcasts_url}"
+			><img src="/wp-content/uploads/2023/01/google.png" alt="" /></a
+		>[/if] [if spotify_url]<a href="{@spotify_url}"
+			><img src="/wp-content/uploads/2023/01/spotify1.png" alt="" /></a
+		>[/if] [if youtube_url]<a href="{@youtube_url}"
+			><img src="/wp-content/uploads/2023/01/youtube.png" alt="" /></a
+		>[/if] [if medium_url]<a href="{@medium_url}"
+			><img src="/wp-content/uploads/2023/01/medium.png" alt="" /></a
+		>[/if]
+	</div>
+</div>
+[/pods]
+
+<!-- Article -->
+<!-- Author -->
+[pods name="article" where="post_title = '{@post_title}'"]
+<p class="authors">By {@authors}</p>
+[/pods]
+<!-- Cat and subcat -->
+[pods name="article" where="post_title = '{@post_title}'"]
+<p class="project-meta project-meta-bold">
+	<span>{@article_category.name}</span>[if article_subcategory] •
+	<span>{@article_subcategory.name}</span>[/if]
+</p>
+[/pods]
+<!-- Source URL -->
+[pods name="article" where="post_title = '{@post_title}'"]
+<p>
+	Originally posted on:
+	<a href="{@source_url}" class="src-link" target="_blank" rel="noopener"
+		>{@source_url}</a
+	>
+</p>
+[/pods]
+
+<!-- Video -->
+[pods name="video" where="post_title = '{@post_title}'"]
+<div class="desc-para">{@description}</div>
+<iframe
+	data-url="{@youtube_video_url}"
+	class="js-change-embed video-large"
+></iframe>
+[/pods]
+
+<!-- Publication -->
+<!-- Category -->
+[pods name="publication" where="post_title = '{@post_title}'"]
+<p class="project-meta project-meta-bold">{@publication_category.name}</p>
+[/pods]

@@ -1,0 +1,112 @@
+<style>
+	.portfolio-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 31.3%);
+		column-gap: 3%;
+		row-gap: 30px;
+	}
+
+	.portfolio-card {
+		height: 430px;
+		position: relative;
+		border-radius: 10px;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.portfolio-overlay {
+		position: absolute;
+		inset: 0;
+		background-color: hsla(0, 0%, 30%, 0.4);
+		opacity: 0;
+		transition: opacity 400ms ease-in;
+	}
+
+	.portfolio-card:hover .portfolio-overlay {
+		opacity: 1;
+	}
+
+	.portfolio-card-img {
+		width: 105%;
+		height: 105%;
+		object-fit: cover;
+		transform: translate(0, 0);
+		transition: transform 400ms ease-in-out;
+	}
+
+	.portfolio-card:hover .portfolio-card-img {
+		transform: translate(-10px, -10px);
+	}
+
+	.portfolio-content-wrap {
+		position: absolute;
+		bottom: -100px;
+		right: -100px;
+		width: 350px;
+		height: 350px;
+		padding-bottom: 10px;
+		padding-right: 50px;
+		text-align: center;
+		background-color: hsla(0, 0%, 0%, 0.65);
+		border: 1px solid #fff;
+		border-radius: 50%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		opacity: 0;
+		transition: all 400ms ease-in;
+		transform: scale(0.4);
+		transform-origin: bottom right;
+	}
+
+	.portfolio-content-wrap * {
+		color: #fff;
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+	.portfolio-content-wrap p {
+		max-width: 15ch;
+		margin-top: 100px;
+	}
+
+	.portfolio-btn-readmore {
+		background-color: #0dbac3;
+		padding: 4px 14px;
+		border: 1px solid #fff;
+		border-radius: 27px;
+		margin-top: 10px;
+	}
+
+	.portfolio-btn-readmore:hover {
+		border: 2px solid #fff;
+	}
+
+	.portfolio-card:hover .portfolio-content-wrap {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	@media (max-width: 767px) {
+		.portfolio-grid {
+			grid-template-columns: 1fr;
+			row-gap: 16px;
+		}
+	}
+</style>
+<div class="portfolio-grid">
+	[pods name="portfolio" limit="6" orderby="post_date DESC"]
+	<div class="portfolio-card">
+		<img
+			src="{@post_thumbnail_url.medium_large}"
+			alt="{@post_title}"
+			class="portfolio-card-img"
+		/>
+		<div class="portfolio-overlay"></div>
+		<div class="portfolio-content-wrap">
+			<p>{@post_title}</p>
+			<a href="{@permalink}" class="portfolio-btn-readmore">Read more</a>
+		</div>
+	</div>
+	[/pods]
+</div>

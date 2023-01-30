@@ -1,0 +1,49 @@
+<style>
+	.morevideos-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 41px;
+	}
+
+	.morevideos-title {
+		font-size: 18px;
+		line-height: 20px;
+		margin-top: 18px;
+		height: 40px;
+	}
+
+	.morevideos-block p {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+		color: #fff;
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		padding-bottom: 0;
+		margin-bottom: 10px;
+	}
+
+	@media (max-width: 767px) {
+		.morevideos-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.morevideos-title {
+			height: unset;
+		}
+	}
+</style>
+<div class="morevideos-grid">
+	[pods name="story" limit="3" where="post_title != '{@post_title}'"
+	orderby="RAND()"]
+	<div class="morevideos-block">
+		<iframe data-url="{@youtube_video_link}" class="js-change-embed"></iframe>
+		<a href="{@permalink}" target="_blank" rel="noopener">
+			<h3 class="title-text morevideos-title">{@post_title}</h3>
+			{@description}
+		</a>
+	</div>
+	[/pods]
+</div>

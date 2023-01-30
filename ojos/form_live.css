@@ -1,0 +1,247 @@
+/* CF7 Form Styling */
+
+@media (max-width: 767px) {
+	#wpcf7-f842-p14-o1 p {
+		padding-bottom: 0;
+	}
+}
+
+/* Style text above form fields */
+#wpcf7-f842-p14-o1 .form-desc {
+	text-align: center;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	padding-bottom: 0;
+}
+
+@media (max-width: 767px) {
+	#wpcf7-f842-p14-o1 .form-desc {
+		font-size: 12px;
+		line-height: 16px;
+		padding-bottom: 5px;
+	}
+}
+
+/* Style label font */
+#wpcf7-f842-p14-o1 .label-lrg {
+	font-weight: 600;
+	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+	line-height: 20px;
+	margin-bottom: 9px;
+	color: #fff;
+}
+
+#wpcf7-f842-p14-o1 .label-lrg p {
+	text-align: left !important;
+}
+
+@media (max-width: 767px) {
+	#wpcf7-f842-p14-o1 .label-lrg {
+		font-size: 14px;
+		line-height: 18px;
+	}
+}
+
+/* Style success state */
+#wpcf7-f842-p14-o1 form .success-state {
+	display: none;
+	text-align: center;
+}
+
+#wpcf7-f842-p14-o1 form .success-state .checkmark {
+	width: 150px;
+}
+
+/* #wpcf7-f842-p14-o1 form .confetti {
+	position: fixed;
+	display: none;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+} */
+
+#wpcf7-f842-p14-o1 form .success-state .success-text {
+	font-size: 16px;
+	line-height: 21.79px;
+	color: #fff;
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#wpcf7-f842-p14-o1 form .success-state .success-text-lrg {
+	font-size: 24px;
+}
+
+/* Remove T&C acceptance margin */
+#wpcf7-f842-p14-o1 .wpcf7-acceptance .wpcf7-list-item {
+	margin-left: 0;
+}
+
+/* Hide loading spinner next to Submit button */
+#wpcf7-f842-p14-o1 .wpcf7-spinner {
+	display: none;
+}
+
+/* Hide everything except success state upon form submission success */
+#wpcf7-f842-p14-o1 form.sent > *:not(.success-state) {
+	display: none;
+}
+
+#wpcf7-f842-p14-o1 form.sent .success-state {
+	display: block;
+}
+
+/* #wpcf7-f842-p14-o1 form.sent .confetti {
+	display: block;
+} */
+
+#wpcf7-f842-p14-o1 .wpcf7-textarea {
+	height: 150px;
+}
+
+#wpcf7-f842-p14-o1 .textarea-half {
+	height: 75px;
+}
+
+#wpcf7-f842-p14-o1 .wpcf7-text {
+	padding: 8px;
+}
+
+#wpcf7-f842-p14-o1 br {
+	display: none;
+}
+
+/* Submit Button */
+#wpcf7-f842-p14-o1 p:has(.wpcf7-submit) {
+	display: flex;
+	justify-content: center;
+}
+
+#wpcf7-f842-p14-o1 .wpcf7-submit:hover {
+	background: #006d88;
+}
+
+#wpcf7-f842-p14-o1 .wpcf7-submit:disabled {
+	cursor: not-allowed;
+	background: rgb(100, 100, 100);
+}
+
+/* Change popup close icon */
+#et-boc .area-outer-wrap[data-da-color='light'] .da-close {
+	background: #fff;
+	color: #000;
+	border-radius: 50%;
+	top: auto;
+	right: -10px;
+	opacity: 1;
+}
+
+#et-boc .area-outer-wrap[data-da-color='light'] .da-close:focus,
+#et-boc .area-outer-wrap[data-da-color='light'] .da-close:hover {
+	box-shadow: unset;
+}
+
+/* Submit more button */
+#wpcf7-f842-p14-o1 #submit-more {
+	cursor: pointer;
+	text-transform: uppercase;
+	color: #fff;
+	border: none;
+	background-color: #14647d;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 16px 20px;
+	border-radius: 3px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin-inline: auto;
+}
+
+#wpcf7-f842-p14-o1 #submit-more img {
+	width: 20px;
+}
+
+/* Custom scrollbars */
+#form-sts::-webkit-scrollbar,
+#wpcf7-f842-p14-o1 .wpcf7-textarea::-webkit-scrollbar {
+	width: 5px;
+	background-color: #111111;
+}
+
+#form-sts::-webkit-scrollbar-thumb,
+#wpcf7-f842-p14-o1 .wpcf7-textarea::-webkit-scrollbar-thumb {
+	background: #1f1f1f;
+	border-radius: 20px;
+}
+
+#form-sts::-webkit-scrollbar-track,
+#wpcf7-f842-p14-o1 .wpcf7-textarea::-webkit-scrollbar-track {
+	margin: 3px;
+}
+
+/* Try to resize full height form on MR */
+@media (max-width: 767px) {
+	#et-boc .area-outer-wrap[data-da-area='form-cf7'].full-height {
+		top: 50px !important;
+	}
+
+	#et-boc .area-outer-wrap[data-da-area='form-cf7'].full-height #form-sts {
+		max-height: 90%;
+	}
+
+	#wpcf7-f842-p14-o1 form .success-state .success-text-lrg {
+		font-size: 20px;
+	}
+
+	#wpcf7-f842-p14-o1 #submit-more {
+		margin-top: 20px;
+	}
+}
+
+#et-boc .area-outer-wrap[data-da-type='popup'] {
+	padding-block: 30px;
+}
+
+#wpcf7-f842-p14-o1 .text-sm {
+	font-size: 12px;
+}
+
+#wpcf7-f842-p14-o1 .wpcf7awc-msg {
+	margin-left: -20px;
+}
+
+#wpcf7-f842-p14-o1 #wcount_your-message {
+	background: transparent;
+	padding: 0;
+	color: #fff;
+	font: inherit;
+	text-align: right !important;
+}
+
+.et_pb_fullwidth_menu .et_pb_row {
+	max-width: none;
+}
+
+/* Add confetti via background-image */
+.dm-base-context:has(#wpcf7-f842-p14-o1 form.sent) .da-overlay {
+	background-image: url('https://ojos.8yolk.com/wp-content/uploads/2023/01/confetti_new_noloop.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 1000px;
+}
+
+/* Captcha */
+.wpcf7-form-control.h-captcha {
+	margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+	.wpcf7-form-control.h-captcha {
+		scale: 0.77;
+	}
+}

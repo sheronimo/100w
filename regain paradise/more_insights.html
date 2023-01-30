@@ -1,0 +1,58 @@
+<!-- Podcasts -->
+<div class="podcast-grid">
+	[pods name="podcast" limit="4" where="post_title != '{@post_title}'"]
+	<div class="insight-card podcast-card">
+		<a href="{@permalink}">
+			<img src="{@post_thumbnail_url.medium_large}" class="fit-square" alt="" />
+			<p class="project-meta">
+				<span>{@podcast_category.name}</span>[if podcast_subcategory] •
+				<span>{@podcast_subcategory.name}</span>[/if]
+			</p>
+			<p class="project-title">{@post_title}</p>
+		</a>
+	</div>
+	[/pods]
+</div>
+
+<!-- Articles -->
+<div class="article-grid">
+	[pods name="article" limit="3" where="post_title != '{@post_title}'"]
+	<div class="insight-card article-card">
+		<a href="{@permalink}">
+			<img src="{@post_thumbnail_url.medium_large}" class="fit-cover" alt="" />
+			<p class="project-meta">
+				<span>{@article_category.name}</span>[if article_subcategory] •
+				<span>{@article_subcategory.name}</span>[/if]
+			</p>
+			<p class="project-title">{@post_title}</p>
+		</a>
+	</div>
+	[/pods]
+</div>
+
+<!-- Videos -->
+<div class="video-grid">
+	[pods name="video" limit="3" where="post_title != '{@post_title}'"]
+	<div class="insight-card video-card">
+		<a href="{@permalink">
+			<iframe data-url="{@youtube_video_url}" class="js-change-embed"></iframe>
+			<p class="project-title">{@post_title}</p>
+		</a>
+	</div>
+	[/pods]
+</div>
+
+<!-- Publication -->
+<div class="publication-grid">
+	[pods name="publication" limit="4" where="post_title != '{@post_title}'"]
+	<div class="insight-card publication-card">
+		<a href="{@permalink}">
+			<hr />
+			<p class="project-meta">
+				<span>{@publication_category.name}</span>
+			</p>
+			<p class="project-title">{@post_title}</p>
+		</a>
+	</div>
+	[/pods]
+</div>

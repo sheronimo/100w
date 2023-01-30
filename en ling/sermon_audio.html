@@ -1,0 +1,14 @@
+<style>
+	.sermon-audio {
+		width: 100%;
+		border-radius: 0px;
+	}
+
+	.sermon-audio::-webkit-media-controls-enclosure {
+		border-radius: 0px;
+		background-color: rgba(143, 175, 189, 0.5);
+	}
+</style>
+[pods name="sermon" where="post_title = '{@post_title}'"]
+<audio class="sermon-audio" controls src="{@upload_sermon_audio._src}"></audio>
+[/pods]

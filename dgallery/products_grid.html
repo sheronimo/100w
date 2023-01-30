@@ -1,0 +1,80 @@
+<ul class="tabs-container" id="scrollto-section">
+	[pods name="collection_category" where="parent = '{@term_id}'"]
+	<li class="category-name-tab">{@name}</li>
+	[/pods]
+</ul>
+<div class="products-container">
+	<div class="products-grid">
+		[pods limit="-1" name="collection"]
+		<div
+			class="product-block"
+			data-cat="{@collection_category.name}"
+			data-postid="{@ID}"
+		>
+			<img
+				src="{@post_thumbnail_url.medium_large}"
+				alt="{@post_title}"
+				class="product-thumb"
+			/>
+			<p class="product-heading">{@post_title}</p>
+			<p>{@item_short_description}</p>
+			<p class="est-value-head">Estimate Value:</p>
+			<p>{@estimate_value}</p>
+			<template class="modal-template">
+				<div class="product-overlay"></div>
+				<div class="product-modal" data-modalid="{@ID}">
+					<button class="btn-close-modal"></button>
+					<div class="product-modal-content">
+						<div class="product-modal-gallery">
+							<img
+								src="{@post_thumbnail_url.medium_large}"
+								alt=""
+								class="product-modal-main-image"
+							/>
+							<div
+								class="swiffy-slider slider-item-show4 slider-item-ratio-1x1 slider-nav-visible slider-nav-outside slider-nav-arrow"
+								id="myslider"
+							>
+								<div
+									class="product-modal-thumbs slider-container"
+									data-addimgs="{@additional_images._src.medium_large}"
+								>
+									<img src="{@post_thumbnail_url.medium_large}" alt="" />
+								</div>
+
+								<button type="button" class="slider-nav"></button>
+								<button
+									type="button"
+									class="slider-nav slider-nav-next"
+								></button>
+							</div>
+						</div>
+						<div class="product-modal-text">
+							<h3 class="product-modal-heading">{@post_title}</h3>
+							<p class="product-modal-desc">{@item_short_description}</p>
+							<div class="product-modal-bio">{@item_bio}</div>
+						</div>
+					</div>
+					<button class="btn-prev-modal"></button>
+					<button class="btn-next-modal"></button>
+				</div>
+			</template>
+		</div>
+		[/pods]
+	</div>
+	<button id="btn-load">Load More</button>
+</div>
+<a class="btn-btt" href="#scrollto-section">
+	<svg
+		width="19"
+		height="14"
+		viewBox="0 0 19 14"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M9.5 4.9375L1.6875 12.75L2.78125 13.8438L9.5 7.125L16.2188 13.8438L17.3125 12.75L9.5 4.9375ZM0.125 0.25H18.875V1.8125H0.125V0.25Z"
+			fill="black"
+		/>
+	</svg>
+</a>

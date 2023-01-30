@@ -1,0 +1,141 @@
+<ul class="tabs-container">
+	<li class="resource-name-tab active" data-view="podcast-view">Podcasts</li>
+	<li class="resource-name-tab" data-view="article-view">Articles</li>
+	<li class="resource-name-tab" data-view="video-view">Videos</li>
+	<li class="resource-name-tab" data-view="publication-view">Publications</li>
+</ul>
+<!-- Podcast View -->
+<div class="insights-view podcast-view">
+	<div>
+		<div class="podcast-outer">
+			<p>
+				Our podcasts on climate technology innovation and climate finance can be
+				found on:
+			</p>
+			<div class="podcast-logos podcast-logos-single">
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/anchor-fm.png" alt=""
+				/></a>
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/apple-Podcasts_iOS.png" alt=""
+				/></a>
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/google.png" alt=""
+				/></a>
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/spotify1.png" alt=""
+				/></a>
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/youtube.png" alt=""
+				/></a>
+				<a href="#"
+					><img src="/wp-content/uploads/2023/01/medium.png" alt=""
+				/></a>
+			</div>
+		</div>
+		<p class="blurb">
+			Through these podcasts, we amplify the work of climate innovators and
+			raise awareness for the industry, especially to provide information and
+			support to new initiatives. We explore various topics including
+			Adaptation, Buildings, Energy, Finance, and Food.
+		</p>
+	</div>
+	<ul class="cat-tabs-container">
+		<li class="cat-tab active all">View All</li>
+		[pods name="podcast_category" limit="999"]
+		<li class="cat-tab">{@name}</li>
+		[/pods]
+	</ul>
+	<div class="podcast-grid main-insights-grid">
+		[pods name="podcast" limit="999"]
+		<div class="insight-card podcast-card" data-cat="{@podcast_category.name}">
+			<a href="{@permalink}">
+				<img
+					src="{@post_thumbnail_url.medium_large}"
+					class="fit-square"
+					alt=""
+				/>
+				<p class="project-meta">
+					<span>{@podcast_category.name}</span>
+				</p>
+				<p class="project-title">{@post_title}</p>
+			</a>
+		</div>
+		[/pods]
+	</div>
+</div>
+
+<!-- Article View -->
+<div class="insights-view article-view">
+	<p>
+		Our articles discuss the impact of climate innovation, analyse lessons of
+		climate innovation, and examine climate change related topics.
+	</p>
+	<ul class="cat-tabs-container">
+		<li class="cat-tab active all">View All</li>
+		[pods name="article_category" limit="999"]
+		<li class="cat-tab">{@name}</li>
+		[/pods]
+	</ul>
+	<div class="article-grid main-insights-grid">
+		[pods name="article" limit="999"]
+		<div class="insight-card article-card" data-cat="{@article_category.name}">
+			<a href="{@permalink}">
+				<img
+					src="{@post_thumbnail_url.medium_large}"
+					class="fit-cover"
+					alt=""
+				/>
+				<p class="project-meta">
+					<span>{@article_category.name}</span>
+				</p>
+				<p class="project-title">{@post_title}</p>
+			</a>
+		</div>
+		[/pods]
+	</div>
+</div>
+
+<!-- Video View -->
+<div class="insights-view video-view">
+	<p>
+		We have done a series of videos explaining the technology and business
+		models for rural renewable energy.
+	</p>
+	<div class="video-grid main-insights-grid">
+		[pods name="video" limit="999"]
+		<div class="insight-card video-card">
+			<a href="{@permalink">
+				<iframe
+					data-url="{@youtube_video_url}"
+					class="js-change-embed"
+				></iframe>
+				<p class="project-title">{@post_title}</p>
+			</a>
+		</div>
+		[/pods]
+	</div>
+</div>
+
+<!-- Publication View -->
+<div class="insights-view publication-view">
+	<p>
+		We have done a series of videos explaining the technology and business
+		models for rural renewable energy.
+	</p>
+	<div class="publication-grid main-insights-grid">
+		[pods name="publication" limit="999"]
+		<div
+			class="insight-card publication-card"
+			data-cat="{@publication_category.name}"
+		>
+			<a href="{@permalink}">
+				<hr />
+				<p class="project-title">{@post_title}</p>
+			</a>
+		</div>
+		[/pods]
+	</div>
+</div>
+
+<button id="btn-load">Load More</button>

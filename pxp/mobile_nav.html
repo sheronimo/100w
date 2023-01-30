@@ -1,0 +1,135 @@
+<style>
+	/*change nav icon to X*/
+	.mobile_nav.opened .mobile_menu_bar:before {
+		content: '\4d';
+	}
+
+	/* Hide overflow caused by moving mobile nav menu offscreen. */
+	body {
+		overflow-x: hidden;
+	}
+
+	/* styling for mobile menu */
+	#mobile_menu2 {
+		display: block !important;
+		height: 100vh !important;
+		top: 46px;
+		right: 0;
+		bottom: 0;
+		left: 20%;
+		position: fixed;
+		overflow: auto;
+		z-index: 5;
+		transition: transform 0.4s 0s;
+		-overflow-scrolling: touch !important;
+		-webkit-overflow-scrolling: touch !important;
+	}
+
+	/* Move the mobile menu fully off the screen when closed and set a fix height to avoid the dropdown animation */
+	.mobile_nav.closed #mobile_menu2 {
+		height: 100vh !important;
+		-webkit-transform: translateX(100%);
+		-moz-transform: translateX(100%);
+		-ms-transform: translateX(100%);
+		-o-transform: translateX(100%);
+		transform: translateX(100%);
+	}
+	/* Move the mobile menu back onto the screen when open */
+	.mobile_nav.opened #mobile_menu2 {
+		height: 100vh !important;
+		-webkit-transform: translateX(0);
+		-moz-transform: translateX(0);
+		-ms-transform: translateX(0);
+		-o-transform: translateX(0);
+		transform: translateX(0);
+	}
+
+	.mobile_nav.opened .mobile_menu_bar {
+		display: block;
+		z-index: 6;
+	}
+
+	@media (max-width: 768px) {
+		#mobile_menu2 .menu-item-98 {
+			margin-top: 30px;
+		}
+
+		/* Add sub-menu styling */
+		#mobile_menu2 .menu-item-277 {
+			position: relative;
+		}
+
+		#mobile_menu2 > li {
+			margin-bottom: 10px;
+		}
+
+		#mobile_menu2 .menu-item-277::after {
+			position: absolute;
+			font-family: ETmodules;
+			content: '\33';
+			color: black;
+			display: block;
+			top: 8px;
+			right: 77px;
+			transform: rotateY(0deg);
+			transition: transform 0.5s linear;
+		}
+
+		#mobile_menu2 .menu-item-277.toggled::after {
+			transform: rotate(180deg);
+		}
+
+		#mobile_menu2 .menu-item-277.current_page_item::after {
+			color: #fff;
+		}
+
+		#mobile_menu2 .menu-item-277 > .sub-menu li {
+			margin-top: 10px;
+		}
+
+		#mobile_menu2 .menu-item-277.current_page_item > .sub-menu * {
+			color: #000 !important;
+		}
+
+		#et-boc #mobile_menu2 .menu-item-277 > .sub-menu li.current-menu-item a {
+			color: #fff !important;
+		}
+
+		#mobile_menu2 .menu-item-277 > a {
+			width: fit-content;
+		}
+
+		#mobile_menu2 .menu-item-277 > .sub-menu {
+			display: none !important;
+		}
+
+		#mobile_menu2 .menu-item-277.toggled > .sub-menu {
+			display: block !important;
+		}
+	}
+</style>
+<style>
+	/* Logo Carousel Push to two rows styling */
+	@media (max-width: 500px) {
+		#logo-carousel .slick-track {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+
+		#logo-carousel .slick-slide > div:first-child {
+			margin-bottom: 30px;
+		}
+
+		#logo-carousel .slick-slide img {
+			height: 60px;
+			width: auto;
+		}
+	}
+</style>
+<script>
+	document.addEventListener('click', (e) => {
+		if (e.target.classList.contains('menu-item-277')) {
+			e.target.classList.toggle('toggled');
+		}
+	});
+</script>

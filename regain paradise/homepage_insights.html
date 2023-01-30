@@ -1,0 +1,63 @@
+<h3 class="projects-heading">Podcasts</h3>
+<div class="swiper projects-swiper" id="podcasts-swiper">
+	[pods name="insight" limit="10" where="category.name = 'Podcasts'"
+	template="Homepage Insights Template" orderby="post_date DESC"]
+</div>
+
+<h3 class="projects-heading">Articles</h3>
+<div class="swiper projects-swiper" id="articles-swiper">
+	[pods name="insight" limit="10" where="category.name = 'Articles'"
+	template="Homepage Insights Template" orderby="post_date DESC"]
+</div>
+
+<h3 class="projects-heading">Videos</h3>
+<div class="swiper projects-swiper" id="videos-swiper">
+	[pods name="insight" limit="10" where="category.name = 'Videos'"
+	template="Homepage Insights Template" orderby="post_date DESC"]
+</div>
+
+<h3 class="projects-heading">Publications</h3>
+<div class="swiper projects-swiper" id="publications-swiper">
+	[pods name="insight" limit="10" where="category.name = 'Publications'"
+	template="Homepage Insights Template" orderby="post_date DESC"]
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+	const podcastsSwiper = new Swiper('#podcasts-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#podcasts-swiper .swiper-button-next',
+			prevEl: '#podcasts-swiper .swiper-button-prev'
+		}
+	});
+
+	const articlesSwiper = new Swiper('#articles-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#articles-swiper .swiper-button-next',
+			prevEl: '#articles-swiper .swiper-button-prev'
+		}
+	});
+
+	const videosSwiper = new Swiper('#videos-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#videos-swiper .swiper-button-next',
+			prevEl: '#videos-swiper .swiper-button-prev'
+		}
+	});
+
+	const publicationsSwiper = new Swiper('#publications-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#publications-swiper .swiper-button-next',
+			prevEl: '#publications-swiper .swiper-button-prev'
+		}
+	});
+</script>

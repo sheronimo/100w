@@ -1,0 +1,74 @@
+<style>
+	.img-masonry-item {
+		max-width: 340px;
+	}
+
+	.img-masonry-item img {
+		width: 100%;
+	}
+
+	@media (max-width: 767px) {
+		.img-masonry-item {
+			max-width: unset;
+		}
+	}
+</style>
+<div class="images-masonry">
+	[pods name="portfolio" where="post_title = '{@post_title}'"]
+	<div class="img-masonry-item">
+		<img src="{@post_thumbnail_url.medium_large}" />
+	</div>
+	[/pods]
+</div>
+<script>
+	function getLinks() {
+		const masonryContainer = document.querySelector('.images-masonry');
+		let srcString = '';
+		[pods name="portfolio" where="post_title = '{@post_title}'"]
+		srcString = '{@additional_images._src.medium_large}';
+		[/pods]
+		// Get length of https links in string
+		let strLength = srcString.split('http').length - 1;
+		// Split the string into an array
+		let srcArr = '';
+		if(strLength == 0) return;
+
+		if(strLength == 1) {
+			srcArr = [srcString];
+		} else if (strLength == 2) {
+			srcArr = srcString.split(' and ');
+		} else {
+			srcArr = srcString.replace('and ', '').split(', ');
+		}
+		// Create an img tag and set the source
+		srcArr.forEach((s) => {
+			let divElem = document.createElement('div');
+			divElem.classList.add('img-masonry-item');
+			let imgElem = document.createElement('img');
+			imgElem.src = s;
+			divElem.appendChild(imgElem);
+			masonryContainer.appendChild(divElem);
+		});
+	}
+
+	getLinks();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/macy@2"></script>
+<script>
+	if (document.querySelectorAll('.img-masonry-item').length > 1) {
+		var macyInstance = Macy({
+			// See below for all available options.
+			container: '.images-masonry',
+			columns: 3,
+			trueOrder: true,
+			waitForImages: true,
+			margin: 30,
+			breakAt: {
+				767: {
+					columns: 1,
+					margin: 16
+				}
+			}
+		});
+	}
+</script>

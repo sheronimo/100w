@@ -1,0 +1,710 @@
+/* 
+ *	OVERRIDING INTERNAL DIVI ELEMENTS
+ */
+
+/* GLOBAL - HEADER */
+/* Change active and hover nav text */
+#main-navbar #menu-main-menu li:hover {
+	text-decoration: underline;
+	text-underline-offset: 10px;
+}
+
+#main-navbar #menu-main-menu li.current-menu-item {
+	text-decoration: underline;
+	text-underline-offset: 10px;
+	font-weight: bold;
+}
+
+/* Change horizontal spacing between nav items */
+#main-navbar #menu-main-menu li {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+/* GLOBAL - FOOTER */
+/* Linkedin button */
+#btn-linkedin img {
+	padding: 10px 20px;
+}
+
+/* Remove footer menu collapse on MR */
+@media screen and (max-width: 980px) {
+	#footer-menu .et_pb_menu__menu {
+		display: block;
+	}
+
+	#footer-menu .mobile_menu_bar {
+		display: none;
+	}
+
+	#footer-menu .et_pb_menu__wrap {
+		justify-content: flex-start;
+	}
+}
+
+@media (max-width: 767px) {
+	#footer-menu #menu-footer-menu {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 40px;
+	}
+}
+
+/* UTILITY - CUSTOM BULLET LIST */
+.services-bullet-list li::marker {
+	content: url('http://dev.regain.8yolk.com/wp-content/uploads/2022/11/Frame-5.png') !important;
+}
+
+.aboutus-bullet-list li::marker {
+	content: url('http://dev.regain.8yolk.com/wp-content/uploads/2022/12/Frame-51.png') !important;
+}
+
+.services-bullet-list li,
+.aboutus-bullet-list li {
+	padding-left: 32px;
+	margin-top: 24px;
+}
+
+/* UTILITY - VIEW MORE BUTTON */
+/* Style arrow next to button */
+.btn-viewmore::after {
+	font-size: 24px !important;
+	font-weight: 700 !important;
+	color: #fff !important;
+	background-color: #36b781 !important;
+	border-radius: 50% !important;
+	padding-inline: 12px !important;
+	padding-block: 6px !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+}
+
+/* PAGE - HOME */
+/* Change top carousel navigation arrows */
+#home-carousel .et-pb-slider-arrows {
+	position: absolute;
+	bottom: 25%;
+	right: 25%;
+}
+
+#home-carousel .et-pb-slider-arrows a {
+	opacity: 1;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	font-size: 32px;
+	padding-block: 14px;
+	padding-left: 16px;
+	padding-right: 18px;
+}
+
+#home-carousel .et-pb-arrow-prev {
+	left: auto;
+	right: 16px;
+}
+
+#home-carousel .et-pb-arrow-next {
+	left: auto;
+	right: auto;
+}
+
+#clients-grid .et_pb_text_inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 40px;
+}
+
+#clients-grid p {
+	padding-bottom: 0;
+}
+
+@media (max-width: 767px) {
+	#clients-grid .et_pb_text_inner {
+		row-gap: 20px;
+		column-gap: 30px;
+		text-align: center;
+	}
+}
+
+/* PAGE - CONTACT US */
+/* Contact info */
+#contactinfo-list .contact-info {
+	display: flex;
+	align-items: flex-start;
+	gap: 28px;
+}
+
+#contactinfo-list .contact-info:first-of-type {
+	padding-bottom: 32px;
+}
+
+@media (max-width: 767px) {
+	#contactinfo-list .contact-info {
+		flex-direction: column;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		gap: 13px;
+	}
+
+	#contactinfo-list .contact-info:first-of-type {
+		padding-bottom: 20px;
+	}
+}
+
+#contactinfo-list .contact-info a {
+	color: #fff !important;
+}
+
+/* Contact us form styling */
+#contactus-form input,
+#contactus-form textarea {
+	padding-left: 0;
+}
+
+#contactus-form .wpcf7-spinner {
+	display: none;
+}
+
+#contactus-form textarea {
+	height: 70px;
+}
+
+@media (max-width: 767px) {
+	#contactus-form .wpcf7-submit {
+		width: 100%;
+	}
+}
+
+@media (min-width: 767px) {
+	#contactus-form form > p:nth-child(3),
+	#contactus-form form > p:nth-child(5) {
+		width: 48%;
+		float: right;
+	}
+
+	#contactus-form form > p:nth-child(2),
+	#contactus-form form > p:nth-child(4) {
+		width: 48%;
+		float: left;
+	}
+}
+
+/* 
+ *	CUSTOM CODE MODULE STYLING
+ */
+
+/* Override swiper slider navigation arrows */
+.swiper-button-disabled {
+	display: none;
+}
+
+.swiper-button-prev {
+	background-image: url('http://dev.regain.8yolk.com/wp-content/uploads/2022/12/Next.png') !important;
+	transform: rotateY(180deg);
+	left: 0;
+}
+
+.swiper-button-next {
+	background-image: url('http://dev.regain.8yolk.com/wp-content/uploads/2022/12/Next.png') !important;
+	right: 0;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	width: 48px !important;
+	height: 48px !important;
+	background-size: cover !important;
+}
+
+/* HOMEPAGE - LATEST PROJECTS */
+#latest-projects {
+	margin-top: 32px;
+}
+
+.latest-project-title {
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: 500;
+	padding-inline: 24px;
+	margin-top: 24px;
+	padding-bottom: 0;
+}
+
+.latest-project-card p {
+	padding-inline: 24px;
+	margin-top: 16px;
+	margin-bottom: 32px;
+	color: #7a7a7a;
+	font-size: 16px;
+	line-height: 28px;
+}
+
+.latest-project-card {
+	box-shadow: 0px 10px 15px rgba(51, 122, 190, 0.1);
+	border-radius: 10px;
+	cursor: pointer;
+	background: #ffffff;
+}
+
+@media (min-width: 768px) {
+	#latest-projects .swiper-button-prev,
+	#latest-projects .swiper-button-next {
+		display: none;
+	}
+
+	.latest-projects-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 32px;
+	}
+
+	.latest-project-card:nth-of-type(even) {
+		transform: translateY(20px);
+	}
+}
+
+@media (max-width: 767px) {
+	.latest-project-card {
+		min-height: 512px;
+	}
+}
+
+/* PROJECTS AND INSIGHTS SHARED */
+.projects-heading {
+	padding-top: 48px;
+	padding-bottom: 32px;
+	font-size: 32px;
+	line-height: 48px;
+}
+
+.project-meta {
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.project-meta-bold {
+	font-weight: 600;
+}
+
+.project-title {
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 30px;
+}
+
+/* Shared swiper */
+.projects-swiper {
+	overflow-x: hidden;
+	padding-bottom: 48px;
+	border-bottom: 1px solid #e1e3e8;
+}
+
+.projects-swiper .swiper-button-prev,
+.projects-swiper .swiper-button-next {
+	top: auto !important;
+}
+
+/* PROJECTS ONLY */
+/* Services page - projects swiper */
+.services-swiper .swiper-button-prev,
+.services-swiper .swiper-button-next {
+	translate: 0 -300px;
+}
+
+.services-swiper .swiper-button-prev {
+	left: -30px;
+}
+
+.services-swiper .swiper-button-next {
+	right: -30px;
+}
+
+@media (max-width: 767px) {
+	.services-swiper .swiper-wrapper {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		row-gap: 30px;
+		column-gap: 19px;
+	}
+
+	.services-swiper .project-block {
+		width: auto;
+		margin-right: 0 !important;
+	}
+
+	.services-swiper .swiper-button-next,
+	.services-swiper .swiper-button-prev {
+		display: none;
+	}
+}
+
+.project-block {
+	width: 315px;
+}
+
+.project-meta-lrg {
+	font-size: 24px;
+	line-height: 28px;
+	font-weight: 700;
+}
+
+/* INSIGHTS ONLY */
+.desc-para {
+	margin-top: 25px;
+}
+
+/* Podcasts */
+.podcast-outer {
+	margin-top: 26px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.podcast-logos {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+/* Articles */
+.authors {
+	font-weight: 600;
+	line-height: 28px;
+}
+
+.src-link {
+	color: #0000ff;
+	text-decoration: underline;
+}
+
+/* Videos */
+.video-large {
+	margin-top: 25px;
+}
+
+@media (max-width: 767px) {
+	.project-meta {
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	.project-meta-bold {
+		font-size: 14px;
+	}
+
+	.project-meta-lrg {
+		font-size: 16px;
+		line-height: 18px;
+	}
+
+	.project-title {
+		font-size: 14px;
+		line-height: 22px;
+	}
+
+	.podcast-outer {
+		margin-top: 30px;
+		gap: 20px;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.podcast-logos {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.desc-para {
+		margin-top: 15px;
+	}
+}
+
+.project-block img {
+	border-radius: 10px;
+}
+
+@media (max-width: 980px) {
+	.projects-heading {
+		padding-top: 32px;
+		padding-bottom: 24px;
+		font-size: 22px;
+		line-height: 33px;
+	}
+
+	.project-block {
+		width: 296px;
+	}
+}
+
+/* INDIVIDUAL INSIGHTS */
+
+/* Shared */
+.insight-card {
+	transition: all 0.5s ease;
+	padding: 4px;
+}
+
+.insight-card img {
+	border-radius: 10px;
+	margin-bottom: 32px;
+}
+
+.insight-card:hover {
+	box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.15);
+}
+
+.insight-card:hover * {
+	color: #337abe;
+}
+
+@media (max-width: 767px) {
+	.insight-card {
+		padding: 0;
+	}
+}
+
+/* Podcast */
+.podcast-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 35px;
+}
+
+/* Article */
+.article-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 39px;
+	row-gap: 60px;
+}
+
+#article-content figure {
+	text-align: center;
+}
+
+/* Video */
+.video-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 39px;
+	row-gap: 96px;
+}
+
+.video-card .project-title {
+	margin-top: 32px;
+}
+
+/* Publication */
+.publication-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	column-gap: 30px;
+	row-gap: 60px;
+}
+
+.publication-card hr {
+	border: none;
+	border-top: 2px solid #ebebeb;
+	margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+	.podcast-grid,
+	.publication-grid {
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 19px;
+		row-gap: 25px;
+	}
+
+	.article-grid,
+	.video-grid {
+		grid-template-columns: 1fr;
+		gap: 30px;
+	}
+}
+
+/* INSIGHTS PAGE ONLY */
+/* Category tabs styling */
+.tabs-container {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	padding-left: 0 !important;
+}
+
+.resource-name-tab {
+	font-size: 24px;
+	line-height: 72px;
+	color: #acacac;
+	cursor: pointer !important;
+}
+
+.resource-name-tab.active {
+	color: #1f1f1e;
+	border-bottom: 5px solid #337abe !important;
+}
+
+.resource-name-tab::marker {
+	content: '' !important;
+}
+
+@media (max-width: 767px) {
+	.tabs-container {
+		gap: 15px;
+	}
+
+	.resource-name-tab {
+		font-size: 16px;
+		line-height: 32px;
+	}
+}
+
+/* Shared View */
+.insights-view {
+	margin-top: 7px;
+	display: none;
+}
+
+.insights-view.active-view {
+	display: block;
+}
+
+.main-insights-grid {
+	margin-top: 60px;
+}
+
+.active-view .insight-card.hidden {
+	display: none;
+}
+
+.active-view .insight-card {
+	display: block;
+}
+
+/* Shared - Category Tabs */
+.cat-tabs-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 60px;
+	margin-top: 60px;
+}
+
+.cat-tab::marker {
+	content: '' !important;
+}
+
+.cat-tab {
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 16px;
+	line-height: 21.6px;
+	color: #989898;
+}
+
+.cat-tab.active {
+	color: #000000;
+}
+
+/* Podcast View */
+.podcast-view .podcast-outer {
+	margin-top: 0px;
+}
+
+.blurb {
+	margin-top: 27px;
+}
+
+@media (max-width: 767px) {
+	.podcast-logos-single {
+		display: flex;
+		gap: 20px;
+	}
+
+	.podcast-logos-single img {
+		width: 30px;
+	}
+}
+
+/* Video View */
+.video-view {
+	display: none;
+}
+
+.video-view.active-view {
+	display: block;
+}
+
+.active-view .video-card.hidden {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+	display: block;
+	position: absolute;
+}
+
+.active-view .videocard {
+	visibility: visible;
+	width: auto;
+	height: auto;
+	position: static;
+}
+
+.video-card .fluid-width-video-wrapper {
+	padding-top: 50% !important;
+}
+
+/* "Load more" button visibility */
+#btn-load {
+	display: block;
+	margin-inline: auto;
+	border: 0;
+	background: transparent;
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: 600;
+	color: #1f1f1e;
+	margin-top: 60px;
+	cursor: pointer;
+	position: relative;
+}
+
+#btn-load::after {
+	line-height: 27.2px;
+	font-size: inherit;
+	font-family: ETmodules;
+	content: '\22';
+	font-weight: 700;
+	position: absolute;
+	color: #fff;
+	background-color: #36b781;
+	border-radius: 50%;
+	padding-inline: 12px;
+	padding-block: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	margin-left: 8px;
+}
+
+/* Image Ratios */
+.fit-cover {
+	aspect-ratio: 1.76;
+	object-fit: cover;
+	width: 100%;
+}
+
+.fit-contain {
+	aspect-ratio: 1.76;
+	object-fit: contain;
+	width: 100%;
+}
+
+.fit-square {
+	aspect-ratio: 1;
+	object-fit: cover;
+	width: 100%;
+}

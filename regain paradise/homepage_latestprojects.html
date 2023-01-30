@@ -1,0 +1,62 @@
+[pods name="project" limit="4" template="Homepage Projects Template"
+orderby="post_date DESC"]
+
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+	var init = false;
+
+	function swiperCard() {
+		if (window.innerWidth < 768) {
+			if (!init) {
+				init = true;
+				swiper = new Swiper('#latest-projects', {
+					slidesPerView: 'auto',
+					spaceBetween: 32,
+					navigation: {
+						nextEl: '#latest-projects .swiper-button-next',
+						prevEl: '#latest-projects .swiper-button-prev'
+					}
+				});
+			}
+		} else if (init) {
+			swiper.destroy();
+			init = false;
+		}
+	}
+	swiperCard();
+	window.addEventListener('resize', swiperCard);
+</script>
+<!-- Popup modal listeners -->
+<script>
+	// Toggle overlay and popup
+	const projectCards = document.querySelectorAll('.latest-project-card');
+	projectCards.forEach((i) => {
+		i.addEventListener('click', (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			let closest = e.target.closest('.latest-project-card');
+			let template = closest.querySelector('.modal-template');
+			let clone = template.content.cloneNode(true);
+
+			clone.querySelector('.project-overlay').classList.add('toggled');
+			clone.querySelector('.project-modal').classList.add('toggled');
+
+			document.body.appendChild(clone);
+		});
+	});
+
+	// Close all other modals when opening one
+	window.addEventListener('click', (e) => {
+		e.stopPropagation();
+		let toggledModals = document.querySelector('.project-modal.toggled');
+		if (toggledModals != null) {
+			if (
+				e.target == document.querySelector('.btn-close-modal') ||
+				!e.target.closest('.project-modal.toggled')
+			) {
+				document.querySelector('.project-overlay.toggled').remove();
+				document.querySelector('.project-modal.toggled').remove();
+			}
+		}
+	});
+</script>

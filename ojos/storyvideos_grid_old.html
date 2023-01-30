@@ -1,0 +1,177 @@
+<style>
+	.mainclip-text {
+		margin-top: 30px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+	}
+
+	.text-xl {
+		font-size: 36px;
+		line-height: 48px;
+	}
+
+	.story-block p {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+		line-height: 1.7em;
+		color: #fff;
+	}
+
+	.stories-grid {
+		margin-top: 60px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+	}
+
+	.block-title {
+		margin-top: 30px;
+		height: 76px;
+	}
+
+	#btn-load {
+		display: none;
+	}
+
+	.btn-watch {
+		font-weight: 700;
+		color: #fff;
+		background-color: #14647d;
+		font-size: 14px;
+		line-height: 20px;
+		padding: 8px 20px;
+		text-transform: uppercase;
+		margin-top: 20px;
+		border-radius: 3px;
+		display: inline-block;
+	}
+
+	.txt-white {
+		color: #fff;
+	}
+
+	@media (max-width: 767px) {
+		.title-text,
+		.text-xl {
+			font-size: 18px;
+			line-height: 30px;
+		}
+
+		.mainclip-text {
+			grid-template-columns: 1fr;
+			gap: 0;
+		}
+
+		.mainclip-text,
+		.block-title {
+			margin-top: 9px;
+		}
+
+		.block-title {
+			height: unset;
+		}
+
+		.stories-grid {
+			margin-top: 27px;
+			grid-template-columns: 1fr;
+			gap: 27px;
+		}
+
+		.hiddenStyle {
+			position: absolute;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			width: 1px;
+			margin: -1px;
+			padding: 0;
+			border: 0;
+		}
+
+		.story-block .fluid-width-video-wrapper {
+			padding-top: 50% !important;
+		}
+
+		#btn-load {
+			display: block;
+			margin-inline: auto;
+			border: 0;
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 600;
+			font-size: 14px;
+			line-height: 17.07px;
+			text-transform: uppercase;
+			color: #fff;
+			background-color: #14647d;
+			border-radius: 3px;
+			padding: 10px 20px;
+			margin-top: 30px;
+		}
+
+		.btn-watch {
+			margin-top: 15px;
+		}
+	}
+</style>
+
+[pods name="story" limit="1" orderby="post_date DESC"]
+<iframe data-url="{@youtube_video_link}" class="js-change-embed"></iframe>
+<div class="mainclip-text">
+	<a href="{@permalink}"><h3 class="title-text text-xl">{@post_title}</h3></a>
+	<div>
+		<a href="{@permalink}" class="txt-white">{@description}</a>
+		<a href="{@permalink}" class="btn-watch">Watch Now</a>
+	</div>
+</div>
+[/pods]
+
+<div class="stories-grid">
+	[pods name="story" orderby="post_date DESC" offset="1"]
+	<div class="story-block">
+		<iframe data-url="{@youtube_video_link}" class="js-change-embed"></iframe>
+		<a href="{@permalink}">
+			<h3 class="title-text block-title">{@post_title}</h3>
+			{@description}
+		</a>
+		<a href="{@permalink}" class="btn-watch">Watch Now</a>
+	</div>
+	[/pods]
+</div>
+
+<button id="btn-load">More Videos</button>
+
+<script>
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		var work = document.querySelector('.stories-grid');
+		var items = Array.from(work.querySelectorAll('.story-block'));
+		var loadMore = document.getElementById('btn-load');
+		maxItems = 4;
+		loadItems = 4;
+		hiddenClass = 'hiddenStyle';
+		hiddenItems = Array.from(document.querySelectorAll('.hiddenStyle'));
+
+		items.forEach(function (item, index) {
+			if (index > maxItems - 1) {
+				item.classList.add(hiddenClass);
+			}
+		});
+
+		loadMore.addEventListener('click', function () {
+			[].forEach.call(
+				document.querySelectorAll('.' + hiddenClass),
+				function (item, index) {
+					if (index < loadItems) {
+						item.classList.remove(hiddenClass);
+						item.querySelector('.fluid-width-video-wrapper').style.paddingTop =
+							'50%';
+					}
+
+					if (document.querySelectorAll('.' + hiddenClass).length === 0) {
+						loadMore.style.display = 'none';
+					}
+				}
+			);
+		});
+	}
+</script>

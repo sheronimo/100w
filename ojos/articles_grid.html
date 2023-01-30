@@ -1,0 +1,77 @@
+<style>
+	.article-cols {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.article-img {
+		width: 100%;
+		aspect-ratio: 1.8;
+		object-fit: cover;
+	}
+
+	.articles-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.article-title {
+		color: #fff;
+		font-weight: 700;
+		font-size: 25px;
+		line-height: 38px;
+	}
+
+	.article-excerpt {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.articles-grid .article-title {
+		margin-top: 20px;
+	}
+
+	@media (max-width: 767px) {
+		.article-cols {
+			grid-template-columns: 1fr;
+			gap: 15px;
+		}
+
+		.articles-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 27px;
+		}
+
+		.article-title {
+			font-size: 18px;
+			line-height: 30px;
+		}
+	}
+</style>
+
+[pods name="article" limit="1" orderby="post_date DESC"]
+<div class="article-cols">
+	<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
+	<div>
+		<h3 class="article-title">{@post_title}</h3>
+		<div class="article-excerpt">{@post_excerpt}</div>
+		<a href="{@permalink}" class="btn-watch">Read More</a>
+	</div>
+</div>
+[/pods]
+
+<div class="articles-grid">
+	[pods name="article" limit="2" orderby="post_date DESC" offset="1"]
+	<div>
+		<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
+		<div>
+			<h3 class="article-title">{@post_title}</h3>
+			<div class="article-excerpt">{@post_excerpt}</div>
+			<a href="{@permalink}" class="btn-watch">Read More</a>
+		</div>
+	</div>
+	[/pods]
+</div>

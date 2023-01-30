@@ -1,0 +1,89 @@
+<style>
+	.dsm_social_share_buttons_0_tb_body .dsm-social-share-button-inner-wrapper {
+		height: 30px !important;
+	}
+
+	.dsm_social_share_buttons_0_tb_body
+		.dsm-social-share-button-inner-wrapper
+		.dsm-social-share-button-icon {
+		width: 30px !important;
+	}
+
+	.dsm_social_share_buttons_0_tb_body .dsm-social-share-button-icon .dsm_icon {
+		font-size: 14px !important;
+	}
+
+	.btn-share {
+		background-color: #e6e7e8;
+		width: 30px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		position: relative;
+		cursor: pointer;
+		margin-left: auto;
+	}
+
+	.btn-share::after {
+		content: attr(data-tooltip-text);
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: rgba(0, 0, 0, 0.3);
+		color: #fff;
+		font-size: 10px;
+		padding: 5px 10px;
+		font-family: inherit;
+		opacity: 0;
+		transition: opacity 200ms ease;
+	}
+
+	.btn-share.clicked::after {
+		opacity: 1;
+	}
+</style>
+[pods name="article" where="post_title = '{@post_title}'"]
+<button
+	data-clipboard-text="{@permalink}"
+	data-title="{@post_title}"
+	data-tooltip-text="Copied"
+	id="btn-share-video"
+	class="btn-share"
+>
+	<img
+		src="https://ourjourneyourstories.com/wp-content/uploads/2023/01/link-1.png"
+	/>
+</button>
+[/pods]
+<!-- Clipboard JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+	const shareBtn = document.querySelector('#btn-share-video');
+	const sharePermalink = shareBtn.dataset.clipboardText;
+	const shareTitle = shareBtn.dataset.title;
+
+	shareBtn.addEventListener('click', (e) => {
+		if (navigator.share) {
+			navigator.share({
+				title: shareTitle,
+				url: sharePermalink
+			});
+		} else {
+			copyToClipboard();
+		}
+	});
+
+	function copyToClipboard() {
+		let clipboard = new ClipboardJS('#btn-share-video');
+
+		clipboard.on('success', (e) => {
+			shareBtn.classList.add('clicked');
+			setTimeout(() => {
+				shareBtn.classList.remove('clicked');
+			}, 2000);
+		});
+	}
+</script>

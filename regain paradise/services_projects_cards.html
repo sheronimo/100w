@@ -1,0 +1,88 @@
+<style>
+	@media (max-width: 767px) {
+		.project-block p:not(.project-meta) {
+			font-size: 14px;
+			line-height: 22px;
+		}
+	}
+</style>
+<h3 class="projects-heading">Designing Financing Programmes</h3>
+<div class="swiper projects-swiper" id="programmes-swiper">
+	[pods name="project" where="project_category.name = 'Designing Financing
+	Programmes'" template="Services Template" orderby="post_date DESC"]
+</div>
+
+<h3 class="projects-heading">
+	Technical Assistance, Capacity Building and Implementation
+</h3>
+<div class="swiper projects-swiper" id="buildings-swiper">
+	[pods name="project" where="project_category.name = 'Technical Assistance,
+	Capacity Building and Implementation'" template="Services Template"
+	orderby="post_date DESC"]
+</div>
+
+<h3 class="projects-heading">
+	Developing Capacities for Innovators and Entrepreneurs
+</h3>
+<div class="swiper projects-swiper" id="developing-swiper">
+	[pods name="project" where="project_category.name = 'Developing Capacities for
+	Innovators and Entrepreneurs'" template="Services Template" orderby="post_date
+	DESC"]
+</div>
+
+<h3 class="projects-heading">Research and Communications</h3>
+<div class="swiper projects-swiper" id="research-swiper">
+	[pods name="project" where="project_category.name = 'Research and
+	Communications'" template="Services Template" orderby="post_date DESC"]
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+	const programmesSwiper = new Swiper('#programmes-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#programmes-swiper .swiper-button-next',
+			prevEl: '#programmes-swiper .swiper-button-prev'
+		}
+	});
+
+	const buildingsSwiper = new Swiper('#buildings-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#buildings-swiper .swiper-button-next',
+			prevEl: '#buildings-swiper .swiper-button-prev'
+		}
+	});
+
+	const developingSwiper = new Swiper('#developing-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#developing-swiper .swiper-button-next',
+			prevEl: '#developing-swiper .swiper-button-prev'
+		}
+	});
+
+	const researchSwiper = new Swiper('#research-swiper', {
+		slidesPerView: 'auto',
+		spaceBetween: 32,
+		navigation: {
+			nextEl: '#research-swiper .swiper-button-next',
+			prevEl: '#research-swiper .swiper-button-prev'
+		}
+	});
+
+	function swiperCard() {
+		if (window.innerWidth < 768) {
+			programmesSwiper.destroy();
+			buildingsSwiper.destroy();
+			developingSwiper.destroy();
+			researchSwiper.destroy();
+		}
+	}
+
+	swiperCard();
+</script>

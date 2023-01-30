@@ -1,0 +1,119 @@
+<div class="top-bar">
+	<div>
+		<label for="category-select">Category</label>
+		<select name="category-select" id="category-select">
+			[pods name="category" where="name = '{@name}'"]
+			<option value="{@name}" data-permalink="{@permalink}" selected>
+				{@name}
+			</option>
+			[/pods] [pods name="category" where="name != '{@name}'"]
+			<option value="{@name}" data-permalink="{@permalink}">{@name}</option>
+			[/pods]
+		</select>
+	</div>
+	<input
+		type="search"
+		id="search"
+		class="search-bar"
+		placeholder="Search Products"
+	/>
+	<div class="bar-right">
+		<p class="search-results">
+			Showing <span id="product-count"></span> results
+		</p>
+		<select name="sort-select" id="sort-select">
+			<option value="default">Default sorting</option>
+			<option value="alpha-asc">Alphabetical (A-Z)</option>
+			<option value="alpha-desc">Alphabetical (Z-A)</option>
+		</select>
+	</div>
+</div>
+<div class="product-grid"></div>
+<template id="product-template">
+	<div class="product-block">
+		<img class="product-img" />
+		<p class="product-name"></p>
+		<p class="product-blurb"></p>
+		<a class="product-btn">View Details</a>
+	</div>
+</template>
+
+<script>
+	let products_array = [];
+
+	const container = document.querySelector('.product-grid');
+	const productTemplate = document.querySelector('#product-template');
+
+	[pods name="product_item" orderby="display_order ASC" where="category.name = '{@name}'"]
+	// Push the product data into an array for indexing
+	products_array.push({
+		name: '{@post_title}',
+		blurb: '{@product_blurb}',
+		img: '{@post_thumbnail_url.large}',
+		url: '{@permalink}',
+		order: '{@display_order}'
+	});
+	[/pods]
+
+	products_array.forEach((p) => {
+		let templateClone = productTemplate.content.cloneNode(true).children[0];
+		// Clone the product block template and generate the HTML out of the array
+		templateClone.querySelector('.product-img').src = p.img;
+		templateClone.querySelector('.product-name').textContent = p.name;
+		templateClone.querySelector('.product-blurb').textContent = p.blurb;
+		templateClone.querySelector('.product-btn').href = p.url;
+
+		container.appendChild(templateClone);
+
+		p.elem = templateClone;
+	});
+
+	// Get the total results based on the array contents
+	document.querySelector('#product-count').textContent = products_array.length;
+
+	// Search functionality
+	const inputSearch = document.querySelector('#search');
+	inputSearch.addEventListener('input', (e) => {
+		const value = e.target.value.toLowerCase();
+		let count = 0;
+		products_array.forEach((p) => {
+			const isVisible =
+				p.name.toLowerCase().includes(value) ||
+				p.blurb.toLowerCase().includes(value);
+			p.elem.classList.toggle('hide', !isVisible);
+
+			if(isVisible) {
+				count += 1;
+			}
+		});
+		document.querySelector('#product-count').textContent = count;
+	});
+
+	// Sorting
+	const sortSelect = document.querySelector('#sort-select');
+	sortSelect.addEventListener('change', (e) => {
+		const value = e.target.value.toLowerCase();
+		if (value === 'alpha-asc') {
+			sortArray(1, products_array);
+		} else if (value === 'alpha-desc') {
+			sortArray(-1, products_array);
+		} else if (value === 'default') {
+			products_array
+				.sort((a, b) => a.order - b.order)
+				.forEach((p) => container.appendChild(p.elem));
+		}
+	});
+
+	function sortArray(num, array) {
+		array
+			.sort((a, b) => num * a.name.localeCompare(b.name))
+			.forEach((p) => container.appendChild(p.elem));
+	}
+
+	// Redirect page based on category dropdown selection
+	const catSelect = document.querySelector('#category-select');
+	catSelect.addEventListener('change', (e) => {
+
+		window.location = e.target.selectedOptions[0].dataset.permalink;
+	});
+</script>

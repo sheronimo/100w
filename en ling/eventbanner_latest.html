@@ -1,0 +1,36 @@
+<style>
+	.event-banner {
+		width: 70%;
+		margin: 0 auto;
+	}
+
+	.event-banner p {
+		color: #fff;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.banner-title {
+		font-weight: bold;
+		font-size: 18px !important;
+		margin-top: 16px;
+	}
+
+	.banner-img {
+		display: block;
+		border-radius: 20px;
+	}
+
+	@media (max-width: 768px) {
+		.event-banner {
+			width: 90%;
+		}
+	}
+</style>
+[pods name="event_banner" limit="1" orderby="post_date DESC"]
+<div class="event-banner">
+	<img src="{@banner_image}" class="banner-img" />
+	<p class="banner-title">{@post_title}</p>
+	{@description}
+</div>
+[/pods]

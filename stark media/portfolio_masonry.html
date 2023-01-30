@@ -1,0 +1,81 @@
+<style>
+	.portfolio-masonry {
+		column-count: 3;
+		column-gap: 30px;
+	}
+
+	.portfolio-block {
+		position: relative;
+		width: 100%;
+		display: inline-block;
+		margin: 0 0 1em;
+	}
+
+	.portfolio-block:before {
+		content: '';
+		background-color: rgba(0, 146, 167, 0.8);
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.portfolio-block:hover:before {
+		opacity: 1;
+	}
+
+	.portfolio-title {
+		color: #fff !important;
+		font-size: 18px;
+		font-weight: 700;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		opacity: 0;
+		transition: opacity: 0.5s ease;
+		max-width: 15ch;
+	}
+
+	.portfolio-block img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.portfolio-block:hover .portfolio-title {
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		.portfolio-masonry {
+			column-count: 2;
+			column-gap: 16px;
+		}
+
+		.portfolio-block {
+			margin: 0 0 10px;
+		}
+
+		.portfolio-title {
+			font-size: 10px;
+		}
+	}
+</style>
+<div class="portfolio-masonry">
+	[pods name="portfolio"]
+	<a class="portfolio-block" href="{@permalink}" target="_blank" rel="noopener">
+		<img src="{@post_thumbnail_url.medium_large}" alt="{@post_title}" />
+		<h5 class="portfolio-title">{@post_title}</h5>
+	</a>
+	[/pods]
+</div>
+<script>
+	const titles = document.querySelectorAll('.portfolio-block .portfolio-title');
+
+	titles.forEach((t) => {
+		let titleString = t.innerHTML;
+		t.textContent = titleString.replace(/&nbsp;/g, ' ');
+	});
+</script>
