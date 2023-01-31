@@ -7,6 +7,22 @@
 		width: 100%;
 	}
 
+	.btn-center {
+		text-align: center;
+	}
+
+	.btn-tiktok {
+		color: #fff !important;
+		background-color: #0dbac3;
+		font-size: 18px;
+		font-weight: bold;
+		border-radius: 50px;
+		display: inline-block;
+		border: 2px solid #fff;
+		padding: 0.3em 1em !important;
+		margin-block: 30px;
+	}
+
 	@media (max-width: 767px) {
 		.img-masonry-item {
 			max-width: unset;
@@ -18,7 +34,13 @@
 	<div class="img-masonry-item">
 		<img src="{@post_thumbnail_url.medium_large}" />
 	</div>
-	[/pods]
+	[if tiktok_video]
+	<div class="btn-center">
+		<a href="{@tiktok_video}" target="_blank" class="btn-tiktok"
+			>View our TikTok Video</a
+		>
+	</div>
+	[/if] [/pods]
 </div>
 <script>
 	function getLinks() {
