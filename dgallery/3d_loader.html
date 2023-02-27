@@ -1,0 +1,127 @@
+<div class="column-3d column-porcelain">
+	<div class="button-list">
+		<button class="btn-3d active" data-file="a">Vase</button>
+		<button class="btn-3d" data-file="b">Jug</button>
+		<button class="btn-3d" data-file="c">Tray</button>
+	</div>
+	<div id="container-3d"></div>
+</div>
+<script type="module">
+	import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
+	import { FBXLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/FBXLoader.js';
+	import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
+
+	let currentObject = null;
+
+	var props = {
+		width: window.innerWidth < 768 ? 300 : 500,
+		height: window.innerWidth < 768 ? 300 : 500,
+		model: 'a',
+		fov: 30,
+		pos: {
+			x: 0,
+			y: 0,
+			z: 100
+		}
+	};
+
+	var viewer = document.getElementById('container-3d');
+	var progress = new Object();
+	var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+	renderer.setSize(props.width, props.height);
+	var camera = new THREE.PerspectiveCamera(
+		props.fov,
+		props.width / props.height,
+		1,
+		2000
+	);
+	camera.position.set(props.pos.x, props.pos.y, props.pos.z);
+	camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+	var scene = new THREE.Scene();
+	var light = new THREE.AmbientLight(0xffffff, 2);
+	light.position.set(0, 0, 0);
+	scene.add(light);
+
+	var control = new OrbitControls(camera, renderer.domElement);
+	control.enableDamping = true;
+	control.autoRotate = true;
+	control.autoRotateSpeed = 0.5;
+
+	function render() {
+		renderer.render(scene, camera);
+	}
+
+	function animate() {
+		render();
+		requestAnimationFrame(animate);
+		control.update();
+	}
+
+	function loadObject(fileName) {
+		const fbxLoader = new FBXLoader();
+		var filePath =
+			'https://dev.dgallery.8yolk.com/wp-content/3d/' + fileName + '.fbx';
+
+		fbxLoader.load(filePath, (obj) => {
+			scene.remove(currentObject);
+			//Scale the Loaded Object
+			if (fileName == 'a') {
+				obj.scale.set(0.175, 0.175, 0.175);
+			} else {
+				obj.scale.set(1.25, 1.25, 1.25);
+			}
+
+			if (window.innerWidth < 768) {
+				if (fileName !== 'c') {
+					obj.position.set(0, -15, 0);
+				}
+			} else {
+				switch (fileName) {
+					case 'a':
+						obj.position.set(0, -15, 0);
+						break;
+					case 'b':
+						obj.position.set(0, -10, -0);
+						break;
+					case 'c':
+						obj.position.set(0, 5, 0);
+						break;
+					default:
+						break;
+				}
+			}
+
+			scene.add(obj);
+
+			currentObject = obj;
+		});
+
+		animate();
+		viewer.appendChild(renderer.domElement);
+	}
+
+	loadObject(props.model);
+
+	$('.column-porcelain .btn-3d').click(function () {
+		$('.column-porcelain .btn-3d').removeClass('active');
+		$(this).addClass('active');
+		$('.porcelain-text').hide();
+		switch ($(this).attr('data-file')) {
+			case 'a':
+				loadObject('a');
+				$('.porcelain-vase').show();
+				break;
+			case 'b':
+				loadObject('b');
+				$('.porcelain-jug').show();
+				break;
+			case 'c':
+				loadObject('c');
+				$('.porcelain-tray').show();
+				break;
+			default:
+				break;
+		}
+	});
+</script>

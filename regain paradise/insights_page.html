@@ -13,23 +13,31 @@
 				found on:
 			</p>
 			<div class="podcast-logos podcast-logos-single">
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/anchor-fm.png" alt=""
+				<a href="https://anchor.fm/new-ventures-asia/episodes/" target="_blank"
+					><img src="/wp-content/uploads/2023/02/anchor1.png" alt=""
 				/></a>
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/apple-Podcasts_iOS.png" alt=""
+				<a
+					href="https://podcasts.apple.com/us/podcast/new-ventures-podcast/id1404553592"
+					target="_blank"
+					><img src="/wp-content/uploads/2023/02/apple.png" alt=""
 				/></a>
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/google.png" alt=""
+				<a
+					href="https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy81MDM3MTU0L3BvZGNhc3QvcnNz"
+					target="_blank"
+					><img src="/wp-content/uploads/2023/02/google1.png" alt=""
 				/></a>
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/spotify1.png" alt=""
+				<a
+					href="https://open.spotify.com/show/7oEqozHCUxphflg0684xpG"
+					target="_blank"
+					><img src="/wp-content/uploads/2023/02/spotify2.png" alt=""
 				/></a>
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/youtube.png" alt=""
+				<a
+					href="https://www.youtube.com/channel/UCNzqbQTogcf2_3brx02FodA"
+					target="_blank"
+					><img src="/wp-content/uploads/2023/02/youtube1.png" alt=""
 				/></a>
-				<a href="#"
-					><img src="/wp-content/uploads/2023/01/medium.png" alt=""
+				<a href="https://medium.com/new-ventures-asia" target="_blank"
+					><img src="/wp-content/uploads/2023/02/medium1.png" alt=""
 				/></a>
 			</div>
 		</div>
@@ -40,16 +48,22 @@
 			Adaptation, Buildings, Energy, Finance, and Food.
 		</p>
 	</div>
-	<ul class="cat-tabs-container">
-		<li class="cat-tab active all">View All</li>
-		[pods name="podcast_category" limit="999"]
-		<li class="cat-tab">{@name}</li>
-		[/pods]
-	</ul>
+	<div class="dropdown">
+		<button class="dropdown-toggle">Categories</button>
+		<ul class="cat-tabs-container">
+			<li class="cat-tab active all">View All</li>
+			[pods name="podcast_category" limit="999"]
+			<li class="cat-tab">{@name}</li>
+			[/pods]
+		</ul>
+	</div>
 	<div class="podcast-grid main-insights-grid">
-		[pods name="podcast" limit="999"]
-		<div class="insight-card podcast-card" data-cat="{@podcast_category.name}">
-			<a href="{@permalink}">
+		[pods name="podcast" limit="999" orderby="post_date DESC"]
+		<div
+			class="insight-card podcast-card js-card"
+			data-cat="{@podcast_category.name}"
+		>
+			<a href="{@permalink}" target="_blank" rel="noopener">
 				<img
 					src="{@post_thumbnail_url.medium_large}"
 					class="fit-square"
@@ -71,16 +85,22 @@
 		Our articles discuss the impact of climate innovation, analyse lessons of
 		climate innovation, and examine climate change related topics.
 	</p>
-	<ul class="cat-tabs-container">
-		<li class="cat-tab active all">View All</li>
-		[pods name="article_category" limit="999"]
-		<li class="cat-tab">{@name}</li>
-		[/pods]
-	</ul>
+	<div class="dropdown">
+		<button class="dropdown-toggle">Categories</button>
+		<ul class="cat-tabs-container">
+			<li class="cat-tab active all">View All</li>
+			[pods name="article_category" limit="999"]
+			<li class="cat-tab">{@name}</li>
+			[/pods]
+		</ul>
+	</div>
 	<div class="article-grid main-insights-grid">
-		[pods name="article" limit="999"]
-		<div class="insight-card article-card" data-cat="{@article_category.name}">
-			<a href="{@permalink}">
+		[pods name="article" limit="999" orderby="post_date DESC"]
+		<div
+			class="insight-card article-card js-card"
+			data-cat="{@article_category.name}"
+		>
+			<a href="{@permalink}" target="_blank" rel="noopener">
 				<img
 					src="{@post_thumbnail_url.medium_large}"
 					class="fit-cover"
@@ -103,9 +123,9 @@
 		models for rural renewable energy.
 	</p>
 	<div class="video-grid main-insights-grid">
-		[pods name="video" limit="999"]
-		<div class="insight-card video-card">
-			<a href="{@permalink">
+		[pods name="video" limit="999" orderby="post_date DESC"]
+		<div class="insight-card video-card js-card">
+			<a href="{@permalink}" target="_blank" rel="noopener">
 				<iframe
 					data-url="{@youtube_video_url}"
 					class="js-change-embed"
@@ -120,16 +140,17 @@
 <!-- Publication View -->
 <div class="insights-view publication-view">
 	<p>
-		We have done a series of videos explaining the technology and business
-		models for rural renewable energy.
+		We have also written three Peer-Reviewed Papers with WRI and also Published
+		on the SWITCH Asia Network Facility on Enabling SME Access to Finance for
+		Sustainable Consumption and Production in Asia.
 	</p>
 	<div class="publication-grid main-insights-grid">
-		[pods name="publication" limit="999"]
+		[pods name="publication" limit="999" orderby="post_date DESC"]
 		<div
-			class="insight-card publication-card"
+			class="insight-card publication-card js-card"
 			data-cat="{@publication_category.name}"
 		>
-			<a href="{@permalink}">
+			<a href="{@permalink}" target="_blank" rel="noopener">
 				<hr />
 				<p class="project-title">{@post_title}</p>
 			</a>

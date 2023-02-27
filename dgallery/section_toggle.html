@@ -1,0 +1,19 @@
+<script>
+	$(document).ready(function () {
+		$('#section-lacquer').hide();
+
+		$('.section-toggle').click(function () {
+			if ($(this).is('#open-porcelain')) {
+				$(this).addClass('toggled');
+				$('#open-lacquer').removeClass('toggled');
+				$('#section-lacquer').hide();
+				$('#section-porcelain').show();
+			} else if ($(this).is('#open-lacquer')) {
+				$(this).addClass('toggled');
+				$('#open-porcelain').removeClass('toggled');
+				$('#section-porcelain').hide();
+				$('#section-lacquer').show();
+			}
+		});
+	});
+</script>

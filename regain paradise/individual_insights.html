@@ -7,21 +7,23 @@
 <div class="desc-para">{@description}</div>
 <div class="podcast-outer">
 	<p>Listen on:</p>
-	<div class="podcast-logos">
-		[if anchor_fm_url]<a href="{@anchor_fm_url}"
-			><img src="/wp-content/uploads/2023/01/anchor-fm.png" alt="" /></a
-		>[/if] [if apple_podcasts_url]<a href="{@apple_podcasts_url}"
-			><img
-				src="/wp-content/uploads/2023/01/apple-Podcasts_iOS.png"
-				alt="" /></a
-		>[/if] [if google_podcasts_url]<a href="{@google_podcasts_url}"
-			><img src="/wp-content/uploads/2023/01/google.png" alt="" /></a
-		>[/if] [if spotify_url]<a href="{@spotify_url}"
-			><img src="/wp-content/uploads/2023/01/spotify1.png" alt="" /></a
-		>[/if] [if youtube_url]<a href="{@youtube_url}"
-			><img src="/wp-content/uploads/2023/01/youtube.png" alt="" /></a
-		>[/if] [if medium_url]<a href="{@medium_url}"
-			><img src="/wp-content/uploads/2023/01/medium.png" alt="" /></a
+	<div class="podcast-logos individual-podcast-logos">
+		[if anchor_fm_url]<a href="{@anchor_fm_url}" target="_blank"
+			><img src="/wp-content/uploads/2023/02/anchor1.png" alt="" /></a
+		>[/if] [if apple_podcasts_url]<a
+			href="{@apple_podcasts_url}"
+			target="_blank"
+			><img src="/wp-content/uploads/2023/02/apple.png" alt="" /></a
+		>[/if] [if google_podcasts_url]<a
+			href="{@google_podcasts_url}"
+			target="_blank"
+			><img src="/wp-content/uploads/2023/02/google1.png" alt="" /></a
+		>[/if] [if spotify_url]<a href="{@spotify_url}" target="_blank"
+			><img src="/wp-content/uploads/2023/02/spotify2.png" alt="" /></a
+		>[/if] [if youtube_url]<a href="{@youtube_url}" target="_blank"
+			><img src="/wp-content/uploads/2023/02/youtube1.png" alt="" /></a
+		>[/if] [if medium_url]<a href="{@medium_url}" target="_blank"
+			><img src="/wp-content/uploads/2023/02/medium1.png" alt="" /></a
 		>[/if]
 	</div>
 </div>
@@ -51,7 +53,7 @@
 
 <!-- Video -->
 [pods name="video" where="post_title = '{@post_title}'"]
-<div class="desc-para">{@description}</div>
+<div class="desc-para vid-para">{@description}</div>
 <iframe
 	data-url="{@youtube_video_url}"
 	class="js-change-embed video-large"

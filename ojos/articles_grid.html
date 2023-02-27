@@ -13,14 +13,20 @@
 
 	.articles-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 40px;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 27px;
+		margin-top: 80px;
 	}
 
 	.article-title {
 		color: #fff;
 		font-weight: 700;
-		font-size: 25px;
+		font-size: 16px;
+		line-height: 20px;
+	}
+
+	.article-title-xl {
+		font-size: 24px;
 		line-height: 38px;
 	}
 
@@ -43,6 +49,7 @@
 			display: grid;
 			grid-template-columns: 1fr;
 			gap: 27px;
+			margin-top: 27px;
 		}
 
 		.article-title {
@@ -56,7 +63,7 @@
 <div class="article-cols">
 	<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
 	<div>
-		<h3 class="article-title">{@post_title}</h3>
+		<h3 class="article-title article-title-xl">{@post_title}</h3>
 		<div class="article-excerpt">{@post_excerpt}</div>
 		<a href="{@permalink}" class="btn-watch">Read More</a>
 	</div>
@@ -64,7 +71,7 @@
 [/pods]
 
 <div class="articles-grid">
-	[pods name="article" limit="2" orderby="post_date DESC" offset="1"]
+	[pods name="article" limit="3" orderby="post_date DESC" offset="1"]
 	<div>
 		<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
 		<div>

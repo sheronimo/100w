@@ -1,0 +1,50 @@
+<div class="column-3d column-lacquer">
+	<div class="button-list">
+		<button class="btn-3d active" data-item="vase">Vase</button>
+		<button class="btn-3d" data-item="box">Box</button>
+		<button class="btn-3d" data-item="fruitbox">Fruit Box</button>
+	</div>
+	<div id="lacquer-img-container">
+		<img
+			src="https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/7.png"
+			alt=""
+			id="lacquer-img"
+		/>
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$('.column-lacquer .btn-3d').click(function () {
+			$('.column-lacquer .btn-3d').removeClass('active');
+			$(this).addClass('active');
+			let val = $(this).attr('data-item');
+
+			$('.lacquer-text').hide();
+			switch (val) {
+				case 'vase':
+					$('#lacquer-img').attr(
+						'src',
+						'https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/7.png'
+					);
+					$('.lacquer-vase').show();
+					break;
+				case 'box':
+					$('#lacquer-img').attr(
+						'src',
+						'https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/8.png'
+					);
+					$('.lacquer-box').show();
+					break;
+				case 'fruitbox':
+					$('#lacquer-img').attr(
+						'src',
+						'https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/9.png'
+					);
+					$('.lacquer-fruitbox').show();
+					break;
+				default:
+					break;
+			}
+		});
+	});
+</script>

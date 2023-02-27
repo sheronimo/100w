@@ -1,0 +1,161 @@
+<link
+	href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css"
+	rel="stylesheet"
+	crossorigin="anonymous"
+/>
+[pods name="collection" where="ID = '{@ID}'"]
+<div class="product-gallery">
+	<div class="product-main-image-container">
+		<img src="{@post_thumbnail_url.large}" alt="" class="product-main-image" />
+		<button class="btn-prev-img btn-prev-thumb"></button>
+		<button class="btn-next-img btn-next-thumb"></button>
+	</div>
+	<div
+		class="swiffy-slider slider-item-show4 slider-item-ratio slider-item-ratio-1x1 slider-nav-visible slider-nav-outside slider-nav-arrow"
+		id="myslider"
+	>
+		<div
+			class="product-thumbs slider-container"
+			data-addimgs="{@additional_images._src.large}"
+		>
+			<div>
+				<img src="{@post_thumbnail_url.large}" alt="" />
+			</div>
+		</div>
+
+		<button type="button" class="slider-nav"></button>
+		<button type="button" class="slider-nav slider-nav-next"></button>
+	</div>
+</div>
+<template class="modal-template">
+	<div class="gallery-overlay"></div>
+	<div class="gallery-modal">
+		<div class="btn-close-modal"></div>
+		<img src="{@post_thumbnail_url.large}" alt="" class="modal-img" />
+		<button class="btn-prev-img btn-prev-modal-img"></button>
+		<button class="btn-next-img btn-next-modal-img"></button>
+	</div>
+</template>
+[/pods]
+<script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js"></script>
+<script>
+	// Image switcher in toggled popup thubmnails
+	const thumbnails = document.querySelectorAll('.product-thumbs img');
+	const mainThumb = document.querySelector('.product-main-image');
+
+	// Parse additional images links
+	function getLinks() {
+		const thumbsContainer = document.querySelector('.product-thumbs');
+		let srcString = thumbsContainer.dataset.addimgs;
+
+		// Get length of https links in string
+		let strLength = srcString.split('http').length - 1;
+		// Split the string into an array
+		let srcArr = '';
+		if (strLength == 0) return;
+
+		if (strLength == 1) {
+			srcArr = [srcString];
+		} else if (strLength == 2) {
+			srcArr = srcString.split(' and ');
+		} else {
+			srcArr = srcString.replace('and ', '').split(', ');
+		}
+		// Create an img tag and set the source
+		srcArr.forEach((s) => {
+			let imgElem = document.createElement('img');
+			imgElem.src = s;
+			thumbsContainer.appendChild(imgElem);
+		});
+	}
+
+	getLinks();
+
+	document.querySelectorAll('.product-thumbs img').forEach((t) => {
+		t.addEventListener('click', (e) => {
+			if (e.target == t) {
+				mainThumb.src = e.target.src;
+			}
+		});
+	});
+
+	mainThumb.addEventListener('click', (e) => {
+		e.stopPropagation();
+		let template = document.querySelector('.modal-template');
+		let clone = template.content.cloneNode(true);
+
+		clone.querySelector('.gallery-modal img').src = mainThumb.src;
+
+		document.body.appendChild(clone);
+
+		document.querySelector('.gallery-overlay').classList.add('toggled');
+		document.querySelector('.gallery-modal').classList.add('toggled');
+	});
+
+	window.addEventListener('click', (e) => {
+		e.stopPropagation();
+
+		let closeBtn = document.querySelector('.btn-close-modal');
+		let toggledOverlay = document.querySelector('.gallery-overlay.toggled');
+		let toggledModal = document.querySelector('.gallery-modal.toggled');
+
+		let prevImgBtn = document.querySelector('.btn-prev-modal-img');
+		let nextImgBtn = document.querySelector('.btn-next-modal-img');
+		let modalImg = document.querySelector('.modal-img');
+
+		if (toggledModal != null) {
+			if (e.target == closeBtn || !e.target.closest('.gallery-modal.toggled')) {
+				document.querySelector('.gallery-overlay.toggled').remove();
+				document.querySelector('.gallery-modal.toggled').remove();
+			}
+
+			if (e.target == prevImgBtn) {
+				switchImage('prev', modalImg);
+			}
+
+			if (e.target == nextImgBtn) {
+				switchImage('next', modalImg);
+			}
+		}
+	});
+
+	const prevThumbBtn = document.querySelector('.btn-prev-thumb');
+	const nextThumbBtn = document.querySelector('.btn-next-thumb');
+
+	prevThumbBtn.addEventListener('click', () => {
+		switchImage('prev', mainThumb);
+	});
+
+	nextThumbBtn.addEventListener('click', () => {
+		switchImage('next', mainThumb);
+	});
+
+	// Switch the main image using arrows
+	function switchImage(d, elem) {
+		let thumbs = document.querySelectorAll('.product-thumbs img');
+
+		for (let i = 0; i < thumbs.length; i++) {
+			if (thumbs[i].src === elem.src) {
+				if (d === 'prev') {
+					if (i === 0) {
+						elem.src = thumbs[thumbs.length - 1].src;
+						return;
+					}
+
+					elem.src = thumbs[i - 1].src;
+					return;
+				}
+
+				if (d === 'next') {
+					if (i === thumbs.length - 1) {
+						elem.src = thumbs[0].src;
+						return;
+					}
+
+					elem.src = thumbs[i + 1].src;
+					return;
+				}
+			}
+		}
+	}
+</script>

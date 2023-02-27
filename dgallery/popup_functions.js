@@ -86,7 +86,7 @@ function removePopup() {
 
 // Parse additional images links
 function getLinks() {
-	const thumbsContainer = document.querySelector('.product-modal-thumbs');
+	const thumbsContainer = document.querySelector('.product-thumbs');
 	let srcString = thumbsContainer.dataset.addimgs;
 
 	// Get length of https links in string

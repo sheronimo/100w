@@ -1,0 +1,379 @@
+<ul class="tabs-container" id="scrollto-section">
+	<li class="category-name-tab all active">View All</li>
+	[pods name="collection_category" where="parent = '{@term_id}'"]
+	<li class="category-name-tab">{@name}</li>
+	[/pods]
+</ul>
+<div class="allsort-bar">
+	<div class="left-bar">
+		<div class="product-filter dropdown-container">
+			<button class="btn-dropdown">
+				Filter <span class="active-circle"></span>
+			</button>
+			<div class="dropdown-list">
+				<p class="small-label">By Era</p>
+				[pods name="era" limit="999"]
+				<label class="dropdown-label">
+					<input type="radio" value="{@name}" name="filter" />
+					{@name}
+				</label>
+				[/pods]
+				<label class="dropdown-label label-default">
+					<input
+						type="radio"
+						value="default"
+						name="filter"
+						class="input-default"
+					/>
+					Clear Selection
+				</label>
+			</div>
+		</div>
+		<div class="separator"></div>
+		<div class="product-sort dropdown-container">
+			<button class="btn-dropdown">
+				Sort <span class="active-circle"></span>
+			</button>
+			<div class="dropdown-list">
+				<label class="dropdown-label">
+					<input type="radio" value="alpha-asc" name="sort" />
+					Alphabetical (A-Z)
+				</label>
+				<label class="dropdown-label">
+					<input type="radio" value="alpha-desc" name="sort" />
+					Alphabetical (Z-A)
+				</label>
+				<label class="dropdown-label">
+					<input type="radio" value="price-asc" name="sort" />
+					Price (Lowest to Highest)
+				</label>
+				<label class="dropdown-label">
+					<input type="radio" value="price-desc" name="sort" />
+					Price (Highest to Lowest)
+				</label>
+				<label class="dropdown-label label-default">
+					<input
+						type="radio"
+						value="default"
+						name="sort"
+						class="input-default"
+					/>
+					Clear Selection
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="right-bar">
+		<input type="text" id="search" class="search-bar" placeholder="Search" />
+		<button class="btn-search" id="btn-search">
+			<img
+				src="https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/Vector2.png"
+				alt="Search"
+			/>
+		</button>
+	</div>
+</div>
+<div class="products-container">
+	<div class="products-grid"></div>
+	<template id="product-template">
+		<div class="product-block js-block active">
+			<a href="#" class="product-link">
+				<img src="" class="product-thumb" />
+				<p class="product-heading"></p>
+				<p class="product-era"></p>
+				<a href="#" class="btn-enquire">
+					<img
+						src="/wp-content/uploads/2023/02/bi_info-circle-fill.png"
+						alt=""
+					/>
+					Enquire
+				</a>
+			</a>
+		</div>
+	</template>
+	<!-- <button id="btn-load">Load More</button> -->
+	<div class="no-results">
+		<p>
+			No Results for "<strong id="result-name"></strong>". Try searching again.
+		</p>
+		<img src="/wp-content/uploads/2023/02/no-results-1.png" alt="" />
+	</div>
+</div>
+<!-- <a class="btn-btt" href="#scrollto-section">
+	<svg
+		width="19"
+		height="14"
+		viewBox="0 0 19 14"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M9.5 4.9375L1.6875 12.75L2.78125 13.8438L9.5 7.125L16.2188 13.8438L17.3125 12.75L9.5 4.9375ZM0.125 0.25H18.875V1.8125H0.125V0.25Z"
+			fill="black"
+		/>
+	</svg>
+</a> -->
+<script>
+	const container = document.querySelector('.products-grid');
+	const inputSearch = document.querySelector('#search');
+	const sortSelect = document.querySelectorAll('input[name="sort"]');
+	const filterSelect = document.querySelectorAll('input[name="filter"]');
+
+	const results = document.querySelector('.no-results');
+	let products_array = [];
+
+	$(document).ready(function () {
+		const productTemplate = document.querySelector('#product-template');
+
+		// First load the products as an array
+		[pods name="collection" limit="-1" where="collection_category.name = 'Painting'"]
+		products_array.push({
+			name: '{@post_title}',
+			era: '{@era}',
+			thumb: '{@post_thumbnail_url.medium_large}',
+			priceLow: '{@estimate_value_from}',
+			priceHigh: '{@estimate_value_to}',
+			category: '{@collection_category.name}',
+			permalink: '{@permalink}'
+		});
+		[/pods]
+
+		// Then add them to the markup
+		products_array.forEach((p) => {
+			let templateClone = productTemplate.content.cloneNode(true).children[0];
+
+			templateClone.querySelector('.product-heading').textContent = p.name;
+			templateClone.querySelector('.product-era').textContent = p.era;
+			templateClone.querySelector('.product-link').href = p.permalink;
+			templateClone.querySelector('.product-thumb').src = p.thumb;
+
+			container.appendChild(templateClone);
+
+			p.elem = templateClone;
+		});
+
+		$('.btn-dropdown').click(function() {
+			$('.btn-dropdown').not(this).parent().removeClass('open');
+			$(this).parent().toggleClass('open');
+		});
+
+		// "Active class" for the ones based on category
+		$('.category-name-tab').click(function () {
+			$('.category-name-tab').removeClass('active');
+
+			// Reset the inputs
+			inputSearch.value = '';
+			Array.from( document.querySelectorAll('input[name="filter"]:checked'), input => input.checked = false );
+			Array.from( document.querySelectorAll('input[name="sort"]:checked'), input => input.checked = false );
+
+			// Reset the search results
+			results.style.display = 'none';
+
+			products_array.map((p) => {
+				p.elem.classList.remove('active');
+				p.elem.classList.remove('hide');
+				p.elem.classList.remove('filtered');
+			});
+
+			$(this).addClass('active');
+			if ($(this).hasClass('all')) {
+				console.log(products_array);
+				products_array
+					.map((p) => p.elem.classList.add('active'))
+					.forEach((p) => container.appendChild(p.elem));
+			} else {
+				let selectedCat = $('.category-name-tab.active').text();
+				products_array.forEach((p) => {
+					if (p.category == selectedCat) {
+						p.elem.classList.add('active');
+						container.appendChild(p.elem);
+					}
+				});
+			}
+		});
+
+		// "Sort" simply sorts the array
+		for(var i = 0; i < sortSelect.length; i++) {
+			sortSelect[i].addEventListener('change', (e) => {
+			e.target.closest('.dropdown-container').classList.remove('open');
+			let val = e.target.value.toLowerCase();
+			e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'inline-block';
+
+			switch (val) {
+				case 'alpha-asc':
+					sortAlpha(
+						1,
+						[...products_array].filter((p) =>
+							p.elem.classList.contains('active')
+						)
+					);
+					break;
+				case 'alpha-desc':
+					sortAlpha(
+						-1,
+						[...products_array].filter((p) =>
+							p.elem.classList.contains('active')
+						)
+					);
+					break;
+				case 'price-asc':
+					sortPrice(
+						true,
+						[...products_array].filter((p) =>
+							p.elem.classList.contains('active')
+						)
+					);
+					break;
+				case 'price-desc':
+					sortPrice(
+						false,
+						[...products_array].filter((p) =>
+							p.elem.classList.contains('active')
+						)
+					);
+					break;
+				case 'default':
+					[...products_array]
+						.filter((p) => p.elem.classList.contains('active'))
+						.sort((a, b) => a.order - b.order)
+						.forEach((p) => container.appendChild(p.elem));
+						e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'none';
+					break;
+				default:
+					break;
+			}
+		});
+		}
+
+
+		for(var i = 0; i < filterSelect.length; i++) {
+			filterSelect[i].addEventListener('change', (e) => {
+				e.target.closest('.dropdown-container').classList.remove('open');
+				let val = e.target.value.toLowerCase();
+				let count = 0;
+				results.style.display = 'none';
+
+				if (val == 'default') {
+					[...products_array]
+						.filter((p) => p.elem.classList.contains('active'))
+						.forEach((p) => {
+							p.elem.classList.remove('filtered');
+							container.appendChild(p.elem);
+						});
+						e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'none';
+				} else {
+					[...products_array]
+						.filter((p) => p.elem.classList.contains('active'))
+						.forEach((p) => {
+							let matches = p.era.toLowerCase() == val;
+
+							p.elem.classList.remove('filtered');
+							if (!matches) {
+								p.elem.classList.add('filtered');
+							} else {
+								count += 1;
+							}
+
+							container.appendChild(p.elem);
+						});
+					e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'inline-block';
+
+					if (count === 0) {
+						results.style.display = 'block';
+						results.querySelector('#result-name').textContent = val;
+					}
+				}
+			});
+		}
+
+
+		// Search function
+		const btnSearch = document.querySelector('#btn-search');
+		btnSearch.addEventListener('click', () => {
+			searchFunction();
+		});
+
+		inputSearch.addEventListener('keyup', (e) => {
+			if (e.key == 'Enter') {
+				searchFunction();
+			}
+		});
+	});
+
+	function searchFunction() {
+		let val = inputSearch.value.toLowerCase();
+		let count = 0;
+		results.style.display = 'none';
+
+		let filteredItems = [...products_array].filter(
+			(p) =>
+				p.elem.classList.contains('active') &&
+				p.elem.classList.contains('filtered')
+		);
+
+		if (filteredItems.length > 0) {
+			[...products_array]
+				.filter(
+					(p) =>
+						p.elem.classList.contains('active') &&
+						!p.elem.classList.contains('filtered')
+				)
+				.forEach((p) => {
+					let matches =
+						p.name.toLowerCase().includes(val) ||
+						p.era.toLowerCase().includes(val) ||
+						val == '';
+
+					p.elem.classList.remove('hide');
+					if (matches) {
+						count += 1;
+					} else {
+						p.elem.classList.add('hide');
+					}
+
+					container.appendChild(p.elem);
+				});
+		} else {
+			[...products_array]
+				.filter((p) => p.elem.classList.contains('active'))
+				.forEach((p) => {
+					let matches =
+						p.name.toLowerCase().includes(val) ||
+						p.era.toLowerCase().includes(val) ||
+						val == '';
+
+					p.elem.classList.remove('hide');
+					if (matches) {
+						count += 1;
+					} else {
+						p.elem.classList.add('hide');
+					}
+
+					container.appendChild(p.elem);
+				});
+		}
+
+		if (count === 0) {
+			results.style.display = 'block';
+			results.querySelector('#result-name').textContent = val;
+		}
+	}
+
+	function sortAlpha(num, array) {
+		array
+			.sort((a, b) => num * a.name.localeCompare(b.name))
+			.forEach((p) => container.appendChild(p.elem));
+	}
+
+	function sortPrice(ascending, array) {
+		array
+			.sort((a, b) =>
+				ascending
+					? parseInt(a.priceLow.replaceAll(',', '')) -
+					  parseInt(b.priceLow.replaceAll(',', ''))
+					: parseInt(b.priceHigh.replaceAll(',', '')) -
+					  parseInt(a.priceHigh.replaceAll(',', ''))
+			)
+			.forEach((p) => container.appendChild(p.elem));
+	}
+</script>

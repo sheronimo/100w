@@ -1,0 +1,120 @@
+<script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js"></script>
+<script>
+	// Image switcher in toggled popup thubmnails
+	const mainThumb = document.querySelector('.product-main-image');
+
+	// Parse additional images links
+	function getLinks() {
+		const thumbsContainer = document.querySelector('.product-thumbs');
+		let srcString = thumbsContainer.dataset.addimgs;
+
+		// Get length of https links in string
+		let strLength = srcString.split('http').length - 1;
+		// Split the string into an array
+		let srcArr = '';
+		if (strLength == 0) return;
+
+		if (strLength == 1) {
+			srcArr = [srcString];
+		} else if (strLength == 2) {
+			srcArr = srcString.split(' and ');
+		} else {
+			srcArr = srcString.replace('and ', '').split(', ');
+		}
+		// Create an img tag and set the source
+		srcArr.forEach((s) => {
+			let imgElem = document.createElement('img');
+			imgElem.src = s;
+			thumbsContainer.appendChild(imgElem);
+		});
+	}
+
+	getLinks();
+
+	document.querySelectorAll('.product-thumbs img').forEach((t) => {
+		t.addEventListener('click', (e) => {
+			if (e.target == t) {
+				mainThumb.src = e.target.src;
+			}
+		});
+	});
+
+	mainThumb.addEventListener('click', () => {
+		let template = document.querySelector('.modal-template');
+		let clone = template.content.cloneNode(true);
+
+		clone.querySelector('.gallery-modal img').src = mainThumb.src;
+
+		document.body.appendChild(clone);
+
+		document.querySelector('.gallery-overlay').classList.add('toggled');
+		document.querySelector('.gallery-modal').classList.add('toggled');
+	});
+
+	window.addEventListener('click', (e) => {
+		e.stopPropagation();
+
+		let closeBtn = document.querySelector('.btn-close-modal');
+		let toggledOverlay = document.querySelector('.gallery-overlay.toggled');
+		let toggledModal = document.querySelector('.gallery-modal.toggled');
+
+		let prevImgBtn = document.querySelector('.btn-prev-modal-img');
+		let nextImgBtn = document.querySelector('.btn-next-modal-img');
+		let modalImg = document.querySelector('.modal-img');
+
+		if (toggledModal != null) {
+			if (e.target == closeBtn) {
+				document.querySelector('.gallery-overlay.toggled').remove();
+				document.querySelector('.gallery-modal.toggled').remove();
+			}
+
+			if (e.target == prevImgBtn) {
+				switchImage('prev', modalImg);
+			}
+
+			if (e.target == nextImgBtn) {
+				switchImage('next', modalImg);
+			}
+		}
+	});
+
+	const prevThumbBtn = document.querySelector('.btn-prev-thumb');
+	const nextThumbBtn = document.querySelector('.btn-next-thumb');
+
+	prevThumbBtn.addEventListener('click', () => {
+		switchImage('prev', mainThumb);
+	});
+
+	nextThumbBtn.addEventListener('click', () => {
+		switchImage('next', mainThumb);
+	});
+
+	// Switch the main image using arrows
+	function switchImage(d, elem) {
+		let thumbs = document.querySelectorAll('.product-thumbs img');
+
+		for (let i = 0; i < thumbs.length; i++) {
+			if (thumbs[i].src === elem.src) {
+				if (d === 'prev') {
+					if (i === 0) {
+						elem.src = thumbs[thumbs.length - 1].src;
+						return;
+					}
+
+					elem.src = thumbs[i - 1].src;
+					return;
+				}
+
+				if (d === 'next') {
+					if (i === thumbs.length - 1) {
+						elem.src = thumbs[0].src;
+						return;
+					}
+
+					elem.src = thumbs[i + 1].src;
+					return;
+				}
+			}
+		}
+	}
+</script>

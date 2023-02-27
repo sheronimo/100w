@@ -11,7 +11,7 @@
 		text-align: center;
 	}
 
-	.btn-tiktok {
+	.btn-social {
 		color: #fff !important;
 		background-color: #0dbac3;
 		font-size: 18px;
@@ -34,10 +34,10 @@
 	<div class="img-masonry-item">
 		<img src="{@post_thumbnail_url.medium_large}" />
 	</div>
-	[if tiktok_video]
+	[if url]
 	<div class="btn-center">
-		<a href="{@tiktok_video}" target="_blank" class="btn-tiktok"
-			>View our TikTok Video</a
+		<a href="{@url}" target="_blank" class="btn-social" rel="noopener"
+			>View our {@cta}</a
 		>
 	</div>
 	[/if] [/pods]
