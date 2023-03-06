@@ -10,6 +10,10 @@
 		text-align: center;
 	}
 
+	.event-banner a {
+		text-align: center;
+	}
+
 	.banner-title {
 		font-weight: bold;
 		font-size: 18px !important;
@@ -19,11 +23,19 @@
 	.banner-img {
 		display: block;
 		border-radius: 20px;
+		margin-inline: auto;
+		max-width: 400px;
+		aspect-ratio: 1;
+		object-fit: cover;
 	}
 
 	@media (max-width: 768px) {
 		.event-banner {
 			width: 90%;
+		}
+
+		.banner-img {
+			width: 100%;
 		}
 	}
 </style>
@@ -32,5 +44,6 @@
 	<img src="{@banner_image}" class="banner-img" />
 	<p class="banner-title">{@post_title}</p>
 	{@description}
+	<p><a href="{@rsvp_link}" target="_blank" rel="noopener">{@rsvp_link}</a></p>
 </div>
 [/pods]
