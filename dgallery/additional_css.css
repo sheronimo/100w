@@ -280,6 +280,10 @@
 	display: inline-flex;
 }
 
+.btn-enquire img {
+	width: 17px;
+}
+
 .product-block .btn-enquire {
 	margin-top: 15px;
 	visibility: hidden;
@@ -708,6 +712,7 @@
 .button-list {
 	display: inline-flex;
 	flex-direction: column;
+	justify-content: stretch;
 	gap: 20px;
 }
 
@@ -721,6 +726,7 @@
 	padding: 15px;
 	text-align: center;
 	cursor: pointer;
+	min-width: max-content;
 }
 
 .btn-3d.active {
@@ -775,4 +781,18 @@
 	.section-toggle.toggled img {
 		scale: 1.05;
 	}
+}
+
+/* Language visibility */
+*[id$='cust-en'],
+*[id$='cust-zh'] {
+	display: none;
+}
+
+html[lang='en-US'] *[id$='cust-en'] {
+	display: block;
+}
+
+html[lang='zh-cn'] *[id$='cust-zh'] {
+	display: block;
 }

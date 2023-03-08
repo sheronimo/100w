@@ -1,0 +1,44 @@
+<style>
+	#main-content {
+		margin-top: 7vw;
+	}
+
+	.hide-header {
+		opacity: 0;
+		margin-top: -200px !important;
+	}
+
+	.show-header {
+		opacity: 1;
+		margin-top: 0px !important;
+	}
+
+	#header-section {
+		-webkit-transition: all 0.5s ease !important;
+		-moz-transition: all 0.5s ease !important;
+		-o-transition: all 0.5s ease !important;
+		-ms-transition: all 0.5s ease !important;
+		transition: all 0.5s ease !important;
+	}
+</style>
+<script>
+	$(document).ready(function () {
+		var topPosition = 0;
+
+		$(window).scroll(function () {
+			var scrollMovement = $(window).scrollTop();
+
+			if (topPosition < 200) {
+			} else {
+				if (scrollMovement > topPosition) {
+					$('#header-section').removeClass('show-header');
+					$('#header-section').addClass('hide-header');
+				} else {
+					$('#header-section').removeClass('hide-header');
+					$('#header-section').addClass('show-header');
+				}
+			}
+			topPosition = scrollMovement;
+		});
+	});
+</script>

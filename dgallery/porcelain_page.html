@@ -91,6 +91,7 @@
 			</a>
 		</div>
 	</template>
+	<!-- <button id="btn-load">Load More</button> -->
 	<div class="no-results">
 		<p>
 			No Results for "<strong id="result-name"></strong>". Try searching again.
@@ -115,6 +116,7 @@
 	$(document).ready(function () {
 		const productTemplate = document.querySelector('#product-template');
 		let count = 1;
+
 		// First load the products as an array
 		[pods name="collection" limit="-1" where="collection_category.slug LIKE '%porcelain%'"]
 		products_array.push({
