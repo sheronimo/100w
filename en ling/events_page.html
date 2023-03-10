@@ -1,0 +1,96 @@
+<style>
+	.event-top-row {
+		display: flex;
+		gap: 60px;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	.event-title {
+		font-weight: 700;
+		font-size: 36px;
+		line-height: 45px;
+		color: #2a6355;
+	}
+
+	.event-left-col p {
+		padding-bottom: 10px;
+		color: #000;
+	}
+
+	.event-img {
+		border-radius: 10px;
+	}
+
+	.short-desc {
+		margin-top: 10px;
+	}
+
+	.event-venue-link {
+		color: #000;
+		text-decoration: underline;
+	}
+
+	.event-bottom-row {
+		padding-top: 40px;
+	}
+
+	.btn-rsvp {
+		font-weight: 700;
+		color: #2a6355;
+		font-size: 14px;
+		line-height: 24px;
+		padding: 9px 20px;
+		background-color: #f8cc55;
+		border-radius: 20px;
+		margin-top: 20px;
+		display: inline-block;
+	}
+
+	@media (min-width: 768px) {
+		.event-img {
+			max-width: 383px;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.event-top-row {
+			flex-direction: column-reverse;
+			gap: 20px;
+		}
+
+		.event-title {
+			font-size: 18px;
+			line-height: 30px;
+		}
+
+		.event-bottom-row {
+			padding-top: 33px;
+		}
+	}
+</style>
+[pods name="event" where="ID = '{@ID}'"]
+<div class="event-top-row">
+	<div class="event-left-col">
+		<h1 class="event-title">{@post_title}</h1>
+		<p>
+			<span>{@event_start_date,event_custom_date_format}</span>
+			[if event_end_date] -
+			<span>{@event_end_date,event_custom_date_format}</span>
+			[/if]
+			<span>({@event_time})</span>
+		</p>
+		<p>
+			Venue:
+			<a href="{@venue_maps_url}" target="_blank" class="event-venue-link"
+				>{@event_venue}</a
+			>
+		</p>
+		<div class="short-desc">{@event_description}</div>
+		<a href="{@rsvp_link}" target="_blank" class="btn-rsvp">{@rsvp_cta_text}</a>
+	</div>
+	<img src="{@post_thumbnail_url.large}" alt="" class="event-img" />
+</div>
+[if post_content]
+<div class="event-bottom-row">{@post_content}</div>
+[/if] [/pods]

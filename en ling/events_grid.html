@@ -52,76 +52,6 @@
 		font-weight: 700;
 	}
 
-	.event-overlay {
-		position: fixed;
-		inset: 0;
-		z-index: 999;
-		display: none;
-		animation: fadeIn 0.5s;
-		background-color: rgba(0, 0, 0, 0.75);
-		backdrop-filter: blur(2px);
-	}
-
-	.event-overlay.toggled {
-		display: block;
-		opacity: 1;
-	}
-
-	.event-modal {
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		background-color: #fff;
-		max-width: 500px;
-		width: 90%;
-		display: none;
-		z-index: 1000;
-		animation: fadeIn 0.5s;
-	}
-
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
-	.event-modal.toggled {
-		display: block;
-	}
-
-	.event-modal-img {
-		width: 100%;
-		height: auto;
-		display: block;
-	}
-
-	.event-modal-body {
-		padding: 20px;
-	}
-
-	.btn-close-modal {
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		right: 0;
-		color: #333;
-		background-color: #fff;
-		font-size: 14px;
-		border: none;
-		padding-inline: 8px;
-		padding-block: 6px;
-		transform: scale(1);
-		transition: transform 0.5s linear;
-	}
-
-	.btn-close-modal:hover {
-		transform: scale(1.2);
-	}
-
 	@media (max-width: 992px) {
 		.upcoming-events-grid {
 			grid-template-columns: repeat(2, 47.25%);
@@ -144,32 +74,23 @@
 	where="((event_start_date.meta_value BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL
 	DAYOFMONTH(CURRENT_DATE)-1 DAY) AND DATE_ADD(CURRENT_DATE, INTERVAL 100 YEAR))
 	AND (event_end_date.meta_value >= CURRENT_DATE())) OR
-	((event_start_date.meta_value BETWEEN CURRENT_DATE() AND
-	LAST_DAY(CURRENT_DATE)) AND (event_end_date.meta_value = '0000-00-00'))"]
+	((event_start_date.meta_value > CURRENT_DATE()) AND (event_end_date.meta_value
+	= '0000-00-00'))"]
 	<div class="upcoming-event-block">
-		<div class="img-wrap">
-			<img class="upcoming-event-img" src="{@post_thumbnail_url.medium}" />
-			<div class="upcoming-event-date">
-				<span class="js_event_date">{@event_start_date}</span> [if
-				event_end_date]-
-				<span class="js_event_date">{@event_end_date}</span>[/if]
-			</div>
-		</div>
-		<div class="upcoming-event-text">
-			<h4 class="upcoming-event-title">{@post_title}</h4>
-			<p>{@event_venue}</p>
-		</div>
-		<template class="modal-template">
-			<div class="event-overlay"></div>
-			<div class="event-modal">
-				<button class="btn-close-modal">x</button>
-				<img src="{@post_thumbnail_url.large}" class="event-modal-img" />
-				<div class="event-modal-body">
-					<p><strong> {@post_title}</strong></p>
-					[if event_description] {@event_description}[/if]
+		<a href="{@permalink}">
+			<div class="img-wrap">
+				<img class="upcoming-event-img" src="{@post_thumbnail_url.medium}" />
+				<div class="upcoming-event-date">
+					<span class="js_event_date">{@event_start_date}</span> [if
+					event_end_date]-
+					<span class="js_event_date">{@event_end_date}</span>[/if]
 				</div>
 			</div>
-		</template>
+			<div class="upcoming-event-text">
+				<h4 class="upcoming-event-title">{@post_title}</h4>
+				<p>{@event_venue}</p>
+			</div>
+		</a>
 	</div>
 	[/pods]
 </div>
@@ -182,37 +103,5 @@
 		let calcDay = parsedDate[1];
 
 		d.textContent = `${calcMonth}月${calcDay}日`;
-	});
-
-	const eventBlockImages = document.querySelectorAll(
-		'.upcoming-event-block .img-wrap'
-	);
-	eventBlockImages.forEach((i) => {
-		i.addEventListener('click', (e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			let closest = e.target.closest('.upcoming-event-block');
-			let template = closest.querySelector('.modal-template');
-			let clone = template.content.cloneNode(true);
-
-			clone.querySelector('.event-overlay').classList.add('toggled');
-			clone.querySelector('.event-modal').classList.add('toggled');
-
-			document.body.appendChild(clone);
-		});
-	});
-
-	window.addEventListener('click', (e) => {
-		e.stopPropagation();
-		let toggledModals = document.querySelector('.event-modal.toggled');
-		if (toggledModals != null) {
-			if (
-				e.target == document.querySelector('.btn-close-modal') ||
-				!e.target.closest('.event-modal.toggled')
-			) {
-				document.querySelector('.event-overlay.toggled').remove();
-				document.querySelector('.event-modal.toggled').remove();
-			}
-		}
 	});
 </script>
