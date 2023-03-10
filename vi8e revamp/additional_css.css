@@ -1,0 +1,130 @@
+body {
+	background-color: #faf8ed;
+}
+
+/* Button style for CTA menu item */
+@media (min-width: 768px) {
+	.menu-cta a {
+		border: 1px solid #f48020;
+		border-radius: 27px;
+		padding-inline: 31px !important;
+	}
+
+	.menu-cta a:hover {
+		border-radius: 5px;
+	}
+
+	.menu-cta a::before {
+		font-family: ETmodules !important;
+		content: '\e010';
+		color: #f48020;
+		padding-right: 9px;
+	}
+
+	.et_pb_fullwidth_menu_0_tb_header.et_pb_fullwidth_menu ul li.menu-cta a {
+		color: #f48020 !important;
+	}
+
+	#menu-header-menu > li {
+		padding-block: 9px;
+	}
+
+	#menu-header-menu {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	#header-menu .et_pb_menu__menu,
+	#header-menu .et_pb_menu__menu > nav,
+	#header-menu .et_pb_menu__menu > nav > ul {
+		width: 100%;
+	}
+
+	/*push the nth menu item and any other items to the right of it to the right*/
+	#header-menu .et_pb_menu__menu > nav > ul li:nth-child(4) {
+		margin-left: auto;
+	}
+	/*this keeps the search and/or cart icons inline*/
+	#header-menu .et_pb_menu__wrap,
+	#header-menu .et_pb_menu__wrap .et-menu.nav {
+		flex-wrap: nowrap !important;
+	}
+
+	#header-menu .et_pb_menu__logo {
+		margin-right: 15px;
+	}
+}
+
+/* Homepage Header Section */
+@media (max-width: 767px) {
+	#homepage-header .header-content {
+		margin-inline: 0px;
+	}
+}
+
+#homepage-header .et_pb_fullwidth_header_container {
+	width: 88%;
+}
+
+/* Homepage Supporting Section */
+#homepage-support .header-content {
+	width: 100%;
+	max-width: none;
+	padding: 0;
+}
+
+#homepage-support .et_pb_fullwidth_header_container {
+	width: 88%;
+}
+
+/* Number Text */
+.number-text .et_pb_text_inner {
+	display: flex;
+	align-items: flex-end;
+	gap: 3px;
+}
+
+.number-text .et_pb_text_inner h4 {
+	padding-bottom: 0;
+}
+
+/* Homepage Logo Carousel */
+#homepage-logo-carousel .slick-track {
+	display: flex;
+	align-items: center;
+}
+
+/* Homepage 'How We Do Things' */
+@media (max-width: 767px) {
+	.homepage-hwdt-row {
+		position: relative;
+	}
+
+	.homepage-hwdt-row::before {
+		content: '';
+		width: 2px;
+		background-color: rgba(255, 255, 255, 0.18);
+		position: absolute;
+		left: 40px;
+	}
+
+	.homepage-hwdt-row-first::before {
+		top: 0;
+		transform: translateY(60px);
+		height: 100%;
+	}
+
+	.homepage-hwdt-row-second::before {
+		top: 0;
+		height: 70%;
+	}
+}
+
+#footer-divider .dsm-text-divider-before {
+	flex: 0 0 70px;
+}
+
+#footer-divider .dsm-text-divider-after {
+	display: none;
+}

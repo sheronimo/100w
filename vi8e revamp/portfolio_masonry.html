@@ -1,0 +1,263 @@
+<style>
+	.portfolio-item {
+		border: 10px solid #fff;
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
+	}
+
+	.portfolio-item.is-visible {
+		opacity: 1;
+	}
+
+	.portfolio-item img {
+		width: 100%;
+		display: block;
+	}
+
+	.portfolio-overlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 999;
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+
+	.portfolio-overlay.toggled {
+		display: block;
+	}
+
+	.portfolio-modal {
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: fit-content;
+		z-index: 1000;
+		animation: fadeIn 1s;
+	}
+
+	.modal-img {
+		max-width: 80vw;
+		max-height: 80vh;
+		object-fit: cover;
+	}
+
+	.btn-close-modal {
+		cursor: pointer;
+		position: absolute;
+		top: -50px;
+		right: 5px;
+		border: 0;
+		background: transparent;
+		font-size: 32px;
+		padding: 0;
+	}
+
+	.btn-close-modal::after {
+		font-family: ETmodules;
+		content: '\4d';
+		color: #fff;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	.modal-portfolio-title {
+		color: #fff;
+		font-size: 24px;
+		font-weight: 700;
+	}
+
+	.portfolio-modal.toggled {
+		display: block;
+		opacity: 1;
+	}
+
+	.btn-prev-modal,
+	.btn-next-modal {
+		position: absolute;
+		top: 50%;
+		width: 38px;
+		height: 38px;
+		border: 0;
+		cursor: pointer;
+		z-index: 1001;
+		background-image: url("data:image/svg+xml,%3Csvg fill='%23fff' height='30px' width='30px' version='1.1' id='XMLID_287_' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 24 24' xml:space='preserve'%3E%3Cg id='next'%3E%3Cg%3E%3Cpolygon points='6.8,23.7 5.4,22.3 15.7,12 5.4,1.7 6.8,0.3 18.5,12 '/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.btn-prev-modal {
+		left: -60px;
+		rotate: 180deg;
+	}
+
+	.btn-next-modal {
+		right: -60px;
+	}
+
+	@media (max-width: 767px) {
+		.portfolio-item {
+			border-width: 5px;
+			margin-bottom: 20px;
+		}
+
+		.btn-close-modal {
+			top: -30px;
+		}
+
+		.portfolio-modal {
+			width: 80%;
+			top: 60%;
+		}
+
+		.modal-img {
+			height: auto;
+			width: 100%;
+			max-width: none;
+			max-height: none;
+		}
+
+		.btn-prev-modal {
+			left: -30px;
+		}
+
+		.btn-next-modal {
+			right: -30px;
+		}
+	}
+</style>
+<div class="portfolio-masonry">
+	[pods name="portfolio" limit="-1"]
+	<div class="portfolio-item" data-postid="{@ID}">
+		<img src="{@post_thumbnail_url.large}" />
+		<template class="modal-template">
+			<div class="portfolio-overlay"></div>
+			<div class="portfolio-modal" data-modalID="{@ID}">
+				<button class="btn-close-modal"></button>
+				<img src="{@post_thumbnail_url.large}" alt="" class="modal-img" />
+				<div class="modal-text">
+					<h4 class="modal-portfolio-title">{@post_title}</h4>
+				</div>
+				<div class="btn-prev-modal"></div>
+				<div class="btn-next-modal"></div>
+			</div>
+		</template>
+	</div>
+	[/pods]
+</div>
+<script src="https://cdn.jsdelivr.net/npm/macy@2"></script>
+<script>
+	var macyInstance = Macy({
+		container: '.portfolio-masonry',
+		columns: 3,
+		trueOrder: true,
+		waitForImages: true,
+		margin: 20,
+		breakAt: {
+			767: {
+				columns: 1,
+				margin: 20
+			}
+		}
+	});
+</script>
+<script>
+	const portfolioBlocks = document.querySelectorAll('.portfolio-item');
+
+	const observer = new IntersectionObserver(
+		function (entries) {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-visible');
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+
+	portfolioBlocks.forEach((i) => {
+		i.addEventListener('click', (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+
+			addPopup(e.target.closest('.portfolio-item'));
+		});
+
+		observer.observe(i);
+	});
+
+	window.addEventListener('click', (e) => {
+		e.stopPropagation();
+		let toggledModals = document.querySelector('.portfolio-modal.toggled');
+
+		if (toggledModals != null) {
+			let btnPrevModal = toggledModals.querySelector('.btn-prev-modal');
+			let btnNextModal = toggledModals.querySelector('.btn-next-modal');
+
+			// Remove popup and overlay when clicking close button or outside the popup
+			if (
+				e.target == document.querySelector('.btn-close-modal') ||
+				!e.target.closest('.portfolio-modal.toggled')
+			) {
+				removePopup();
+			}
+
+			// Upon previous button click,
+			// Hide current popup and overlay
+			// Then show previous product's popup and overlay
+			if (e.target == btnPrevModal) {
+				let getId = e.target.closest('.portfolio-modal.toggled').dataset
+					.modalid;
+				let prevElement = document.querySelector(
+					'.portfolio-item[data-postid="' + getId + '"]'
+				).previousElementSibling;
+				if (prevElement != null) {
+					removePopup();
+					addPopup(prevElement);
+				}
+			}
+
+			// Upon next button click,
+			// Hide current popup and overlay
+			// Then show next product's popup and overlay
+			if (e.target == btnNextModal) {
+				let getId = e.target.closest('.portfolio-modal.toggled').dataset
+					.modalid;
+				let nextElement = document.querySelector(
+					'.portfolio-item[data-postid="' + getId + '"]'
+				).nextElementSibling;
+				if (nextElement != null) {
+					removePopup();
+					addPopup(nextElement);
+				}
+			}
+		}
+	});
+
+	// Universal function for adding popup and overlay
+	function addPopup(elem) {
+		let template = elem.querySelector('.modal-template');
+		let clone = template.content.cloneNode(true);
+
+		clone.querySelector('.portfolio-overlay').classList.add('toggled');
+		clone.querySelector('.portfolio-modal').classList.add('toggled');
+
+		document.body.appendChild(clone);
+	}
+
+	// Universal function for removing popup and overlay
+	function removePopup() {
+		document.querySelector('.portfolio-overlay.toggled').remove();
+		document.querySelector('.portfolio-modal.toggled').remove();
+	}
+</script>
