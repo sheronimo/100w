@@ -1,0 +1,197 @@
+<style>
+	.cat-tabs-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 80px;
+	}
+
+	.cat-tab {
+		cursor: pointer;
+		font-weight: 500;
+		color: #fff;
+		font-size: 18px;
+		line-height: 21.6px;
+		letter-spacing: 2px;
+		padding-bottom: 7px;
+	}
+
+	.cat-tab::marker {
+		content: '' !important;
+	}
+
+	.cat-tab.active {
+		font-weight: 700;
+		border-bottom: 2px solid #f8cc55;
+	}
+
+	.sermons-grid {
+		margin-top: 34px;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		align-items: flex-start;
+		justify-items: space-between;
+		row-gap: 30px;
+		column-gap: 1rem;
+	}
+
+	.sermon-thumb {
+		border-radius: 20px;
+		object-fit: cover;
+		width: 200px;
+		height: 200px;
+	}
+
+	.sermon-text {
+		margin-top: 15px;
+		font-size: 12px;
+		color: #fff;
+	}
+
+	.sermon-text p {
+		padding: 0;
+		line-height: 18px;
+	}
+
+	.sermon-title {
+		font-size: 18px;
+		line-height: 1.02em;
+		font-weight: 700;
+		color: #f8cc55 !important;
+		padding-bottom: 10px;
+	}
+
+	.dropdown-toggle {
+		display: none;
+	}
+
+	@media (max-width: 992px) {
+		.sermons-grid {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.sermon-thumb {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 1;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.cat-tabs-container {
+			display: block;
+			position: absolute;
+			/* top: 0; */
+			background: #fff;
+			width: 100%;
+			top: 39px;
+			padding-block: 5px !important;
+			padding-inline: 0 !important;
+			box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+			margin-top: 0;
+			display: none;
+		}
+
+		.cat-tab {
+			color: #1e4a63;
+			font-weight: 700;
+			padding-block: 3px !important;
+			padding-inline: 20px !important;
+			font-size: 14px;
+		}
+
+		.cat-tab.active {
+			background-color: #f8cc55;
+			border: 0;
+		}
+
+		.dropdown {
+			position: relative;
+		}
+
+		.dropdown.open .cat-tabs-container {
+			display: block;
+		}
+
+		.dropdown-toggle {
+			position: relative;
+			border: 0;
+			padding: 10px;
+			display: block;
+			width: 100%;
+			background: #1e4a63;
+			color: #fff;
+			text-align: left;
+			font-size: 16px;
+		}
+
+		.dropdown-toggle::after {
+			font-family: ETModules;
+			content: '\43';
+			color: #fff;
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 10px;
+		}
+	}
+</style>
+<div class="dropdown">
+	<button class="dropdown-toggle">讲道系列</button>
+	<ul class="cat-tabs-container">
+		<li class="cat-tab active all">查看全部</li>
+		[pods name="sermon_series" limit="-1"]
+		<li class="cat-tab">{@name}</li>
+		[/pods]
+	</ul>
+</div>
+<div class="sermons-grid">
+	[pods name="sermon" orderby="sermon_date DESC"]
+	<div class="sermon-block" data-series="{@sermon_series.name}">
+		<a href="{@permalink}" class="sermon-thumb-wrap">
+			<img class="sermon-thumb" src="{@post_thumbnail_url.large}" />
+		</a>
+		<div class="sermon-text">
+			<h4 class="sermon-title">{@post_title}</h4>
+			<p>{@verse}</p>
+			<p>{@speaker}</p>
+			<p class="js_sermon_date">{@sermon_date}</p>
+		</div>
+	</div>
+	[/pods]
+</div>
+<script>
+	const sermonDates = document.querySelectorAll('.js_sermon_date');
+
+	sermonDates.forEach((d) => {
+		let parsedDate = d.textContent;
+		let dateArr = parsedDate.split('-');
+		d.textContent = `${dateArr[0]}年${dateArr[1]}月${dateArr[2]}日`;
+	});
+</script>
+<script>
+	jQuery(document).ready(function ($) {
+		$('.cat-tab').click(function () {
+			$('.dropdown').removeClass('open');
+			$('.cat-tab').removeClass('active');
+			$('.sermon-block').hide();
+
+			$(this).addClass('active');
+			if ($(this).hasClass('all')) {
+				$('.sermon-block').show();
+			} else {
+				$(
+					'.sermon-block[data-series="' + $('.cat-tab.active').text() + '"]'
+				).show();
+			}
+		});
+
+		$('.dropdown .dropdown-toggle').click(function () {
+			$(this).parent().toggleClass('open');
+		});
+	});
+</script>
