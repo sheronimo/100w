@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+	const swiper = new Swiper('#post-370 .et_builder_inner_content', {
+		// Optional parameters
+		direction: 'horizontal',
+		loop: false,
+		slidesPerView: 1,
+		mousewheel: true,
+		speed: 300,
+		breakpoints: {
+			767: {
+				slidesPerView: 3
+			}
+		}
+	});
+</script>
+<script>
+	const swiperPortfolio = new Swiper('#post-562 .et_builder_inner_content', {
+		// Optional parameters
+		direction: 'horizontal',
+		loop: false,
+		slidesPerView: 'auto',
+		freeMode: true,
+		mousewheel: true,
+		speed: 300
+	});
+</script>
+<script>
+	const swiperAbout = new Swiper('#post-773 .et_builder_inner_content', {
+		// Optional parameters
+		direction: 'vertical',
+		loop: false,
+		slidesPerView: 1,
+		mousewheel: true,
+		speed: 300
+	});
+</script>
+<script>
+	jQuery(document).ready(function ($) {
+		$('#block-first').on('touchend', (e) => {
+			$('.swipe-arrow-container').hide();
+		});
+	});
+</script>
