@@ -17,9 +17,17 @@
 		if (strLength == 1) {
 			srcArr = [srcString];
 		} else if (strLength == 2) {
-			srcArr = srcString.split(' and ');
+			if (srcString.includes('and')) {
+				srcArr = srcString.split(' and ');
+			} else if (srcString.includes('和')) {
+				srcArr = srcString.split(' 和 ');
+			}
 		} else {
-			srcArr = srcString.replace('and ', '').split(', ');
+			if (srcString.includes('and')) {
+				srcArr = srcString.replace('and ', '').split(', ');
+			} else if (srcString.includes('和')) {
+				srcArr = srcString.replace('和 ', '').split(', ');
+			}
 		}
 		// Create an img tag and set the source
 		srcArr.forEach((s) => {
