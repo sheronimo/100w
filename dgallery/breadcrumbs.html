@@ -1,0 +1,29 @@
+<style>
+	.dsm_breadcrumbs_crumb_current {
+		color: rgb(136, 136, 136);
+	}
+</style>
+<nav
+	class="dsm_breadcrumbs_wrap"
+	role="navigation"
+	itemscope=""
+	itemtype="http://schema.org/SiteNavigationElement"
+>
+	<ul class="dsm_breadcrumbs">
+		<li class="dsm_breadcrumbs_item dsm_home_item dsm_home_item_custom">
+			<a href="https://dev.dgallery.8yolk.com" itemprop="url">
+				<span class="dsm_home_text_wrapper">
+					<span class="dsm_home_text" itemprop="name"> Home </span>
+				</span>
+			</a>
+		</li>
+		<li class="dsm_breadcrumbs_separator">
+			<span class="et-pb-icon dsm_separator_icon">$</span>
+		</li>
+		<li class="dsm_breadcrumbs_item dsm_breadcrumbs_item_current">
+			<span class="dsm_breadcrumbs_crumb dsm_breadcrumbs_crumb_current"
+				>[pods name="collection" where="ID = '{@ID}'"]{@post_title}[/pods]</span
+			>
+		</li>
+	</ul>
+</nav>
