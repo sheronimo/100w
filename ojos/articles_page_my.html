@@ -1,0 +1,143 @@
+<style>
+	.cat-tabs-container {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 40px;
+		padding-left: 0 !important;
+	}
+
+	.cat-tab {
+		font-weight: 500;
+		text-transform: uppercase;
+		color: #fff;
+		font-family: 'Montserrat';
+		font-size: 14px;
+		line-height: 21.6px;
+		letter-spacing: 1px;
+		cursor: pointer;
+	}
+
+	.cat-tab::marker {
+		content: '' !important;
+	}
+
+	.cat-tab.active {
+		font-weight: 700;
+	}
+
+	.dropdown-toggle {
+		display: none;
+	}
+
+	@media (max-width: 767px) {
+		.cat-tabs-container {
+			display: block;
+			position: absolute;
+			/* top: 0; */
+			background: #fff;
+			width: 100%;
+			top: 41px;
+			padding-block: 5px !important;
+			padding-inline: 0 !important;
+			box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+			margin-top: 0;
+			display: none;
+		}
+
+		.cat-tab {
+			color: #000;
+			font-weight: 700;
+			padding-block: 3px !important;
+			padding-inline: 20px !important;
+			font-size: 14px;
+		}
+
+		.cat-tab.active {
+			color: #14647d;
+		}
+
+		.dropdown {
+			position: relative;
+		}
+
+		.dropdown.open .cat-tabs-container {
+			display: block;
+		}
+
+		.dropdown-toggle {
+			position: relative;
+			border: 0;
+			padding: 10px;
+			display: block;
+			width: 100%;
+			background: #14647d;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #fff;
+			text-align: left;
+			font-size: 16px;
+			font-family: 'Montserrat';
+		}
+
+		.dropdown-toggle::after {
+			font-family: ETModules;
+			content: '\33';
+			color: #fff;
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 10px;
+		}
+	}
+</style>
+<div class="dropdown">
+	<button class="dropdown-toggle">Categories</button>
+	<ul class="cat-tabs-container">
+		<li class="cat-tab active all">View All</li>
+		[pods name="article_category" limit="-1" where="parent = '12'"]
+		<li class="cat-tab">{@name}</li>
+		[/pods]
+	</ul>
+</div>
+<div class="articles-grid">
+	[pods name="article" limit="-1" orderby="post_date DESC"
+	WHERE="article_category.slug LIKE '%-my'"]
+	<div
+		class="article-block article-block-my"
+		data-subcat="{@article_category.name}"
+	>
+		<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
+		<div>
+			<h3 class="article-title">{@post_title}</h3>
+			<div class="article-excerpt">{@post_excerpt}</div>
+			<a href="{@permalink}" class="btn-watch">Read More</a>
+		</div>
+	</div>
+	[/pods]
+</div>
+<script>
+	jQuery(document).ready(function ($) {
+		$('.cat-tab').click(function () {
+			$('.dropdown').removeClass('open');
+			$('.cat-tab').removeClass('active');
+			$('.article-block-my').hide();
+
+			$(this).addClass('active');
+			if ($(this).hasClass('all')) {
+				$('.article-block-my').show();
+			} else {
+				$(
+					'.article-block-my[data-subcat="' + $('.cat-tab.active').text() + '"]'
+				).show();
+			}
+		});
+
+		$('.dropdown .dropdown-toggle').click(function () {
+			$(this).parent().toggleClass('open');
+		});
+	});
+</script>

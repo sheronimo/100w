@@ -1,0 +1,61 @@
+<style>
+	.article-img {
+		width: 100%;
+		aspect-ratio: 1.8;
+		object-fit: cover;
+	}
+
+	.articles-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 27px;
+	}
+
+	.article-title {
+		color: #fff;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: 20px;
+	}
+
+	.article-excerpt {
+		font-size: 14px;
+		line-height: 20px;
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+	}
+
+	.articles-grid .article-title {
+		margin-top: 20px;
+	}
+
+	@media (max-width: 767px) {
+		.articles-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 27px;
+			margin-top: 27px;
+		}
+
+		.article-title {
+			font-size: 18px;
+			line-height: 30px;
+		}
+	}
+</style>
+
+<div class="articles-grid">
+	[pods name="article" limit="-1" orderby="post_date DESC"
+	WHERE="article_category.slug = 'sg-startups'"]
+	<div class="article-block article-block-sg">
+		<img src="{@post_thumbnail_url.medium_large}" alt="" class="article-img" />
+		<div>
+			<h3 class="article-title">{@post_title}</h3>
+			<div class="article-excerpt">{@post_excerpt}</div>
+			<a href="{@permalink}" class="btn-watch">Read More</a>
+		</div>
+	</div>
+	[/pods]
+</div>

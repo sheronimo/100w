@@ -1,0 +1,32 @@
+<style>
+	.article-cats {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.article-cat-text {
+		font-family: 'Montserrat';
+		font-weight: 600;
+		font-size: 12px;
+		color: #fff;
+		background-color: #1f1f1f;
+		padding-block: 15px !important;
+		padding-inline: 20px;
+		border-radius: 10px;
+	}
+</style>
+<div class="article-cats">
+	[pods name="article" where="ID = '{@ID}'"] [if field="article_category.slug"
+	value="%-my" compare="LIKE"]
+	<p class="article-cat-text">
+		An Entrepreneur's Story: Startups from Malaysia
+	</p>
+	<p class="article-cat-text">{@article_category.name}</p>
+	[else]
+	<p class="article-cat-text">
+		An Entrepreneur's Story: Startups from Singapore
+	</p>
+	[/if] [/pods]
+</div>
