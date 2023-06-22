@@ -1,5 +1,8 @@
 <ul class="tabs-container" id="scrollto-section">
-	<li class="category-name-tab all active">View All</li>
+	<li class="category-name-tab all active">
+		<span id="viewall-cust-en">View All</span>
+		<span id="viewall-cust-zh">全部</span>
+	</li>
 	[pods name="collection_category" where="parent = '{@term_id}'"]
 	<li class="category-name-tab">{@name}</li>
 	[/pods]
@@ -8,16 +11,23 @@
 	<div class="left-bar">
 		<div class="product-filter dropdown-container">
 			<button class="btn-dropdown">
-				Filter <span class="active-circle"></span>
+				<span id="filter-label-cust-en">Filter </span>
+				<span id="filter-label-cust-zh">过滤 </span>
+				<span class="active-circle"></span>
 			</button>
 			<div class="dropdown-list">
-				<p class="small-label">By Era</p>
-				[pods name="era" limit="999"]
-				<label class="dropdown-label">
-					<input type="radio" value="{@name}" name="filter" />
-					{@name}
-				</label>
-				[/pods]
+				<div class="scrollable-list">
+					<p class="small-label">
+						<span id="era-label-cust-en">By Era</span>
+						<span id="era-label-cust-zh">按年代</span>
+					</p>
+					[pods name="era" limit="999"]
+					<label class="dropdown-label">
+						<input type="radio" value="{@name}" name="filter" />
+						{@name}
+					</label>
+					[/pods]
+				</div>
 				<label class="dropdown-label label-default">
 					<input
 						type="radio"
@@ -25,31 +35,38 @@
 						name="filter"
 						class="input-default"
 					/>
-					Clear Selection
+					<span id="filter-clear-cust-en">Clear Selection</span>
+					<span id="filter-clear-cust-zh">清除选择</span>
 				</label>
 			</div>
 		</div>
 		<div class="separator"></div>
 		<div class="product-sort dropdown-container">
 			<button class="btn-dropdown">
-				Sort <span class="active-circle"></span>
+				<span id="sort-label-cust-en">Sort </span>
+				<span id="sort-label-cust-zh">排序 </span>
+				<span class="active-circle"></span>
 			</button>
 			<div class="dropdown-list">
 				<label class="dropdown-label">
 					<input type="radio" value="alpha-asc" name="sort" />
-					Alphabetical (A-Z)
+					<span id="atoz-cust-en">Alphabetical (A-Z)</span>
+					<span id="atoz-cust-zh">按字母顺序 (A-Z)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="alpha-desc" name="sort" />
-					Alphabetical (Z-A)
+					<span id="ztoa-cust-en">Alphabetical (Z-A)</span>
+					<span id="ztoa-cust-zh">按字母顺序 (Z-A)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="price-asc" name="sort" />
-					Price (Lowest to Highest)
+					<span id="ltoh-cust-en">Price (Lowest to Highest)</span>
+					<span id="ltoh-cust-zh">价格 (从低到高)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="price-desc" name="sort" />
-					Price (Highest to Lowest)
+					<span id="htol-cust-en">Price (Highest to Lowest)</span>
+					<span id="htol-cust-zh">价格 (从高到低)</span>
 				</label>
 				<label class="dropdown-label label-default">
 					<input
@@ -58,16 +75,17 @@
 						name="sort"
 						class="input-default"
 					/>
-					Clear Selection
+					<span id="sort-clear-cust-en">Clear Selection</span>
+					<span id="sort-clear-cust-zh">清除选择</span>
 				</label>
 			</div>
 		</div>
 	</div>
 	<div class="right-bar">
-		<input type="text" id="search" class="search-bar" placeholder="Search" />
+		<input type="text" id="search" class="search-bar" />
 		<button class="btn-search" id="btn-search">
 			<img
-				src="https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/Vector2.png"
+				src="https://dgallery.my/beta/wp-content/uploads/2023/02/Vector2.png"
 				alt="Search"
 			/>
 		</button>
@@ -94,25 +112,28 @@
 	<!-- <button id="btn-load">Load More</button> -->
 	<div class="no-results">
 		<p>
-			No Results for "<strong id="result-name"></strong>". Try searching again.
+			<span id="noresults-cust-en"
+				>No Results for "<strong id="result-name"></strong>". Try searching
+				again.</span
+			>
+			<span id="noresults-cust-zh"
+				>没有 "<strong id="result-name"></strong>" 的结果. 请再次尝试搜索.</span
+			>
 		</p>
 		<img src="/wp-content/uploads/2023/02/no-results-1.png" alt="" />
 	</div>
 </div>
-<!-- <a class="btn-btt" href="#scrollto-section">
-	<svg
-		width="19"
-		height="14"
-		viewBox="0 0 19 14"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<path
-			d="M9.5 4.9375L1.6875 12.75L2.78125 13.8438L9.5 7.125L16.2188 13.8438L17.3125 12.75L9.5 4.9375ZM0.125 0.25H18.875V1.8125H0.125V0.25Z"
-			fill="black"
-		/>
-	</svg>
-</a> -->
+<nav class="pagination-container">
+	<button class="btn-prev-next-page" id="btn-prev-page">
+		<span id="btn-prev-cust-en">Prev</span>
+		<span id="btn-prev-cust-zh">上一页</span>
+	</button>
+	<div id="pagination-numbers"></div>
+	<button class="btn-prev-next-page" id="btn-next-page">
+		<span id="btn-next-cust-en">Next</span>
+		<span id="btn-next-cust-zh">下一页</span>
+	</button>
+</nav>
 <script>
 	const container = document.querySelector('.products-grid');
 	const inputSearch = document.querySelector('#search');
@@ -124,9 +145,10 @@
 
 	$(document).ready(function () {
 		const productTemplate = document.querySelector('#product-template');
+		let count = 1;
 
 		// First load the products as an array
-		[pods name="collection" limit="-1" where="collection_category.slug LIKE '%paintings%'"]
+		[pods name="collection" limit="-1" where="collection_category.slug LIKE '%paintings%'" orderby="display_order ASC"]
 		products_array.push({
 			name: '{@post_title}',
 			era: '{@era}',
@@ -134,27 +156,77 @@
 			priceLow: '{@estimate_value_from}',
 			priceHigh: '{@estimate_value_to}',
 			category: '{@collection_category.name}',
-			permalink: '{@permalink}'
+			permalink: '{@permalink}',
+			order: count,
 		});
+		count++;
 		[/pods]
 
 		// Then add them to the markup
 		products_array.forEach((p) => {
 			let templateClone = productTemplate.content.cloneNode(true).children[0];
 
-			templateClone.querySelector('.product-heading').textContent = p.name;
+			templateClone.querySelector('.product-heading').innerHTML = p.name;
 			templateClone.querySelector('.product-era').textContent = p.era;
 			templateClone.querySelector('.product-link').href = p.permalink;
 			templateClone.querySelector('.product-thumb').src = p.thumb;
 
-			container.appendChild(templateClone);
-
 			p.elem = templateClone;
 		});
 
-		$('.btn-dropdown').click(function() {
+		let { activeProducts, numberOfPages } = calculatePaginationData();
+		generatePagination(numberOfPages);
+		displayProducts(1, activeProducts);
+
+		$('#pagination-numbers').on('click', '.btn-pagination-num', function () {
+			let numVal = parseInt($(this).text(), 10);
+			$('.btn-pagination-num').removeClass('selected');
+			$(this).addClass('selected');
+			let { activeProducts, numberOfPages } = calculatePaginationData();
+			displayProducts(numVal, activeProducts);
+		});
+
+		$('.btn-dropdown').click(function () {
 			$('.btn-dropdown').not(this).parent().removeClass('open');
 			$(this).parent().toggleClass('open');
+		});
+
+		$('#btn-next-page').click(function() {
+			let currentSelectedPage = $('.btn-pagination-num.selected');
+			let getNextSelectedPage = currentSelectedPage.next('.btn-pagination-num');
+
+			if (getNextSelectedPage.length > 0) {
+				// Remove "selected" class from current selected page
+				currentSelectedPage.removeClass('selected');
+
+				// Add "selected" class to next page
+				getNextSelectedPage.addClass('selected');
+
+				let getSelectedPage = parseInt(getNextSelectedPage.text(), 10);
+				let { activeProducts, numberOfPages } = calculatePaginationData();
+				displayProducts(getSelectedPage, activeProducts);
+
+				updateButtonState(getSelectedPage, numberOfPages);
+			}
+		});
+
+		$('#btn-prev-page').click(function() {
+			let currentSelectedPage = $('.btn-pagination-num.selected');
+			let getPrevSelectedPage = currentSelectedPage.prev('.btn-pagination-num');
+
+			if (getPrevSelectedPage.length > 0) {
+				// Remove "selected" class from current selected page
+				currentSelectedPage.removeClass('selected');
+
+				// Add "selected" class to next page
+				getPrevSelectedPage.addClass('selected');
+
+				let getSelectedPage = parseInt(getPrevSelectedPage.text(), 10);
+				let { activeProducts, numberOfPages } = calculatePaginationData();
+				displayProducts(getSelectedPage, activeProducts);
+
+				updateButtonState(getSelectedPage, numberOfPages);
+			}
 		});
 
 		// "Active class" for the ones based on category
@@ -163,8 +235,14 @@
 
 			// Reset the inputs
 			inputSearch.value = '';
-			Array.from( document.querySelectorAll('input[name="filter"]:checked'), input => input.checked = false );
-			Array.from( document.querySelectorAll('input[name="sort"]:checked'), input => input.checked = false );
+			Array.from(
+				document.querySelectorAll('input[name="filter"]:checked'),
+				(input) => (input.checked = false)
+			);
+			Array.from(
+				document.querySelectorAll('input[name="sort"]:checked'),
+				(input) => (input.checked = false)
+			);
 
 			// Reset the search results
 			results.style.display = 'none';
@@ -177,76 +255,42 @@
 
 			$(this).addClass('active');
 			if ($(this).hasClass('all')) {
-				console.log(products_array);
-				products_array
-					.map((p) => p.elem.classList.add('active'))
-					.forEach((p) => container.appendChild(p.elem));
+				products_array.map((p) => p.elem.classList.add('active'));
 			} else {
 				let selectedCat = $('.category-name-tab.active').text();
 				products_array.forEach((p) => {
 					if (p.category == selectedCat) {
 						p.elem.classList.add('active');
-						container.appendChild(p.elem);
 					}
 				});
 			}
+
+			let { activeProducts, numberOfPages } = calculatePaginationData();
+			generatePagination(numberOfPages);
+			displayProducts(1, activeProducts);
 		});
 
 		// "Sort" simply sorts the array
-		for(var i = 0; i < sortSelect.length; i++) {
+		for (var i = 0; i < sortSelect.length; i++) {
 			sortSelect[i].addEventListener('change', (e) => {
-			e.target.closest('.dropdown-container').classList.remove('open');
-			let val = e.target.value.toLowerCase();
-			e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'inline-block';
+				e.target.closest('.dropdown-container').classList.remove('open');
+				let val = e.target.value.toLowerCase();
+				if(val == 'default') {
+					e.target
+					.closest('.dropdown-container')
+					.querySelector('.active-circle').style.display = 'none';
+				} else {
+					e.target
+					.closest('.dropdown-container')
+					.querySelector('.active-circle').style.display = 'inline-block';
+				}
 
-			switch (val) {
-				case 'alpha-asc':
-					sortAlpha(
-						1,
-						[...products_array].filter((p) =>
-							p.elem.classList.contains('active')
-						)
-					);
-					break;
-				case 'alpha-desc':
-					sortAlpha(
-						-1,
-						[...products_array].filter((p) =>
-							p.elem.classList.contains('active')
-						)
-					);
-					break;
-				case 'price-asc':
-					sortPrice(
-						true,
-						[...products_array].filter((p) =>
-							p.elem.classList.contains('active')
-						)
-					);
-					break;
-				case 'price-desc':
-					sortPrice(
-						false,
-						[...products_array].filter((p) =>
-							p.elem.classList.contains('active')
-						)
-					);
-					break;
-				case 'default':
-					[...products_array]
-						.filter((p) => p.elem.classList.contains('active'))
-						.sort((a, b) => a.order - b.order)
-						.forEach((p) => container.appendChild(p.elem));
-						e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'none';
-					break;
-				default:
-					break;
-			}
-		});
+				displaySortedProducts(val);
+			});
 		}
 
-
-		for(var i = 0; i < filterSelect.length; i++) {
+		// Filter function
+		for (var i = 0; i < filterSelect.length; i++) {
 			filterSelect[i].addEventListener('change', (e) => {
 				e.target.closest('.dropdown-container').classList.remove('open');
 				let val = e.target.value.toLowerCase();
@@ -254,15 +298,16 @@
 				results.style.display = 'none';
 
 				if (val == 'default') {
-					[...products_array]
+					products_array
 						.filter((p) => p.elem.classList.contains('active'))
 						.forEach((p) => {
 							p.elem.classList.remove('filtered');
-							container.appendChild(p.elem);
 						});
-						e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'none';
+					e.target
+						.closest('.dropdown-container')
+						.querySelector('.active-circle').style.display = 'none';
 				} else {
-					[...products_array]
+					products_array
 						.filter((p) => p.elem.classList.contains('active'))
 						.forEach((p) => {
 							let matches = p.era.toLowerCase() == val;
@@ -273,19 +318,22 @@
 							} else {
 								count += 1;
 							}
-
-							container.appendChild(p.elem);
 						});
-					e.target.closest('.dropdown-container').querySelector('.active-circle').style.display = 'inline-block';
+					e.target
+						.closest('.dropdown-container')
+						.querySelector('.active-circle').style.display = 'inline-block';
 
 					if (count === 0) {
 						results.style.display = 'block';
 						results.querySelector('#result-name').textContent = val;
 					}
 				}
+
+				let { activeProducts, numberOfPages } = calculatePaginationData();
+				generatePagination(numberOfPages);
+				displayProducts(1, activeProducts);
 			});
 		}
-
 
 		// Search function
 		const btnSearch = document.querySelector('#btn-search');
@@ -300,19 +348,62 @@
 		});
 	});
 
+	function calculatePaginationData() {
+		let activeProducts = products_array.filter((p) => {
+			return (
+				p.elem.classList.contains('active') &&
+				!p.elem.classList.contains('hide') &&
+				!p.elem.classList.contains('filtered')
+			);
+		});
+		const numberOfPages = Math.ceil(activeProducts.length / 12);
+		return {
+			activeProducts,
+			numberOfPages
+		};
+	}
+
+	function displayProducts(n, products) {
+		const start = (n - 1) * 12;
+		const end = start + 12;
+		const productsToShow = products.slice(start, end);
+
+		$('.products-grid')
+			.empty()
+			.append(productsToShow.map((p) => p.elem));
+	}
+
+	function generatePagination(pages) {
+		$('#pagination-numbers').empty();
+
+		for (let i = 1; i <= pages; i++) {
+			const pageNumBtn = $(
+				'<button class="btn-pagination-num">' + i + '</button>'
+			);
+
+			if (i === 1) {
+	           pageNumBtn.addClass('selected');
+	       }
+
+			$('#pagination-numbers').append(pageNumBtn);
+		}
+
+		updateButtonState(1, pages);
+	}
+
 	function searchFunction() {
 		let val = inputSearch.value.toLowerCase();
 		let count = 0;
 		results.style.display = 'none';
 
-		let filteredItems = [...products_array].filter(
+		let filteredItems = products_array.filter(
 			(p) =>
 				p.elem.classList.contains('active') &&
 				p.elem.classList.contains('filtered')
 		);
 
 		if (filteredItems.length > 0) {
-			[...products_array]
+			products_array
 				.filter(
 					(p) =>
 						p.elem.classList.contains('active') &&
@@ -330,11 +421,9 @@
 					} else {
 						p.elem.classList.add('hide');
 					}
-
-					container.appendChild(p.elem);
 				});
 		} else {
-			[...products_array]
+			products_array
 				.filter((p) => p.elem.classList.contains('active'))
 				.forEach((p) => {
 					let matches =
@@ -348,10 +437,12 @@
 					} else {
 						p.elem.classList.add('hide');
 					}
-
-					container.appendChild(p.elem);
 				});
 		}
+
+		let { activeProducts, numberOfPages } = calculatePaginationData();
+		generatePagination(numberOfPages);
+		displayProducts(1, activeProducts);
 
 		if (count === 0) {
 			results.style.display = 'block';
@@ -359,21 +450,41 @@
 		}
 	}
 
-	function sortAlpha(num, array) {
-		array
-			.sort((a, b) => num * a.name.localeCompare(b.name))
-			.forEach((p) => container.appendChild(p.elem));
+	function displaySortedProducts(val) {
+		switch (val) {
+			case 'alpha-asc':
+				products_array.sort((a, b) => a.name.localeCompare(b.name));
+				break;
+			case 'alpha-desc':
+				products_array.sort((a, b) => b.name.localeCompare(a.name));
+				break;
+			case 'price-asc':
+				products_array.sort(
+					(a, b) =>
+						parseInt(a.priceLow.replaceAll(',', '')) -
+						parseInt(b.priceLow.replaceAll(',', ''))
+				);
+				break;
+			case 'price-desc':
+				products_array.sort(
+					(a, b) =>
+						parseInt(b.priceHigh.replaceAll(',', '')) -
+						parseInt(a.priceHigh.replaceAll(',', ''))
+				);
+				break;
+			case 'default':
+				products_array.sort((a, b) => a.order - b.order);
+				break;
+			default:
+				break;
+		}
+
+		let { activeProducts, numberOfPages } = calculatePaginationData();
+		displayProducts(1, activeProducts);
 	}
 
-	function sortPrice(ascending, array) {
-		array
-			.sort((a, b) =>
-				ascending
-					? parseInt(a.priceLow.replaceAll(',', '')) -
-					  parseInt(b.priceLow.replaceAll(',', ''))
-					: parseInt(b.priceHigh.replaceAll(',', '')) -
-					  parseInt(a.priceHigh.replaceAll(',', ''))
-			)
-			.forEach((p) => container.appendChild(p.elem));
+	function updateButtonState(currPage, totalPages) {
+		$('#btn-prev-page').prop('disabled', currPage === 1 ? true : false);
+	 	$('#btn-next-page').prop('disabled', currPage === totalPages ? true : false);
 	}
 </script>

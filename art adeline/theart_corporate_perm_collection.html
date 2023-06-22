@@ -1,0 +1,28 @@
+<div class="js-collection-block">
+	<div class="collection-grid">
+		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '10'"]
+		<div class="collection-item">
+			[if additional_images]<a
+				class="fancyboxLauncher"
+				data-fancybox="{@ID}"
+				href="{@post_thumbnail_url.medium_large}"
+				><img src="{@post_thumbnail_url.medium_large}" alt=""
+			/></a>
+			[else]
+			<img src="{@post_thumbnail_url.medium_large}" alt="" />
+			[/if] [if additional_images]
+			<div
+				style="display: none"
+				class="add-imgs"
+				data-imglinks="{@additional_images._src.large}"
+				data-id="{@ID}"
+			>
+				<!-- Additional image tags here -->
+			</div>
+			[/if]
+			<p><strong>{@post_title}</strong> [if dimensions]({@dimensions})[/if]</p>
+		</div>
+		[/pods]
+	</div>
+	<button class="button-loadmore">View More</button>
+</div>

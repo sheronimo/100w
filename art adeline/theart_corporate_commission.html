@@ -1,0 +1,14 @@
+<div class="js-collection-block">
+	<div>
+		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '14'"]
+		<div class="collection-item single-item">
+			<div class="multi-image">
+				<img src="{@post_thumbnail_url.medium_large}" alt="" />
+				[if additional_images]{@additional_images._img.medium_large}[/if]
+			</div>
+			<p><strong>{@post_title}</strong> [if dimensions]({@dimensions})[/if]</p>
+		</div>
+		[/pods]
+	</div>
+	<button class="button-loadmore">View More</button>
+</div>

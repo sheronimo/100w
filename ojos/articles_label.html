@@ -12,21 +12,41 @@
 		font-size: 12px;
 		color: #fff;
 		background-color: #1f1f1f;
-		padding-block: 15px !important;
-		padding-inline: 20px;
+		padding-block: 6px !important;
+		padding-inline: 15px;
 		border-radius: 10px;
 	}
 </style>
-<div class="article-cats">
-	[pods name="article" where="ID = '{@ID}'"] [if field="article_category.slug"
-	value="%-my" compare="LIKE"]
-	<p class="article-cat-text">
-		An Entrepreneur's Story: Startups from Malaysia
-	</p>
-	<p class="article-cat-text">{@article_category.name}</p>
-	[else]
-	<p class="article-cat-text">
-		An Entrepreneur's Story: Startups from Singapore
-	</p>
-	[/if] [/pods]
-</div>
+[pods name="article" where="ID = '{@ID}'"]
+<div
+	class="article-cats"
+	data-slug="{@article_category.slug}"
+	data-catname="{@article_category.name}"
+></div>
+[/pods]
+<script>
+	jQuery(document).ready(function ($) {
+		let slug = $('.article-cats').data('slug');
+		let catname = $('.article-cats').data('catname');
+		let text = '';
+
+		if (~slug.indexOf('my')) {
+			$('.article-cats').append(
+				'<p class="article-cat-text">An Entrepreneur\'s Story: Startups from Malaysia</p>'
+			);
+			$('.article-cats').append(
+				'<p class="article-cat-text">' + catname + '</p>'
+			);
+		} else {
+			if (~slug.indexOf('heroes')) {
+				$('.article-cats').append(
+					'<p class="article-cat-text">' + catname + '</p>'
+				);
+			} else {
+				$('.article-cats').append(
+					'<p class="article-cat-text">An Entrepreneur\'s Story: Startups from Singapore</p>'
+				);
+			}
+		}
+	});
+</script>

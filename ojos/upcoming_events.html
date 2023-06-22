@@ -1,0 +1,12 @@
+[pods name="event" limit="-1" where="event_date.meta_value > CURRENT_DATE()"]
+<div class="event-block upcoming-event-block">
+	<img src="{@post_thumbnail_url.large}" alt="" class="event-img" />
+	<div class="upcoming-event-right">
+		<h2 class="event-title">{@post_title}</h2>
+		<div class="event-description">{@event_description}</div>
+		[if button_cta]
+		<a href="{@button_url}" target="_blank" class="btn-cta">{@button_cta}</a>
+		[/if]
+	</div>
+</div>
+[/pods]

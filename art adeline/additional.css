@@ -1,0 +1,240 @@
+/* Header Nav Menu */
+.et_pb_fullwidth_menu .et_pb_row {
+	width: 90%;
+	max-width: 1500px;
+}
+
+@media (min-width: 767px) {
+	.cust-mega-menu .sub-menu {
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 60px !important;
+	}
+
+	.cust-mega-menu .sub-menu > li {
+		width: auto !important;
+	}
+
+	.et-menu-nav li.mega-menu ul li {
+		float: unset !important;
+	}
+
+	.cust-mega-menu .sub-menu li:has(img) {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-top: 0px !important;
+	}
+
+	.cust-mega-menu-imgs > a {
+		display: flex;
+		gap: 10px;
+	}
+
+	.et-menu-nav li.mega-menu li.cust-mega-menu-imgs > a {
+		width: auto !important;
+	}
+
+	.cust-mega-menu-imgs img {
+		width: 150px;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.et-menu-nav li.cust-mega-menu li > a {
+		width: max-content !important;
+		border-bottom: 0 !important;
+	}
+
+	.menu-with-images .sub-menu {
+		width: auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	#global-header-section .et_pb_fullwidth_menu > .et_pb_row {
+		gap: 200px;
+	}
+}
+
+@media (max-width: 767px) {
+	.dropdown-menu-img img {
+		display: none;
+	}
+
+	.cust-mega-menu .sub-menu li:has(img) {
+		display: none;
+	}
+
+	#global-header-section .et_pb_menu__wrap {
+		justify-content: flex-end;
+	}
+}
+
+/* Footer Menu */
+#footer-menu #menu-footer-menu {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 980px) {
+	/*open the mobile menu up and use on all devices*/
+	.et-db #et-boc .et-l #footer-menu .et_pb_menu__menu {
+		display: block;
+	}
+	/*hide the hamburger icon*/
+	.et-db #et-boc .et-l #footer-menu .et_mobile_nav_menu {
+		display: none;
+	}
+
+	#footer-menu #menu-footer-menu {
+		display: block;
+	}
+
+	#footer-menu .et_pb_menu__wrap {
+		justify-content: flex-start;
+	}
+}
+
+/* Globals */
+/* Image */
+.image-pad img {
+	padding: 5px;
+}
+
+/* Text */
+.two-liner {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.two-liner span {
+	background-color: white;
+	padding-inline: 20px;
+}
+
+.smaller-heading {
+	font-size: 20px;
+}
+
+/* Homepage */
+/* Hero Slider */
+#homepage-slider .et_pb_slide_2,
+#homepage-slider .et_pb_slide_0 {
+	padding-inline: 0;
+}
+
+#homepage-slider .et_pb_slide_2 .et_pb_slide_content p,
+#homepage-slider .et_pb_slide_0 .et_pb_slide_content p {
+	display: inline-block;
+	background-color: white;
+	padding-bottom: 0;
+	padding-inline: 20px;
+}
+
+#homepage-slider .et_pb_slider_container_inner {
+	vertical-align: bottom;
+}
+
+#homepage-slider .et_pb_slide_description {
+	padding: 0;
+}
+
+/* First slide */
+#homepage-slider .et_pb_slide_0 .et_pb_slide_title {
+	padding-bottom: 0;
+	padding-right: 30px;
+}
+
+#homepage-slider .et_pb_slide_0 .et_pb_slide_content {
+	transform: translateY(-100px);
+}
+
+/* Second slide */
+#homepage-slider .et_pb_slide_1 .et_pb_slider_container_inner {
+	vertical-align: middle;
+}
+
+/* Third Slide */
+#homepage-slider .et_pb_slide_2 .et_pb_slide_content {
+	transform: translateY(-70px);
+}
+
+/* Testimonial Slider */
+@media (max-width: 767px) {
+	#testimonial-slider > .et_pb_slides {
+		width: 90%;
+		margin-inline: auto;
+	}
+}
+
+/* The Art page */
+.collection-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+
+.img-with-border {
+	padding: 5px;
+	border: 3px solid #c69c6d;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.collection-item {
+	display: none;
+}
+
+.collection-item.centered {
+	text-align: center;
+}
+
+.collection-item p {
+	padding-bottom: 0;
+}
+
+.button-loadmore {
+	margin-top: 30px;
+	display: block;
+	cursor: pointer;
+	margin-inline: auto;
+	border: none;
+	background-color: transparent;
+	font-family: inherit;
+	text-transform: uppercase;
+	color: #c1272d;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.multi-image {
+	display: flex;
+	height: 500px;
+	align-items: stretch;
+}
+
+.img-wrapper {
+	flex-basis: 50%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.img-wrapper:first-child {
+	flex-basis: 100%;
+}
+
+.multi-image img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+.single-item {
+	margin-bottom: 30px;
+}
+
+.fancyboxLauncher {
+	cursor: pointer;
+}

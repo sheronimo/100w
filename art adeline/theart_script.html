@@ -1,0 +1,59 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"
+	integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw=="
+	crossorigin="anonymous"
+	referrerpolicy="no-referrer"
+/>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
+	integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
+	crossorigin="anonymous"
+	referrerpolicy="no-referrer"
+></script>
+<script>
+	$(document).ready(function () {
+		$('.js-collection-block').each(function () {
+			$(this).find('.collection-item').slice(0, 3).show();
+
+			if ($(this).find('.collection-item:hidden').length === 0) {
+				$(this).find('.button-loadmore').hide();
+			}
+		});
+
+		$('.button-loadmore').click(function () {
+			$(this).parent().find('.collection-item:hidden').slice(0, 3).show();
+
+			if ($(this).parent().find('.collection-item:hidden').length === 0) {
+				$(this).hide();
+			}
+		});
+
+		$('.add-imgs').each(function () {
+			let currElem = $(this);
+			let fancyboxID = $(this).data('id');
+			let srcString = currElem.data('imglinks');
+			// Get length of https links in string
+			let strLength = srcString.split('http').length - 1;
+			// Split the string into an array
+			let srcArr = '';
+
+			if (strLength === 1) {
+				srcArr = [srcString];
+			} else if (strLength === 2) {
+				srcArr = srcString.split(' and ');
+			} else {
+				srcArr = srcString.replace('and ', '').split(', ');
+			}
+
+			srcArr.forEach((s) => {
+				let linkElem = document.createElement('a');
+				linkElem.classList.add('additional-image');
+				linkElem.href = s;
+				linkElem.dataset.fancybox = fancyboxID;
+				currElem.append(linkElem);
+			});
+		});
+	});
+</script>

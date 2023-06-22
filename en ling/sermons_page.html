@@ -1,4 +1,9 @@
 <style>
+	/* Category tabs */
+	.dropdown-toggle {
+		display: none;
+	}
+
 	.cat-tabs-container {
 		display: flex;
 		align-items: center;
@@ -13,16 +18,161 @@
 		font-size: 18px;
 		line-height: 21.6px;
 		letter-spacing: 2px;
-		padding-bottom: 7px;
+		padding-bottom: 12px;
+		position: relative;
 	}
 
-	.cat-tab::marker {
+	.cat-child {
+		color: #000;
+		font-weight: 400;
+		font-size: 14px;
+		margin-block: 7.5px;
+	}
+
+	.cat-tab::marker,
+	.cat-child::marker {
 		content: '' !important;
 	}
 
 	.cat-tab.active {
 		font-weight: 700;
 		border-bottom: 2px solid #f8cc55;
+	}
+
+	/* Sermon filters */
+	.filters {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+	}
+
+	.filters > *:not(:last-child) {
+		border-right: 1px solid #fff;
+	}
+
+	.sermon-filter {
+		position: relative;
+	}
+
+	.filter-label {
+		color: #fff;
+		font-size: 14px;
+		text-transform: uppercase;
+		width: 100px;
+	}
+
+	.btn-dropdown {
+		background: transparent;
+		border: 0;
+		color: #fff;
+		font-size: 14px;
+		text-transform: uppercase;
+		cursor: pointer;
+		width: 130px;
+		position: relative;
+		padding-inline: 0;
+		text-align: left;
+	}
+
+	.btn-dropdown::after {
+		font-family: ETmodules;
+		content: '\33';
+		margin-left: 14px;
+		color: #fff;
+		position: absolute;
+		right: 30px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.dropdown-list {
+		position: absolute;
+		background-color: white;
+		top: 40px;
+		left: 0;
+		padding-block: 25px;
+		box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+		display: none;
+		min-width: 195px;
+		border-radius: 10px;
+	}
+
+	.dropdown-list.open {
+		display: block;
+	}
+
+	.pad-container {
+		padding-inline: 30px;
+		min-width: 300px;
+		max-height: 500px;
+		overflow-y: auto;
+	}
+
+	.btn-clear-filter {
+		background: transparent;
+		border: 0;
+		font-size: 12px;
+		font-weight: 700;
+		color: #4e4e4e;
+		text-align: right;
+		cursor: pointer;
+		display: block;
+		margin-left: auto;
+		margin-top: 20px;
+		padding-right: 20px;
+	}
+
+	#chapter-filter-col {
+		display: none;
+		padding-top: 15px;
+		border-top: 1px solid #9a9a9a;
+	}
+
+	.small-label {
+		font-weight: 600;
+		font-size: 12px;
+		color: #989898;
+		padding-inline: 20px;
+	}
+
+	.dropdown-label {
+		display: block;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 40px;
+		color: #000;
+		cursor: pointer;
+		padding-inline: 20px;
+	}
+
+	.dropdown-label input {
+		margin: 0;
+		width: 0px;
+		height: 0px;
+	}
+
+	.dropdown-label input:checked + span {
+		color: #f8cc55;
+	}
+
+	.btn-apply {
+		font-weight: 700;
+		color: #000;
+		display: block;
+		text-align: center;
+		border: 0;
+		background: transparent;
+		width: 100%;
+		display: block;
+		padding-block: 10px;
+		margin-top: 20px;
+		border-top: 1px solid rgba(119, 119, 119, 0.4);
+		cursor: pointer;
+	}
+
+	.btn-apply:disabled {
+		color: #9b9b9b;
+		cursor: not-allowed;
 	}
 
 	.sermons-grid {
@@ -33,6 +183,7 @@
 		justify-items: space-between;
 		row-gap: 30px;
 		column-gap: 1rem;
+		min-height: 500px;
 	}
 
 	.sermon-thumb {
@@ -61,8 +212,53 @@
 		padding-bottom: 10px;
 	}
 
-	.dropdown-toggle {
+	.sermon-block {
+		display: block;
+	}
+
+	.sermon-block.hide-speaker {
 		display: none;
+	}
+
+	.sermon-block.hide-bible {
+		display: none;
+	}
+
+	@media (min-width: 768px) {
+		.cat-tab::after {
+			font-family: ETmodules;
+			content: '\33';
+			color: #fff;
+			position: absolute;
+			right: -20px;
+			top: 0;
+			display: none;
+		}
+
+		.cat-tab.has-dropdown::after {
+			display: block;
+		}
+
+		.cat-child.active {
+			font-weight: 700;
+			color: #f8cc55;
+		}
+
+		.cat-parent:hover .subcats-dropdown {
+			display: block;
+		}
+
+		.subcats-dropdown {
+			position: absolute;
+			background: #fff;
+			display: none;
+			top: 100%;
+			min-width: 100%;
+			padding: 7.5px 25px !important;
+			z-index: 100;
+			box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+		}
 	}
 
 	@media (max-width: 992px) {
@@ -79,39 +275,42 @@
 	}
 
 	@media (max-width: 767px) {
-		.cat-tabs-container {
-			display: block;
-			position: absolute;
-			/* top: 0; */
-			background: #fff;
+		.filters {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 15px;
+			margin-block: 20px;
+		}
+
+		.btn-dropdown {
 			width: 100%;
-			top: 39px;
-			padding-block: 5px !important;
-			padding-inline: 0 !important;
-			box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-			margin-top: 0;
-			display: none;
 		}
 
-		.cat-tab {
-			color: #1e4a63;
-			font-weight: 700;
-			padding-block: 3px !important;
-			padding-inline: 20px !important;
-			font-size: 14px;
+		.btn-dropdown::after {
+			right: 0;
 		}
 
-		.cat-tab.active {
-			background-color: #f8cc55;
-			border: 0;
+		.btn-dropdown-middle::after {
+			right: 15px;
+		}
+
+		.dropdown-list {
+			min-width: auto;
+			width: 80vw;
+		}
+
+		#bible-filter .dropdown-list {
+			left: 54%;
+			transform: translateX(-54%);
+		}
+
+		#speaker-filter .dropdown-list {
+			left: unset;
+			right: 0;
 		}
 
 		.dropdown {
 			position: relative;
-		}
-
-		.dropdown.open .cat-tabs-container {
-			display: block;
 		}
 
 		.dropdown-toggle {
@@ -138,27 +337,125 @@
 			transform: translateY(-50%);
 			right: 10px;
 		}
+
+		.cat-tabs-container {
+			display: block;
+			position: absolute;
+			/* top: 0; */
+			background: #fff;
+			width: 100%;
+			top: 39px;
+			padding-block: 5px !important;
+			padding-inline: 0 !important;
+			box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+			margin-top: 0;
+			display: none;
+		}
+
+		.cat-tab,
+		.cat-child {
+			color: #1e4a63;
+			font-weight: 700;
+			padding-block: 3px !important;
+			padding-inline: 20px !important;
+			font-size: 14px;
+			letter-spacing: 0px;
+		}
+
+		.cat-tab.active,
+		.cat-child.active {
+			background-color: #f8cc55;
+			border: 0;
+		}
+
+		.dropdown.open .cat-tabs-container {
+			display: block;
+		}
+
+		.subcats-dropdown {
+			padding-bottom: 0 !important;
+		}
+
+		.subcats-dropdown .cat-child:last-child {
+			margin-bottom: 0;
+		}
 	}
 </style>
 <div class="dropdown">
 	<button class="dropdown-toggle">讲道系列</button>
 	<ul class="cat-tabs-container">
-		<li class="cat-tab active all">查看全部</li>
-		[pods name="sermon_series" limit="-1"]
-		<li class="cat-tab">{@name}</li>
+		<li class="cat-tab js-cat active all">查看全部</li>
+		[pods name="sermon_series" limit="-1" orderby="seq_order ASC" where="parent
+		= 0"]
+		<li class="cat-tab js-cat cat-parent">
+			<span>{@name}</span>
+			{@term_id,cust_display_sermon_series}
+		</li>
 		[/pods]
 	</ul>
 </div>
+<div class="filters">
+	<p class="filter-label">Filters</p>
+	<div class="sermon-filter" id="bible-filter">
+		<button class="btn-dropdown btn-dropdown-middle">Bible</button>
+		<div class="dropdown-list">
+			<div id="book-filter-col">
+				<p class="small-label">Book</p>
+				[pods name="bible_book" limit="-1" orderby="order ASC"]
+				<label class="dropdown-label">
+					<input type="radio" value="{@name}" name="filter-book" />
+					<span>{@name}</span>
+				</label>
+				[/pods]
+			</div>
+			<div id="chapter-filter-col">
+				<p class="small-label">Chapter</p>
+				<label class="dropdown-label">
+					<input type="radio" value="all-chap" name="filter-chapter" />
+					<span>All Chapters</span>
+				</label>
+				[pods name="bible_chapter" limit="-1" orderby="CAST(name AS SIGNED)
+				ASC"]
+				<label class="dropdown-label">
+					<input type="radio" value="{@name}" name="filter-chapter" />
+					<span>{@name}</span>
+				</label>
+				[/pods]
+			</div>
+			<button class="btn-clear-filter" id="clear-bible">Clear Selection</button>
+		</div>
+	</div>
+	<div class="sermon-filter" id="speaker-filter">
+		<button class="btn-dropdown">Speaker</button>
+		<div class="dropdown-list">
+			[pods name="speaker" limit="999"]
+			<label class="dropdown-label">
+				<input type="radio" value="{@name}" name="filter-speaker" />
+				<span>{@name}</span>
+			</label>
+			[/pods]
+			<button class="btn-clear-filter" id="clear-speaker">
+				Clear Selection
+			</button>
+		</div>
+	</div>
+</div>
 <div class="sermons-grid">
-	[pods name="sermon" orderby="sermon_date DESC"]
-	<div class="sermon-block" data-series="{@sermon_series.name}">
+	[pods name="sermon" limit="-1" orderby="sermon_date DESC"]
+	<div
+		class="sermon-block"
+		data-series="{@sermon_series.name}"
+		data-book="{@bible_book.name}"
+		data-chapter="{@bible_chapter.name}"
+		data-speaker="{@speaker.name}"
+	>
 		<a href="{@permalink}" class="sermon-thumb-wrap">
 			<img class="sermon-thumb" src="{@post_thumbnail_url.large}" />
 		</a>
 		<div class="sermon-text">
 			<h4 class="sermon-title">{@post_title}</h4>
-			<p>{@verse}</p>
-			<p>{@speaker}</p>
+			<p><span>{@bible_book.name}</span> {@ID,cust_display_verse_field}</p>
+			<p>{@speaker.name}</p>
 			<p class="js_sermon_date">{@sermon_date}</p>
 		</div>
 	</div>
@@ -175,23 +472,98 @@
 </script>
 <script>
 	jQuery(document).ready(function ($) {
-		$('.cat-tab').click(function () {
+		$('.js-cat').click(function (e) {
+			e.stopPropagation();
 			$('.dropdown').removeClass('open');
-			$('.cat-tab').removeClass('active');
-			$('.sermon-block').hide();
+			$('.js-cat').removeClass('active');
+			$('.sermon-block').not('.hide-speaker, .hide-bible').hide();
 
 			$(this).addClass('active');
 			if ($(this).hasClass('all')) {
-				$('.sermon-block').show();
+				$('.sermon-block').not('.hide-speaker, .hide-bible').show();
 			} else {
-				$(
-					'.sermon-block[data-series="' + $('.cat-tab.active').text() + '"]'
-				).show();
+				if ($(this).has('.subcats-dropdown').length > 0) {
+					$('.js-cat.active > span, .js-cat.active .cat-child > span').each(
+						function () {
+							$('.sermon-block[data-series="' + $(this).text() + '"]')
+								.not('.hide-speaker, .hide-bible')
+								.show();
+						}
+					);
+				} else {
+					$(
+						'.sermon-block[data-series="' +
+							$('.js-cat.active > span').text() +
+							'"]'
+					)
+						.not('.hide-speaker, .hide-bible')
+						.show();
+				}
 			}
 		});
 
+		$('.cat-tab').has('.subcats-dropdown').addClass('has-dropdown');
+
 		$('.dropdown .dropdown-toggle').click(function () {
 			$(this).parent().toggleClass('open');
+		});
+
+		$('.btn-dropdown').click(function () {
+			$('.btn-dropdown')
+				.not(this)
+				.siblings('.dropdown-list')
+				.removeClass('open');
+			$(this).siblings('.dropdown-list').toggleClass('open');
+		});
+
+		$('input[name="filter-book"]').change(function () {
+			$('#chapter-filter-col').show();
+			$('input[name="filter-book"]').not(':checked').parent().hide();
+			$('#btn-apply-bible').prop('disabled', false);
+		});
+
+		$('input[name="filter-speaker"]').change(function () {
+			$(this).closest('.dropdown-list').removeClass('open');
+			let val = $('input[name="filter-speaker"]:checked').val();
+			$('.sermon-block').removeClass('hide-speaker');
+			$('.sermon-block').not(`[data-speaker=${val}]`).addClass('hide-speaker');
+		});
+
+		$('input[name="filter-chapter"]').change(function () {
+			$(this).closest('.dropdown-list').removeClass('open');
+			$('.sermon-block').removeClass('hide-bible');
+			let bookVal = $('input[name="filter-book"]:checked').val();
+			let chapterVal = $('input[name="filter-chapter"]:checked').val();
+
+			if (chapterVal === 'all-chap') {
+				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible');
+			} else {
+				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible');
+				$(`.sermon-block[data-book=${bookVal}]`).each(function () {
+					let dataChapArray = $(this).data('chapter').toString().split(' ');
+
+					if (!dataChapArray.includes(chapterVal)) {
+						$(this).addClass('hide-bible');
+					}
+				});
+			}
+		});
+
+		$('#clear-bible').click(function () {
+			$(this).closest('.dropdown-list').removeClass('open');
+			$('input[name="filter-book"]').prop('checked', false);
+			$('input[name="filter-book"]').parent().show();
+			$('input[name="filter-chapter"]').prop('checked', false);
+			$('#btn-apply-bible').prop('disabled', true);
+			$('#chapter-filter-col').hide();
+			$('.sermon-block').removeClass('hide-bible');
+		});
+
+		$('#clear-speaker').click(function () {
+			$(this).closest('.dropdown-list').removeClass('open');
+			$('input[name="filter-speaker"]').prop('checked', false);
+			$('#btn-apply-speaker').prop('disabled', true);
+			$('.sermon-block').removeClass('hide-speaker');
 		});
 	});
 </script>

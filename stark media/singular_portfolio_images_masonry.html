@@ -7,22 +7,6 @@
 		width: 100%;
 	}
 
-	.btn-center {
-		text-align: center;
-	}
-
-	.btn-social {
-		color: #fff !important;
-		background-color: #0dbac3;
-		font-size: 18px;
-		font-weight: bold;
-		border-radius: 50px;
-		display: inline-block;
-		border: 2px solid #fff;
-		padding: 0.3em 1em !important;
-		margin-block: 30px;
-	}
-
 	@media (max-width: 767px) {
 		.img-masonry-item {
 			max-width: unset;
@@ -30,23 +14,17 @@
 	}
 </style>
 <div class="images-masonry">
-	[pods name="portfolio" where="post_title = '{@post_title}'"]
+	[pods name="portfolio" where="ID = '{@ID}'"]
 	<div class="img-masonry-item">
 		<img src="{@post_thumbnail_url.medium_large}" />
 	</div>
-	[if url]
-	<div class="btn-center">
-		<a href="{@url}" target="_blank" class="btn-social" rel="noopener"
-			>View our {@cta}</a
-		>
-	</div>
-	[/if] [/pods]
+	[/pods]
 </div>
 <script>
 	function getLinks() {
 		const masonryContainer = document.querySelector('.images-masonry');
 		let srcString = '';
-		[pods name="portfolio" where="post_title = '{@post_title}'"]
+		[pods name="portfolio" where="ID = '{@ID}'"]
 		srcString = '{@additional_images._src.medium_large}';
 		[/pods]
 		// Get length of https links in string

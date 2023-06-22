@@ -1,0 +1,162 @@
+<style>
+	.mainclip-text {
+		margin-top: 30px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 40px;
+	}
+
+	.story-desc {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+		line-height: 1.7em;
+		color: #fff;
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		padding-bottom: 0;
+	}
+
+	.stories-grid {
+		margin-top: 40px;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: 27px;
+		row-gap: 56px;
+	}
+
+	.block-title {
+		margin-top: 15px;
+		height: 40px;
+	}
+
+	/* #btn-load {
+		display: none;
+	} */
+
+	.btn-watch {
+		font-weight: 700;
+		color: #fff;
+		background-color: #14647d;
+		font-size: 14px;
+		line-height: 20px;
+		padding: 8px 20px;
+		text-transform: uppercase;
+		margin-top: 20px;
+		border-radius: 3px;
+		display: inline-block;
+	}
+
+	.txt-white {
+		color: #fff;
+	}
+
+	.title-text {
+		font-size: 16px;
+		line-height: 20px;
+	}
+
+	.text-xl {
+		font-size: 36px;
+		line-height: 48px;
+	}
+
+	@media (max-width: 767px) {
+		.title-text,
+		.text-xl {
+			font-size: 18px;
+			line-height: 30px;
+		}
+
+		.mainclip-text {
+			grid-template-columns: 1fr;
+			gap: 0;
+		}
+
+		.mainclip-text,
+		.block-title {
+			margin-top: 9px;
+		}
+
+		.block-title {
+			height: unset;
+		}
+
+		.stories-grid {
+			margin-top: 27px;
+			grid-template-columns: 1fr;
+			gap: 27px;
+		}
+
+		/* .hiddenStyle {
+			position: absolute;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			width: 1px;
+			margin: -1px;
+			padding: 0;
+			border: 0;
+		} */
+
+		.story-block .fluid-width-video-wrapper {
+			padding-top: 50% !important;
+		}
+
+		/* #btn-load {
+			display: block;
+			margin-inline: auto;
+			border: 0;
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 600;
+			font-size: 14px;
+			line-height: 17.07px;
+			text-transform: uppercase;
+			color: #fff;
+			background-color: #14647d;
+			border-radius: 3px;
+			padding: 10px 20px;
+			margin-top: 30px;
+		} */
+
+		.btn-watch {
+			margin-top: 15px;
+		}
+	}
+</style>
+
+[pods name="video" limit="1" orderby="post_date DESC"]
+<iframe data-url="{@youtube_video_link}" class="js-change-embed"></iframe>
+<div class="mainclip-text">
+	<a href="{@permalink}"><h3 class="title-text text-xl">{@post_title}</h3></a>
+	<div>
+		<a href="{@permalink}" class="txt-white">{@description}</a>
+		<a href="{@permalink}" class="btn-watch">Watch Now</a>
+	</div>
+</div>
+[/pods]
+
+<div class="stories-grid">
+	[pods name="video" orderby="post_date DESC" offset="1" limit="999"]
+	<div class="story-block">
+		<iframe data-url="{@youtube_video_link}" class="js-change-embed"></iframe>
+		<a href="{@permalink}">
+			<h3 class="title-text block-title">{@post_title}</h3>
+			<div class="story-desc">{@description}</div>
+		</a>
+		<a href="{@permalink}" class="btn-watch">Watch Now</a>
+	</div>
+	[/pods]
+</div>
+<script>
+	const iframes = document.querySelectorAll('.js-change-embed');
+
+	iframes.forEach((f) => {
+		let link = f.dataset.url;
+
+		let id = link.split('=');
+
+		f.src = `https://www.youtube.com/embed/${id[1]}`;
+	});
+</script>

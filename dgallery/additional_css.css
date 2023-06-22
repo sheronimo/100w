@@ -6,8 +6,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-wrap: wrap;
 	text-align: center;
-	gap: 80px;
+	gap: 40px;
 	list-style: none;
 	padding-left: 0 !important;
 }
@@ -25,6 +26,7 @@
 	letter-spacing: 1px;
 	color: rgba(0, 0, 0, 0.5);
 	cursor: pointer;
+	flex-basis: 175px;
 }
 
 .category-name-tab.active {
@@ -123,6 +125,11 @@
 	box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
 }
 
+.scrollable-list {
+	height: 500px;
+	overflow-y: auto;
+}
+
 .dropdown-container.open .dropdown-list {
 	display: block;
 }
@@ -135,13 +142,19 @@
 }
 
 .dropdown-label {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 7px;
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 40px;
 	color: #141743;
 	cursor: pointer;
 	padding-inline: 30px;
+}
+
+.dropdown-label input {
+	margin-top: 0;
 }
 
 .input-default {
@@ -756,7 +769,7 @@
 
 .column-porcelain #container-3d canvas,
 .column-lacquer #lacquer-img-container {
-	background: url('https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/Patter-BG-Desktop.png')
+	background: url('https://dgallery.my/beta/wp-content/uploads/2023/02/Patter-BG-Desktop.png')
 		no-repeat center center/contain;
 }
 
@@ -775,7 +788,7 @@
 
 	.column-porcelain #container-3d canvas,
 	.column-lacquer #lacquer-img-container {
-		background-image: url('https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/Pattern-BG-MR.png');
+		background-image: url('https://dgallery.my/beta/wp-content/uploads/2023/02/Pattern-BG-MR.png');
 	}
 
 	.section-toggle.toggled img {

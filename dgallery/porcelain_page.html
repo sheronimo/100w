@@ -1,5 +1,8 @@
 <ul class="tabs-container" id="scrollto-section">
-	<li class="category-name-tab all active">View All</li>
+	<li class="category-name-tab all active">
+		<span id="viewall-cust-en">View All</span>
+		<span id="viewall-cust-zh">全部</span>
+	</li>
 	[pods name="collection_category" where="parent = '{@term_id}'"]
 	<li class="category-name-tab">{@name}</li>
 	[/pods]
@@ -8,16 +11,23 @@
 	<div class="left-bar">
 		<div class="product-filter dropdown-container">
 			<button class="btn-dropdown">
-				Filter <span class="active-circle"></span>
+				<span id="filter-label-cust-en">Filter </span>
+				<span id="filter-label-cust-zh">过滤 </span>
+				<span class="active-circle"></span>
 			</button>
 			<div class="dropdown-list">
-				<p class="small-label">By Era</p>
-				[pods name="era" limit="999"]
-				<label class="dropdown-label">
-					<input type="radio" value="{@name}" name="filter" />
-					{@name}
-				</label>
-				[/pods]
+				<div class="scrollable-list">
+					<p class="small-label">
+						<span id="era-label-cust-en">By Era</span>
+						<span id="era-label-cust-zh">按年代</span>
+					</p>
+					[pods name="era" limit="999"]
+					<label class="dropdown-label">
+						<input type="radio" value="{@name}" name="filter" />
+						{@name}
+					</label>
+					[/pods]
+				</div>
 				<label class="dropdown-label label-default">
 					<input
 						type="radio"
@@ -25,31 +35,38 @@
 						name="filter"
 						class="input-default"
 					/>
-					Clear Selection
+					<span id="filter-clear-cust-en">Clear Selection</span>
+					<span id="filter-clear-cust-zh">清除选择</span>
 				</label>
 			</div>
 		</div>
 		<div class="separator"></div>
 		<div class="product-sort dropdown-container">
 			<button class="btn-dropdown">
-				Sort <span class="active-circle"></span>
+				<span id="sort-label-cust-en">Sort </span>
+				<span id="sort-label-cust-zh">排序 </span>
+				<span class="active-circle"></span>
 			</button>
 			<div class="dropdown-list">
 				<label class="dropdown-label">
 					<input type="radio" value="alpha-asc" name="sort" />
-					Alphabetical (A-Z)
+					<span id="atoz-cust-en">Alphabetical (A-Z)</span>
+					<span id="atoz-cust-zh">按字母顺序 (A-Z)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="alpha-desc" name="sort" />
-					Alphabetical (Z-A)
+					<span id="ztoa-cust-en">Alphabetical (Z-A)</span>
+					<span id="ztoa-cust-zh">按字母顺序 (Z-A)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="price-asc" name="sort" />
-					Price (Lowest to Highest)
+					<span id="ltoh-cust-en">Price (Lowest to Highest)</span>
+					<span id="ltoh-cust-zh">价格 (从低到高)</span>
 				</label>
 				<label class="dropdown-label">
 					<input type="radio" value="price-desc" name="sort" />
-					Price (Highest to Lowest)
+					<span id="htol-cust-en">Price (Highest to Lowest)</span>
+					<span id="htol-cust-zh">价格 (从高到低)</span>
 				</label>
 				<label class="dropdown-label label-default">
 					<input
@@ -58,16 +75,17 @@
 						name="sort"
 						class="input-default"
 					/>
-					Clear Selection
+					<span id="sort-clear-cust-en">Clear Selection</span>
+					<span id="sort-clear-cust-zh">清除选择</span>
 				</label>
 			</div>
 		</div>
 	</div>
 	<div class="right-bar">
-		<input type="text" id="search" class="search-bar" placeholder="Search" />
+		<input type="text" id="search" class="search-bar" />
 		<button class="btn-search" id="btn-search">
 			<img
-				src="https://dev.dgallery.8yolk.com/wp-content/uploads/2023/02/Vector2.png"
+				src="https://dgallery.my/beta/wp-content/uploads/2023/02/Vector2.png"
 				alt="Search"
 			/>
 		</button>
@@ -94,15 +112,27 @@
 	<!-- <button id="btn-load">Load More</button> -->
 	<div class="no-results">
 		<p>
-			No Results for "<strong id="result-name"></strong>". Try searching again.
+			<span id="noresults-cust-en"
+				>No Results for "<strong id="result-name"></strong>". Try searching
+				again.</span
+			>
+			<span id="noresults-cust-zh"
+				>没有 "<strong id="result-name"></strong>" 的结果. 请再次尝试搜索.</span
+			>
 		</p>
 		<img src="/wp-content/uploads/2023/02/no-results-1.png" alt="" />
 	</div>
 </div>
 <nav class="pagination-container">
-	<button class="btn-prev-next-page" id="btn-prev-page">Prev</button>
+	<button class="btn-prev-next-page" id="btn-prev-page">
+		<span id="btn-prev-cust-en">Prev</span>
+		<span id="btn-prev-cust-zh">上一页</span>
+	</button>
 	<div id="pagination-numbers"></div>
-	<button class="btn-prev-next-page" id="btn-next-page">Next</button>
+	<button class="btn-prev-next-page" id="btn-next-page">
+		<span id="btn-next-cust-en">Next</span>
+		<span id="btn-next-cust-zh">下一页</span>
+	</button>
 </nav>
 <script>
 	const container = document.querySelector('.products-grid');
@@ -118,7 +148,7 @@
 		let count = 1;
 
 		// First load the products as an array
-		[pods name="collection" limit="-1" where="collection_category.slug LIKE '%porcelain%'"]
+		[pods name="collection" limit="-1" where="collection_category.slug LIKE '%porcelain%'" orderby="display_order ASC"]
 		products_array.push({
 			name: '{@post_title}',
 			era: '{@era}',
@@ -154,6 +184,7 @@
 			$(this).addClass('selected');
 			let { activeProducts, numberOfPages } = calculatePaginationData();
 			displayProducts(numVal, activeProducts);
+			updateButtonState(numVal, numberOfPages);
 		});
 
 		$('.btn-dropdown').click(function () {
