@@ -7,6 +7,7 @@
 @media (min-width: 767px) {
 	.cust-mega-menu .sub-menu {
 		display: flex;
+		min-height: 219px;
 		flex-direction: column;
 		padding-bottom: 60px !important;
 	}
@@ -29,6 +30,7 @@
 	.cust-mega-menu-imgs > a {
 		display: flex;
 		gap: 10px;
+		pointer-events: none;
 	}
 
 	.et-menu-nav li.mega-menu li.cust-mega-menu-imgs > a {
@@ -54,6 +56,12 @@
 
 	#global-header-section .et_pb_fullwidth_menu > .et_pb_row {
 		gap: 200px;
+	}
+
+	.dropdown-menu-img img {
+		height: 106px;
+		object-fit: cover;
+		display: block;
 	}
 }
 
@@ -112,6 +120,7 @@
 .two-liner span {
 	background-color: white;
 	padding-inline: 20px;
+	padding-block: 5px;
 }
 
 .smaller-heading {
@@ -167,6 +176,14 @@
 		width: 90%;
 		margin-inline: auto;
 	}
+
+	#homepage-slider .et_pb_slide_0 .et_pb_slide_title {
+		transform: translateY(50px);
+	}
+
+	#homepage-slider .et_pb_slide_1 .et_pb_slide_content {
+		transform: translate(10px, 98px);
+	}
 }
 
 /* The Art page */
@@ -195,6 +212,10 @@
 	padding-bottom: 0;
 }
 
+.collection-item.centered strong {
+	font-size: 16px;
+}
+
 .button-loadmore {
 	margin-top: 30px;
 	display: block;
@@ -207,28 +228,25 @@
 	color: #c1272d;
 	font-size: 16px;
 	font-weight: bold;
+	text-align: center;
 }
 
 .multi-image {
-	display: flex;
-	height: 500px;
-	align-items: stretch;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 }
 
-.img-wrapper {
-	flex-basis: 50%;
-	height: 100%;
-	overflow: hidden;
+@media (min-width: 768px) {
+	.artwork-img-full {
+		width: 100%;
+		height: auto;
+	}
 }
 
-.img-wrapper:first-child {
-	flex-basis: 100%;
-}
-
-.multi-image img {
-	height: 100%;
-	width: 100%;
-	object-fit: cover;
+@media (max-width: 767px) {
+	.multi-image {
+		grid-template-columns: 1fr;
+	}
 }
 
 .single-item {
@@ -237,4 +255,130 @@
 
 .fancyboxLauncher {
 	cursor: pointer;
+	position: relative;
+	display: block;
+	inset: 0;
+}
+
+.priv-comm .multi-image {
+	position: relative;
+	inset: 0;
+}
+
+.fancyboxLauncher > img {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.fancyboxLauncher::after,
+.priv-comm .multi-image::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	display: block;
+	opacity: 0;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA90lEQVR4nO2TS4rCUBBFM9d2pG7Hzw5s3EoTHDRGnbgbpV2Hn52kjU71SOENBEF5FZWWxgsPEnJfnaJSN4r+pYAmMAHWwF5nBYyBxr3F+0DGdW2Bz3uKH1VoBrSAik4bmOvbAeiVGUve+dcNXyzPL1D3ACZ55wHeH3lHHsBGl1oB3o68Kw9gp0vVAO+HvJkHkDkAtTIA23lTO8DbLTMiC5FpHuBdyJt4AA2FyBTf8A3kSd2ptoQqRGgVO/ZPdLqFzk3fruIFSE8huqbUihfekzKQuoUIWGp993oe5WO5gPohAU3EF5DpG/JS4xo+HBCdIclTNupPdQLXKBYWEeCEJgAAAABJRU5ErkJggg==');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-color: hsla(295, 74%, 16%, 0.58);
+	transition: all 0.3s ease;
+}
+
+.fancyboxLauncher:hover:after,
+.priv-comm .multi-image:hover::after {
+	opacity: 1;
+}
+
+.fancybox-infobar {
+	font-size: 20px !important;
+	font-family: 'Open Sans', Arial, sans-serif !important;
+}
+
+.fancybox-caption {
+	background: none !important;
+	text-align: left !important;
+	font-size: 16px !important;
+}
+
+.fancybox-caption p {
+	display: inline-block;
+	font-style: italic;
+	font-weight: 600;
+	background-color: white !important;
+	padding: 5px !important;
+	color: black !important;
+}
+
+@media (min-width: 767px) {
+	.comm-text {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.brief {
+		justify-self: flex-end;
+	}
+}
+
+.fancybox-slide--html .fancybox-content {
+	max-width: 800px;
+	color: #000;
+}
+
+.fancybox-slide--html .fancybox-content p {
+	font-size: 18px;
+}
+
+.wpcf7-mail-sent-ok {
+	display: none;
+}
+
+.et_mobile_menu > .menu-item > a {
+	font-weight: 700;
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Gallery Page */
+.gallery-wrapper {
+	margin-inline: auto;
+}
+
+.gallery-item a {
+	width: 100%;
+}
+
+.gallery-block {
+	margin-bottom: 60px;
+}
+
+.gallery-block h2 {
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.gallery-swiper {
+	overflow: hidden;
+}
+
+.gallery-img {
+	height: 500px !important;
+	width: auto !important;
+	max-width: unset;
+	display: block;
+}
+
+@media (max-width: 768px) {
+	.gallery-block {
+		margin-bottom: 30px;
+	}
+
+	.gallery-img {
+		height: 400px !important;
+	}
+
+	.gallery-block h2 {
+		font-size: 16px;
+		margin-bottom: 12px;
+	}
 }

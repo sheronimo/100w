@@ -13,32 +13,53 @@
 				found on:
 			</p>
 			<div class="podcast-logos podcast-logos-single">
-				<a href="https://anchor.fm/new-ventures-asia/episodes/" target="_blank"
-					><img src="/wp-content/uploads/2023/02/anchor1.png" alt=""
+				<a
+					href="https://anchor.fm/new-ventures-asia/episodes/"
+					target="_blank"
+					rel="noopener"
+					><img
+						loading="lazy"
+						src="/wp-content/uploads/2023/02/anchor1.png"
+						alt=""
 				/></a>
 				<a
 					href="https://podcasts.apple.com/us/podcast/new-ventures-podcast/id1404553592"
 					target="_blank"
-					><img src="/wp-content/uploads/2023/02/apple.png" alt=""
+					><img
+						loading="lazy"
+						src="/wp-content/uploads/2023/02/apple.png"
+						alt=""
 				/></a>
 				<a
 					href="https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy81MDM3MTU0L3BvZGNhc3QvcnNz"
 					target="_blank"
-					><img src="/wp-content/uploads/2023/02/google1.png" alt=""
+					rel="noopener"
+					><img
+						loading="lazy"
+						src="/wp-content/uploads/2023/02/google1.png"
+						alt=""
 				/></a>
 				<a
 					href="https://open.spotify.com/show/7oEqozHCUxphflg0684xpG"
 					target="_blank"
-					><img src="/wp-content/uploads/2023/02/spotify2.png" alt=""
+					rel="noopener"
+					><img
+						loading="lazy"
+						src="/wp-content/uploads/2023/02/spotify2.png"
+						alt=""
 				/></a>
 				<a
 					href="https://www.youtube.com/channel/UCNzqbQTogcf2_3brx02FodA"
 					target="_blank"
-					><img src="/wp-content/uploads/2023/02/youtube1.png" alt=""
+					rel="noopener"
+					><img
+						loading="lazy"
+						src="/wp-content/uploads/2023/02/youtube1.png"
+						alt=""
 				/></a>
-				<a href="https://medium.com/new-ventures-asia" target="_blank"
+				<!--<a href="https://medium.com/new-ventures-asia" target="_blank"
 					><img src="/wp-content/uploads/2023/02/medium1.png" alt=""
-				/></a>
+				/></a>-->
 			</div>
 		</div>
 		<p class="blurb">
@@ -58,17 +79,16 @@
 		</ul>
 	</div>
 	<div class="podcast-grid main-insights-grid">
-		[pods name="podcast" limit="999" orderby="post_date DESC"]
+		[pods name="podcast" limit="999" orderby="release_date DESC"]
 		<div
 			class="insight-card podcast-card js-card"
-			data-cat="{@podcast_category.name}"
-		>
+			data-cat="{@podcast_category.name}">
 			<a href="{@permalink}" target="_blank" rel="noopener">
 				<img
 					src="{@post_thumbnail_url.medium_large}"
 					class="fit-square"
 					alt=""
-				/>
+					loading="lazy" />
 				<p class="project-meta">
 					<span>{@podcast_category.name}</span>
 				</p>
@@ -98,14 +118,13 @@
 		[pods name="article" limit="999" orderby="post_date DESC"]
 		<div
 			class="insight-card article-card js-card"
-			data-cat="{@article_category.name}"
-		>
+			data-cat="{@article_category.name}">
 			<a href="{@permalink}" target="_blank" rel="noopener">
 				<img
 					src="{@post_thumbnail_url.medium_large}"
 					class="fit-cover"
 					alt=""
-				/>
+					loading="lazy" />
 				<p class="project-meta">
 					<span>{@article_category.name}</span>
 				</p>
@@ -128,8 +147,7 @@
 			<a href="{@permalink}" target="_blank" rel="noopener">
 				<iframe
 					data-url="{@youtube_video_url}"
-					class="js-change-embed"
-				></iframe>
+					class="js-change-embed"></iframe>
 				<p class="project-title">{@post_title}</p>
 			</a>
 		</div>
@@ -148,8 +166,7 @@
 		[pods name="publication" limit="999" orderby="post_date DESC"]
 		<div
 			class="insight-card publication-card js-card"
-			data-cat="{@publication_category.name}"
-		>
+			data-cat="{@publication_category.name}">
 			<a href="{@permalink}" target="_blank" rel="noopener">
 				<hr />
 				<p class="project-title">{@post_title}</p>
@@ -160,3 +177,87 @@
 </div>
 
 <button id="btn-load">Load More</button>
+<script>
+	$(document).ready(function () {
+		showBlock()
+		showCard('.active-view .js-card')
+
+		$('.resource-name-tab').click(function () {
+			$('.resource-name-tab').removeClass('active')
+			$('.insights-view').removeClass('active-view')
+			$(this).addClass('active')
+			showBlock()
+			showCard('.active-view .js-card')
+		})
+
+		$('.dropdown .dropdown-toggle').click(function () {
+			$(this).parent().toggleClass('open')
+		})
+
+		$('.cat-tab').click(function () {
+			$(this).closest('.dropdown').removeClass('open')
+			$('.active-view .cat-tab').removeClass('active')
+			$('.active-view .js-card').addClass('hidden')
+			$(this).addClass('active')
+			if ($(this).hasClass('all')) {
+				showCard('.active-view .js-card')
+			} else {
+				showCard('.active-view .js-card[data-cat="' + $(this).text() + '"]')
+			}
+		})
+
+		$('#btn-load').on('click', function () {
+			let withCatHidden =
+				'.active-view .js-card[data-cat="' +
+				$('.active-view .cat-tab.active').text() +
+				'"].hidden'
+			let withoutCatHidden = '.active-view .js-card.hidden'
+
+			if ($('.active-view').hasClass('video-view')) {
+				$(withoutCatHidden).slice(0, 12).removeClass('hidden')
+
+				hideBtn($(withoutCatHidden))
+			} else {
+				if (!$('.active-view .cat-tab.active').hasClass('all')) {
+					$(withCatHidden).slice(0, 12).removeClass('hidden')
+
+					hideBtn($(withCatHidden))
+				} else {
+					$(withoutCatHidden).slice(0, 12).removeClass('hidden')
+
+					hideBtn($(withoutCatHidden))
+				}
+			}
+		})
+	})
+
+	function hideBtn(elem) {
+		if (elem.length == 0) {
+			$('#btn-load').hide()
+		} else {
+			$('#btn-load').show()
+		}
+	}
+
+	function showBlock() {
+		// Get active top tab
+		let activeTab = document.querySelector('.resource-name-tab.active')
+		// Get corresponding data-variable of active top tab
+		let getView = activeTab.dataset.view
+		// Activate the view that matches the active tab's data variable
+		let activeViewStr = `.insights-view.${getView}`
+		$(activeViewStr).addClass('active-view')
+
+		$('.active-view .js-card').addClass('hidden')
+	}
+
+	function showCard(elem) {
+		$(elem).slice(0, 12).removeClass('hidden')
+
+		if ($(`${elem}.hidden`).length == 0) {
+			$('#btn-load').hide()
+		} else {
+			$('#btn-load').show()
+		}
+	}
+</script>

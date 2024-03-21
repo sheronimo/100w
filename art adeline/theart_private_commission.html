@@ -1,12 +1,37 @@
 <div class="js-collection-block">
 	<div>
-		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '13'"]
+		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '13'"
+		orderby="post_date ASC"]
 		<div class="collection-item single-item">
-			<div class="multi-image">
-				<img src="{@post_thumbnail_url.medium_large}" alt="" />
-				[if additional_images]{@additional_images._img.medium_large}[/if]
-			</div>
-			<p><strong>{@post_title}</strong> [if dimensions]({@dimensions})[/if]</p>
+			<a
+				data-fancybox
+				data-src="#{@ID}"
+				class="multi-image"
+				href="javascript:;"
+			>
+				[if additional_images]
+				<img
+					src="{@post_thumbnail_url.medium_large}"
+					alt=""
+					class="artwork-img"
+				/>
+				[else]
+				<img
+					src="{@post_thumbnail_url.medium_large}"
+					alt=""
+					class="artwork-img-full"
+				/>
+				[/if] [each additional_images]<img
+					class="other-img"
+					src="{@_src.medium_large}"
+				/>[/each]
+			</a>
+			<div style="display: none" id="{@ID}">{@clients_brief}</div>
+			<p>
+				[if custom_title]{@custom_title}[else]<strong
+					><em>{@post_title}</em></strong
+				>[/if] [if dimensions]({@dimensions})[/if]
+			</p>
 		</div>
 		[/pods]
 	</div>

@@ -1,0 +1,14 @@
+@media (min-width: 767px) {
+	#menu-header-menu > li {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	#menu-header-menu > .current-menu-item {
+		border-bottom: 4px solid #171717;
+	}
+
+	#menu-header-menu > .current-menu-item a {
+		padding-bottom: 27px;
+	}
+}

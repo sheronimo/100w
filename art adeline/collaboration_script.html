@@ -1,0 +1,20 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+	var swiper = new Swiper('.gallery-swiper', {
+		slidesPerView: 1, // Show only one slide at a time
+		autoplay: {
+			delay: 1000 // Auto-play with a 3-second delay
+		},
+		navigation: {
+			nextEl: '', // Remove navigation arrows
+			prevEl: '' // Remove navigation arrows
+		},
+		pagination: {
+			el: '' // Remove pagination dots
+		}
+	})
+</script>

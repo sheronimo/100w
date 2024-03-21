@@ -1,0 +1,17 @@
+[pods name="gallery" limit="-1" where="gallery_category.term_id = '22'"]
+<div class="gallery-block">
+	<h2>{@post_title}</h2>
+	<div class="gallery-swiper">
+		<div class="swiper-wrapper">
+			<img
+				src="{@post_thumbnail_url.medium_large}"
+				alt=""
+				class="gallery-img swiper-slide" />
+			[each additional_images]
+			<img class="gallery-img swiper-slide" src="{@_src.medium_large}" />
+			[/each]
+		</div>
+	</div>
+	<p>{@caption}</p>
+</div>
+[/pods]

@@ -2,12 +2,28 @@
 	<div class="collection-grid">
 		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '11'"]
 		<div class="collection-item centered">
-			<img
-				src="{@post_thumbnail_url.medium_large}"
-				alt=""
-				class="img-with-border"
-			/>
-			<p><strong>{@post_title}</strong></p>
+			<a
+				class="fancyboxLauncher fancybox"
+				data-fancybox="{@ID}"
+				data-idle-time="10"
+				href="{@post_thumbnail_url.medium_large}"
+				><img
+					src="{@post_thumbnail_url.medium_large}"
+					alt=""
+					class="img-with-border"
+			/></a>
+			<div style="display: none" class="add-imgs" data-id="{@ID}">
+				[each additional_images]
+				<a
+					class="additional-image"
+					href="{@_src.medium_large}"
+					data-custom-caption="{@post_excerpt}"
+				></a>
+				[/each]
+			</div>
+			<p>
+				<strong><em>{@post_title}</em></strong>
+			</p>
 			<p>{@dimensions}</p>
 		</div>
 		[/pods]

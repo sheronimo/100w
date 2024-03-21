@@ -1,14 +1,14 @@
 <style>
-	.portfolio-masonry {
+	/* .portfolio-masonry {
 		column-count: 3;
 		column-gap: 30px;
-	}
+	} */
 
 	.portfolio-block {
 		position: relative;
-		width: 100%;
-		display: inline-block;
-		margin: 0 0 1em;
+		/* width: 100%; */
+		/* display: inline-block; */
+		/* margin: 0 0 1em; */
 	}
 
 	.portfolio-block:before {
@@ -35,7 +35,6 @@
 		text-align: center;
 		opacity: 0;
 		transition: opacity: 0.5s ease;
-		max-width: 15ch;
 	}
 
 	.portfolio-block img {
@@ -49,14 +48,14 @@
 	}
 
 	@media (max-width: 768px) {
-		.portfolio-masonry {
+		/* .portfolio-masonry {
 			column-count: 2;
 			column-gap: 16px;
-		}
+		} */
 
-		.portfolio-block {
+		/* .portfolio-block {
 			margin: 0 0 10px;
-		}
+		} */
 
 		.portfolio-title {
 			font-size: 10px;
@@ -64,18 +63,35 @@
 	}
 </style>
 <div class="portfolio-masonry">
-	[pods name="portfolio"]
+	[pods name="portfolio" limit="999" orderby="custom_order DESC"]
 	<a class="portfolio-block" href="{@permalink}" target="_blank" rel="noopener">
 		<img src="{@post_thumbnail_url.medium_large}" alt="{@post_title}" />
 		<h5 class="portfolio-title">{@post_title}</h5>
 	</a>
 	[/pods]
 </div>
-<script>
-	const titles = document.querySelectorAll('.portfolio-block .portfolio-title');
+<script type="text/javascript">
+	const titles = document.querySelectorAll('.portfolio-block .portfolio-title')
 
 	titles.forEach((t) => {
-		let titleString = t.innerHTML;
-		t.textContent = titleString.replace(/&nbsp;/g, ' ');
-	});
+		let titleString = t.innerHTML
+		t.textContent = titleString.replace(/ /g, ' ')
+	})
+</script>
+<script src="https://cdn.jsdelivr.net/npm/macy@2"></script>
+<script>
+	var macyInstance = Macy({
+		// See below for all available options.
+		container: '.portfolio-masonry',
+		columns: 3,
+		trueOrder: true,
+		waitForImages: true,
+		margin: 30,
+		breakAt: {
+			767: {
+				columns: 1,
+				margin: 16
+			}
+		}
+	})
 </script>

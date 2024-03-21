@@ -2,15 +2,14 @@
 	<div class="collection-grid">
 		[pods name="artwork" limit="-1" where="artwork_collection.term_id = '10'"]
 		<div class="collection-item">
-			[if additional_images]<a
+			<a
 				class="fancyboxLauncher"
 				data-fancybox="{@ID}"
+				data-idle-time="10"
 				href="{@post_thumbnail_url.medium_large}"
 				><img src="{@post_thumbnail_url.medium_large}" alt=""
 			/></a>
-			[else]
-			<img src="{@post_thumbnail_url.medium_large}" alt="" />
-			[/if] [if additional_images]
+			[if additional_images]
 			<div
 				style="display: none"
 				class="add-imgs"
@@ -20,7 +19,11 @@
 				<!-- Additional image tags here -->
 			</div>
 			[/if]
-			<p><strong>{@post_title}</strong> [if dimensions]({@dimensions})[/if]</p>
+			<p>
+				[if custom_title]{@custom_title}[else]<strong
+					><em>{@post_title}</em></strong
+				>[/if] [if dimensions]({@dimensions})[/if]
+			</p>
 		</div>
 		[/pods]
 	</div>

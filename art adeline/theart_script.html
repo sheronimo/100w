@@ -23,7 +23,7 @@
 		});
 
 		$('.button-loadmore').click(function () {
-			$(this).parent().find('.collection-item:hidden').slice(0, 3).show();
+			$(this).parent().find('.collection-item:hidden').show();
 
 			if ($(this).parent().find('.collection-item:hidden').length === 0) {
 				$(this).hide();
@@ -33,27 +33,38 @@
 		$('.add-imgs').each(function () {
 			let currElem = $(this);
 			let fancyboxID = $(this).data('id');
-			let srcString = currElem.data('imglinks');
-			// Get length of https links in string
-			let strLength = srcString.split('http').length - 1;
-			// Split the string into an array
-			let srcArr = '';
+			let imgLinks = currElem.find('.additional-image');
+			// let srcString = currElem.data('imglinks');
+			// let captionString = currElem.data('captions');
+			// // Get length of https links in string
+			// let strLength = srcString.split('http').length - 1;
+			// // Split the string into an array
+			// let srcArr = '';
 
-			if (strLength === 1) {
-				srcArr = [srcString];
-			} else if (strLength === 2) {
-				srcArr = srcString.split(' and ');
-			} else {
-				srcArr = srcString.replace('and ', '').split(', ');
+			// if (strLength === 1) {
+			// 	srcArr = [srcString];
+			// } else if (strLength === 2) {
+			// 	srcArr = srcString.split(' and ');
+			// } else {
+			// 	srcArr = srcString.replace('and ', '').split(', ');
+			// }
+
+			if (imgLinks.length > 0) {
+				imgLinks.each(function () {
+					$(this).attr('data-fancybox', fancyboxID);
+				});
 			}
-
-			srcArr.forEach((s) => {
-				let linkElem = document.createElement('a');
-				linkElem.classList.add('additional-image');
-				linkElem.href = s;
-				linkElem.dataset.fancybox = fancyboxID;
-				currElem.append(linkElem);
-			});
 		});
+	});
+
+	$(document).on('afterLoad.fb', function (e, instance, slide) {
+		// Your code goes here
+		// $('.fancybox-content .fancybox-caption').remove();
+		// $('.fancybox-inner > .fancybox-caption')
+		// 	.detach()
+		// 	.appendTo('.fancybox-content');
+
+		var content = instance.$refs.stage.find('.fancybox-content');
+		content.append(instance.$refs.caption);
 	});
 </script>

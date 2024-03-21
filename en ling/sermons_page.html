@@ -447,8 +447,7 @@
 		data-series="{@sermon_series.name}"
 		data-book="{@bible_book.name}"
 		data-chapter="{@bible_chapter.name}"
-		data-speaker="{@speaker.name}"
-	>
+		data-speaker="{@speaker.name}">
 		<a href="{@permalink}" class="sermon-thumb-wrap">
 			<img class="sermon-thumb" src="{@post_thumbnail_url.large}" />
 		</a>
@@ -461,109 +460,213 @@
 	</div>
 	[/pods]
 </div>
+<script
+	src="https://code.jquery.com/jquery-3.7.1.min.js"
+	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+	crossorigin="anonymous"></script>
 <script>
-	const sermonDates = document.querySelectorAll('.js_sermon_date');
+	const sermonDates = document.querySelectorAll('.js_sermon_date')
 
 	sermonDates.forEach((d) => {
-		let parsedDate = d.textContent;
-		let dateArr = parsedDate.split('-');
-		d.textContent = `${dateArr[0]}年${dateArr[1]}月${dateArr[2]}日`;
-	});
+		let parsedDate = d.textContent
+		let dateArr = parsedDate.split('-')
+		d.textContent = `${dateArr[0]}年${dateArr[1]}月${dateArr[2]}日`
+	})
 </script>
 <script>
-	jQuery(document).ready(function ($) {
-		$('.js-cat').click(function (e) {
-			e.stopPropagation();
-			$('.dropdown').removeClass('open');
-			$('.js-cat').removeClass('active');
-			$('.sermon-block').not('.hide-speaker, .hide-bible').hide();
+	function showSermonForFilter() {
+		let blocks = $()
 
-			$(this).addClass('active');
-			if ($(this).hasClass('all')) {
-				$('.sermon-block').not('.hide-speaker, .hide-bible').show();
+		$('.sermon-block').hide()
+		if ($('.js-cat.active').hasClass('all')) {
+			blocks = $('.sermon-block').not('.hide-speaker, .hide-bible')
+		} else {
+			if ($('.js-cat.active').has('.subcats-dropdown').length > 0) {
+				$('.js-cat.active > span, .js-cat.active .cat-child > span').each(
+					function () {
+						blocks = blocks.add(
+							$('.sermon-block[data-series="' + $(this).text() + '"]').not(
+								'.hide-speaker, .hide-bible'
+							)
+						)
+					}
+				)
 			} else {
-				if ($(this).has('.subcats-dropdown').length > 0) {
+				blocks = $(
+					'.sermon-block[data-series="' +
+						$('.js-cat.active > span').text() +
+						'"]'
+				).not('.hide-speaker, .hide-bible')
+			}
+		}
+
+		if (blocks.length <= 8) {
+			$('.sermon-wrapper .btn-loadmore').hide()
+			blocks.show()
+		} else {
+			$('.sermon-wrapper .btn-loadmore').show()
+			blocks.slice(0, 8).show()
+		}
+	}
+
+	function clearBibleFilter() {
+		$('input[name="filter-book"]').prop('checked', false)
+		$('input[name="filter-book"]').parent().show()
+		$('input[name="filter-chapter"]').prop('checked', false)
+		$('#btn-apply-bible').prop('disabled', true)
+		$('.sermon-block').removeClass('hide-bible')
+		$('#chapter-filter-col').hide()
+	}
+
+	function clearSpeakerFilter() {
+		$('input[name="filter-speaker"]').prop('checked', false)
+		$('#btn-apply-speaker').prop('disabled', true)
+		$('.sermon-block').removeClass('hide-speaker')
+	}
+
+	$(document).ready(function () {
+		// Initially load 8 sermon and 4 video
+
+		// Load Videos
+		$('.js-grid-wrapper').each(function () {
+			let blocks = $(this).find('.js-card')
+			blocks.slice(0, 4).show()
+
+			if (blocks.length == 0) {
+				$(this).children('.btn-loadmore').hide()
+				return
+			}
+
+			if (blocks.is(':hidden').length == 0) {
+				$(this).children('.btn-loadmore').hide()
+			} else {
+				$(this).children('.btn-loadmore').show()
+			}
+		})
+
+		$('.sermon-block').slice(0, 8).show()
+
+		// When clicking load more on video, just load more normally
+		// Load 4 and hide readmore button
+		$('.js-grid-wrapper .btn-loadmore').click(function () {
+			let blocks = $(this).parent().find('.js-card:hidden')
+
+			blocks.slice(0, 4).show()
+
+			if (blocks.length <= 4) {
+				$(this).hide()
+			} else {
+				$(this).show()
+			}
+		})
+
+		$('.sermon-wrapper .btn-loadmore').click(function () {
+			let blocks = $()
+
+			if ($('.js-cat.active').hasClass('all')) {
+				blocks = $('.sermon-block:hidden').not('.hide-speaker, .hide-bible')
+			} else {
+				if ($('.js-cat.active').has('.subcats-dropdown').length > 0) {
 					$('.js-cat.active > span, .js-cat.active .cat-child > span').each(
 						function () {
-							$('.sermon-block[data-series="' + $(this).text() + '"]')
-								.not('.hide-speaker, .hide-bible')
-								.show();
+							blocks = blocks.add(
+								$(
+									'.sermon-block[data-series="' + $(this).text() + '"]:hidden'
+								).not('.hide-speaker, .hide-bible')
+							)
 						}
-					);
+					)
 				} else {
-					$(
+					blocks = $(
 						'.sermon-block[data-series="' +
 							$('.js-cat.active > span').text() +
-							'"]'
-					)
-						.not('.hide-speaker, .hide-bible')
-						.show();
+							'"]:hidden'
+					).not('.hide-speaker, .hide-bible')
 				}
 			}
-		});
 
-		$('.cat-tab').has('.subcats-dropdown').addClass('has-dropdown');
+			blocks.slice(0, 8).show()
+
+			if (blocks.length <= 8) {
+				$(this).hide()
+			} else {
+				$(this).show()
+				blocks.slice(0, 8).show()
+			}
+		})
+
+		$('.js-cat').click(function (e) {
+			e.stopPropagation()
+			$('.dropdown').removeClass('open')
+			$('.js-cat').removeClass('active')
+			clearBibleFilter()
+			clearSpeakerFilter()
+			$('.sermon-block').hide()
+
+			$(this).addClass('active')
+			showSermonForFilter()
+		})
+
+		$('.cat-tab').has('.subcats-dropdown').addClass('has-dropdown')
 
 		$('.dropdown .dropdown-toggle').click(function () {
-			$(this).parent().toggleClass('open');
-		});
+			$(this).parent().toggleClass('open')
+		})
 
 		$('.btn-dropdown').click(function () {
 			$('.btn-dropdown')
 				.not(this)
 				.siblings('.dropdown-list')
-				.removeClass('open');
-			$(this).siblings('.dropdown-list').toggleClass('open');
-		});
+				.removeClass('open')
+			$(this).siblings('.dropdown-list').toggleClass('open')
+		})
 
 		$('input[name="filter-book"]').change(function () {
-			$('#chapter-filter-col').show();
-			$('input[name="filter-book"]').not(':checked').parent().hide();
-			$('#btn-apply-bible').prop('disabled', false);
-		});
+			$('#chapter-filter-col').show()
+			$('input[name="filter-book"]').not(':checked').parent().hide()
+			$('#btn-apply-bible').prop('disabled', false)
+		})
 
 		$('input[name="filter-speaker"]').change(function () {
-			$(this).closest('.dropdown-list').removeClass('open');
-			let val = $('input[name="filter-speaker"]:checked').val();
-			$('.sermon-block').removeClass('hide-speaker');
-			$('.sermon-block').not(`[data-speaker=${val}]`).addClass('hide-speaker');
-		});
+			$(this).closest('.dropdown-list').removeClass('open')
+			let val = $('input[name="filter-speaker"]:checked').val()
+			$('.sermon-block').removeClass('hide-speaker')
+			$('.sermon-block').not(`[data-speaker=${val}]`).addClass('hide-speaker')
+			showSermonForFilter()
+		})
 
 		$('input[name="filter-chapter"]').change(function () {
-			$(this).closest('.dropdown-list').removeClass('open');
-			$('.sermon-block').removeClass('hide-bible');
-			let bookVal = $('input[name="filter-book"]:checked').val();
-			let chapterVal = $('input[name="filter-chapter"]:checked').val();
+			$(this).closest('.dropdown-list').removeClass('open')
+			$('.sermon-block').removeClass('hide-bible')
+			let bookVal = $('input[name="filter-book"]:checked').val()
+			let chapterVal = $('input[name="filter-chapter"]:checked').val()
 
 			if (chapterVal === 'all-chap') {
-				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible');
+				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible')
 			} else {
-				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible');
+				$('.sermon-block').not(`[data-book=${bookVal}]`).addClass('hide-bible')
 				$(`.sermon-block[data-book=${bookVal}]`).each(function () {
-					let dataChapArray = $(this).data('chapter').toString().split(' ');
+					let dataChapArray = $(this).data('chapter').toString().split(' ')
 
 					if (!dataChapArray.includes(chapterVal)) {
-						$(this).addClass('hide-bible');
+						$(this).addClass('hide-bible')
 					}
-				});
+				})
 			}
-		});
+
+			showSermonForFilter()
+		})
 
 		$('#clear-bible').click(function () {
-			$(this).closest('.dropdown-list').removeClass('open');
-			$('input[name="filter-book"]').prop('checked', false);
-			$('input[name="filter-book"]').parent().show();
-			$('input[name="filter-chapter"]').prop('checked', false);
-			$('#btn-apply-bible').prop('disabled', true);
-			$('#chapter-filter-col').hide();
-			$('.sermon-block').removeClass('hide-bible');
-		});
+			$(this).closest('.dropdown-list').removeClass('open')
+			clearBibleFilter()
+			showSermonForFilter()
+		})
 
 		$('#clear-speaker').click(function () {
-			$(this).closest('.dropdown-list').removeClass('open');
-			$('input[name="filter-speaker"]').prop('checked', false);
-			$('#btn-apply-speaker').prop('disabled', true);
-			$('.sermon-block').removeClass('hide-speaker');
-		});
-	});
+			$(this).closest('.dropdown-list').removeClass('open')
+			clearSpeakerFilter()
+			showSermonForFilter()
+		})
+	})
 </script>
