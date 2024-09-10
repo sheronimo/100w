@@ -1,0 +1,40 @@
+[pods name="podcast" where="ID = '{@ID}'"]
+<p class="project-meta project-meta-bold">
+	<span>{@podcast_category.name}</span>[if podcast_subcategory] •
+	<span>{@podcast_subcategory.name}</span>[/if]
+</p>
+<img src="{@post_thumbnail_url.large}" class="podcast-thumb--desktop-only" />
+<div class="desc-para">{@description}</div>
+<div class="podcast-outer">
+	<p>Listen on:</p>
+	<div class="podcast-logos individual-podcast-logos">
+		[if anchor_fm_url]<a href="{@anchor_fm_url}" target="_blank" rel="noopener"
+			><img src="/wp-content/uploads/2023/02/anchor1.png" alt="" /></a
+		>[/if] [if apple_podcasts_url]<a
+			href="{@apple_podcasts_url}"
+			target="_blank"
+			rel="noopener"
+			><img src="/wp-content/uploads/2023/02/apple.png" alt="" /></a
+		>[/if] [if spotify_url]<a
+			href="{@spotify_url}"
+			target="_blank"
+			rel="noopener"
+			><img src="/wp-content/uploads/2023/02/spotify2.png" alt="" /></a
+		>[/if] [if youtube_url]<a
+			href="{@youtube_url}"
+			target="_blank"
+			rel="noopener"
+			><img src="/wp-content/uploads/2023/02/youtube1.png" alt="" /></a
+		>[/if] [if youtube_music_url]<a
+			href="{@youtube_music_url}"
+			target="_blank"
+			rel="noopener"
+			><img
+				src="/wp-content/uploads/2024/08/Youtube_Music_icon.svg.png"
+				alt="" /></a
+		>[/if] [if medium_url]<a href="{@medium_url}" target="_blank" rel="noopener"
+			><img src="/wp-content/uploads/2023/02/medium1.png" alt="" /></a
+		>[/if]
+	</div>
+</div>
+[/pods]
